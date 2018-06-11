@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -23,173 +23,201 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fields_padding"
             android:orientation="vertical">
 
-            <LinearLayout
+            <com.example.android_sdk.Input.CountryInput
+                android:id="@+id/country_input"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/field_height"
+                android:layout_marginLeft="@dimen/fields_padding"
+                android:layout_marginRight="@dimen/fields_padding"
+                android:layout_marginTop="@dimen/field_margin_top"
+                android:descendantFocusability="beforeDescendants"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusForward="@+id/year_input"
+                android:popupBackground="@color/spinner_background"
+                android:textSize="16sp" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/address_one_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginLeft="@dimen/fields_padding"
+                android:layout_marginRight="@dimen/fields_padding"
+                android:layout_marginTop="@dimen/field_margin_top"
+                android:hint="@string/address_one_placeholder">
 
-                <com.example.android_sdk.Input.CountryInput
-                    android:id="@+id/country_input"
-                    style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                <com.example.android_sdk.Input.AddressOneInput
+                    android:id="@+id/address_one_input"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/field_height"
-                    android:layout_marginLeft="@dimen/fields_padding"
-                    android:layout_marginRight="@dimen/fields_padding"
-                    android:layout_marginTop="@dimen/field_margin_top"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz1234567890."
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:nextFocusForward="@+id/year_input"
-                    android:popupBackground="@color/spinner_background"
-                    android:textSize="16sp" />
+                    android:imeOptions="flagNoExtractUi|actionNext"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:nextFocusForward="@+id/address_two_input"
+                    android:singleLine="true"
+                    android:textColor="@color/card_view_details_text"
+                    android:textSize="@dimen/card_detail_title_text" />
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/address_one_input_layout"
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/address_two_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fields_padding"
+                android:layout_marginRight="@dimen/fields_padding"
+                android:layout_marginTop="@dimen/field_margin_top"
+                android:hint="@string/address_two_placeholder">
+
+                <com.example.android_sdk.Input.AddressTwoInput
+                    android:id="@+id/address_two_input"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/fields_padding"
-                    android:layout_marginRight="@dimen/fields_padding"
-                    android:layout_marginTop="@dimen/field_margin_top"
-                    android:hint="@string/address_one_placeholder">
+                    android:layout_height="@dimen/field_height"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz1234567890."
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint=""
+                    android:imeOptions="flagNoExtractUi|actionNext"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:nextFocusForward="@+id/city_input"
+                    android:singleLine="true"
+                    android:textColor="@color/card_view_details_text"
+                    android:textSize="@dimen/card_detail_title_text" />
 
-                    <com.example.android_sdk.Input.AddressOneInput
-                        android:id="@+id/address_one_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/field_height"
-                        android:digits="ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz1234567890."
-                        android:imeOptions="flagNoExtractUi|actionDone"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:textColor="@color/card_view_details_text"
-                        android:textSize="@dimen/card_detail_title_text" />
+            </android.support.design.widget.TextInputLayout>
 
-                </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/address_two_input_layout"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/city_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fields_padding"
+                android:layout_marginRight="@dimen/fields_padding"
+                android:layout_marginTop="@dimen/field_margin_top"
+                android:hint="@string/city_placeholder">
+
+                <com.example.android_sdk.Input.CityInput
+                    android:id="@+id/city_input"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/fields_padding"
-                    android:layout_marginRight="@dimen/fields_padding"
-                    android:layout_marginTop="@dimen/field_margin_top"
-                    android:hint="@string/address_two_placeholder">
+                    android:layout_height="@dimen/field_height"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz1234567890."
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint=""
+                    android:imeOptions="flagNoExtractUi|actionNext"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:nextFocusForward="@+id/state_input"
+                    android:singleLine="true"
+                    android:textColor="@color/card_view_details_text"
+                    android:textSize="@dimen/card_detail_title_text" />
 
-                    <EditText
-                        android:id="@+id/address_two_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/field_height"
-                        android:digits="ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz1234567890."
-                        android:hint="@string/address_two_placeholder"
-                        android:imeOptions="flagNoExtractUi|actionDone"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:textColor="@color/card_view_details_text"
-                        android:textSize="@dimen/card_detail_title_text" />
+            </android.support.design.widget.TextInputLayout>
 
-                </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/state_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fields_padding"
+                android:layout_marginRight="@dimen/fields_padding"
+                android:layout_marginTop="@dimen/field_margin_top"
+                android:hint="@string/state_placeholder">
 
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/city_input_layout"
+                <com.example.android_sdk.Input.StateInput
+                    android:id="@+id/state_input"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/fields_padding"
-                    android:layout_marginRight="@dimen/fields_padding"
-                    android:layout_marginTop="@dimen/field_margin_top"
-                    android:hint="@string/city_placeholder">
+                    android:layout_height="@dimen/field_height"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz1234567890."
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint=""
+                    android:imeOptions="flagNoExtractUi|actionNext"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:nextFocusForward="@+id/zipcode_input"
+                    android:singleLine="true"
+                    android:textColor="@color/card_view_details_text"
+                    android:textSize="@dimen/card_detail_title_text" />
 
-                    <EditText
-                        android:id="@+id/city_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/field_height"
-                        android:digits="ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz1234567890."
-                        android:hint=""
-                        android:imeOptions="flagNoExtractUi|actionDone"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:textColor="@color/card_view_details_text"
-                        android:textSize="@dimen/card_detail_title_text" />
+            </android.support.design.widget.TextInputLayout>
 
-                </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/state_input_layout"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/zipcode_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fields_padding"
+                android:layout_marginRight="@dimen/fields_padding"
+                android:layout_marginTop="@dimen/field_margin_top"
+                android:hint="@string/zipcode_placeholder">
+
+                <com.example.android_sdk.Input.ZipInput
+                    android:id="@+id/zipcode_input"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/fields_padding"
-                    android:layout_marginRight="@dimen/fields_padding"
-                    android:layout_marginTop="@dimen/field_margin_top"
-                    android:hint="@string/state_placeholder">
+                    android:layout_height="@dimen/field_height"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz1234567890.-"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint=""
+                    android:imeOptions="flagNoExtractUi|actionNext"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:nextFocusForward="@+id/phone_input"
+                    android:singleLine="true"
+                    android:textColor="@color/card_view_details_text"
+                    android:textSize="@dimen/card_detail_title_text" />
 
-                    <EditText
-                        android:id="@+id/state_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/field_height"
-                        android:digits="ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz1234567890."
-                        android:hint="@string/state_placeholder"
-                        android:imeOptions="flagNoExtractUi|actionDone"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:textColor="@color/card_view_details_text"
-                        android:textSize="@dimen/card_detail_title_text" />
+            </android.support.design.widget.TextInputLayout>
 
-                </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/phone_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fields_padding"
+                android:layout_marginRight="@dimen/fields_padding"
+                android:layout_marginTop="@dimen/field_margin_top"
+                android:hint="@string/phone_placeholder">
 
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/zipcode_input_layout"
+                <com.example.android_sdk.Input.PhoneInput
+                    android:id="@+id/phone_input"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/fields_padding"
-                    android:layout_marginRight="@dimen/fields_padding"
-                    android:layout_marginTop="@dimen/field_margin_top"
-                    android:hint="@string/zipcode_placeholder">
+                    android:layout_height="@dimen/field_height"
+                    android:digits="0123456789+-"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint=""
+                    android:imeOptions="flagNoExtractUi|actionDone"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/card_view_details_text"
+                    android:textSize="@dimen/card_detail_title_text" />
 
-                    <EditText
-                        android:id="@+id/zipcode_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/field_height"
-                        android:digits="ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuwxyz1234567890.-"
-                        android:hint="@string/zipcode_placeholder"
-                        android:imeOptions="flagNoExtractUi|actionDone"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:textColor="@color/card_view_details_text"
-                        android:textSize="@dimen/card_detail_title_text" />
+            </android.support.design.widget.TextInputLayout>
 
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/phone_input_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/fields_padding"
-                    android:layout_marginRight="@dimen/fields_padding"
-                    android:layout_marginTop="@dimen/field_margin_top"
-                    android:hint="@string/phone_placeholder">
-
-                    <EditText
-                        android:id="@+id/phone_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/field_height"
-                        android:digits="0123456789+-"
-                        android:hint="@string/phone_placeholder"
-                        android:imeOptions="flagNoExtractUi|actionDone"
-                        android:inputType="phone"
-                        android:maxLines="1"
-                        android:textColor="@color/card_view_details_text"
-                        android:textSize="@dimen/card_detail_title_text" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <Button
-                    android:id="@+id/back"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="@string/done_button" />
-
-            </LinearLayout>
+            <Button
+                android:id="@+id/done_button"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/fields_padding"
+                android:layout_marginRight="@dimen/fields_padding"
+                android:layout_marginTop="15dp"
+                android:height="@dimen/field_height"
+                android:padding="@dimen/pay_button_padding"
+                android:text="@string/done_button"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="#fff"
+                android:theme="@style/AppTheme.Button" />
 
         </LinearLayout>
     </ScrollView>

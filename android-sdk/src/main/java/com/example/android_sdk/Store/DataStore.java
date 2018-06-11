@@ -24,19 +24,19 @@ public class DataStore {
     private String mCardCvv;
     private int mCvvLength = 4;
 
-    private boolean IsValidCardNumber;
-    private boolean IsValidCardMonth;
-    private boolean IsValidCardYear;
-    private boolean IsValidCardCvv;
+    private boolean IsValidCardNumber = false;
+    private boolean IsValidCardMonth = false;
+    private boolean IsValidCardYear = false;
+    private boolean IsValidCardCvv = false;
 
-    private String mCustomerCountry;
-    private String mCustomerAddress1;
-    private String mCustomerAddress2;
-    private String mCustomerCity;
-    private String mCustomerState;
-    private String mCustomerZipcode;
-    private String mCustomerPhonePrefix;
-    private String mCustomerPhone;
+    private String mCustomerCountry = "";
+    private String mCustomerAddress1 = "";
+    private String mCustomerAddress2 = "";
+    private String mCustomerCity = "";
+    private String mCustomerState = "";
+    private String mCustomerZipcode = "";
+    private String mCustomerPhonePrefix = "";
+    private String mCustomerPhone = "";
 
     protected DataStore() {
     }
@@ -214,5 +214,15 @@ public class DataStore {
 
     public void setCustomerPhone(String customerPhone) {
         mCustomerPhone = customerPhone;
+    }
+
+    public void cleanBillingData() {
+        DataStore.getInstance().setCustomerCountry("");
+        DataStore.getInstance().setCustomerAddress1("");
+        DataStore.getInstance().setCustomerAddress2("");
+        DataStore.getInstance().setCustomerCity("");
+        DataStore.getInstance().setCustomerState("");
+        DataStore.getInstance().setCustomerZipcode("");
+        DataStore.getInstance().setCustomerPhone("");
     }
 }

@@ -38,20 +38,6 @@ public class BillingInput extends android.support.v7.widget.AppCompatSpinner {
         setFocusable(true);
         setFocusableInTouchMode(true);
 
-        setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(mBillingListener != null && position == 1) {
-                    mBillingListener.onGoToBilling();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
         populateSpinner();
 
         setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -79,6 +65,15 @@ public class BillingInput extends android.support.v7.widget.AppCompatSpinner {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         setAdapter(dataAdapter);
     }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        if(mBillingListener != null && this.getSelectedItemPosition() == 1){
+            mBillingListener.onGoToBilling();
+        }
+        super.onLayout(changed, l, t, r, b);
+    }
+
 
     public void setBillingListener(BillingInput.BillingListener listener) {
         this.mBillingListener = listener;

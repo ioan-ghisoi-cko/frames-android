@@ -17,6 +17,7 @@ import java.util.List;
 public class CustomAdapter extends PagerAdapter {
 
     private Context mContext;
+    private CardDetailsView cardDetailsView;
     private List<LinearLayout> mViews = new ArrayList<>();
     private CardDetailsView.GoToBillingListener mCardDetailsListener;
     private BillingDetailsView.Listener mBillingListener;
@@ -31,6 +32,10 @@ public class CustomAdapter extends PagerAdapter {
 
     public void setBillingListener(BillingDetailsView.Listener listener) {
         mBillingListener = listener;
+    }
+
+    public void updateBillingSpinner(String address) {
+        cardDetailsView.updateBillingSpinner(address);
     }
 
     @NonNull
@@ -58,7 +63,7 @@ public class CustomAdapter extends PagerAdapter {
 
     private void maybeInstantiateViews(ViewGroup container) {
         if (mViews.isEmpty()) {
-            CardDetailsView cardDetailsView = new CardDetailsView(mContext);
+            cardDetailsView = new CardDetailsView(mContext);
             cardDetailsView.setGoToBillingListener(mCardDetailsListener);
 
             BillingDetailsView billingDetailsView = new BillingDetailsView(mContext);

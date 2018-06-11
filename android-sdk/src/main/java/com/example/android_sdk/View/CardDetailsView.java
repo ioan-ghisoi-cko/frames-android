@@ -23,7 +23,9 @@ import com.example.android_sdk.R;
 import com.example.android_sdk.Store.DataStore;
 import com.example.android_sdk.Utils.CardUtils;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class CardDetailsView extends LinearLayout {
 
@@ -212,5 +214,33 @@ public class CardDetailsView extends LinearLayout {
         }
         return true;
     }
+
+    public void updateBillingSpinner(String address) {
+        if(address.length() > 6) {
+            List<String> billingElement = new ArrayList<>();
+
+            billingElement.add(address);
+            billingElement.add("Edit");
+
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(mContext,
+                    android.R.layout.simple_spinner_item, billingElement);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mGoToBilling.setAdapter(dataAdapter);
+            mGoToBilling.setSelection(0);
+        } else {
+            List<String> billingElement = new ArrayList<>();
+
+            billingElement.add("SELECT");
+            billingElement.add("  + ADD");
+
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(mContext,
+                    android.R.layout.simple_spinner_item, billingElement);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mGoToBilling.setAdapter(dataAdapter);
+            mGoToBilling.setSelection(0);
+        }
+    }
+
+
 
 }

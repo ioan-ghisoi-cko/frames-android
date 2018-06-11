@@ -10,7 +10,6 @@
     <string name="cvv_error" translatable="true">Enter a valid Cvv</string>
     <string name="cvv_input_placeholder" translatable="false">Cvv*</string>
     <string name="card_icon_resource" translatable="false">card_icon*</string>
-    <string name="done_button" translatable="true">card_icon*</string>
 
     <string name="address_one_placeholder" translatable="true">Address Line 1</string>
     <string name="address_two_placeholder" translatable="true">Address Line 2</string>
@@ -21,5 +20,6 @@
 
 
     <string name="pay_button" translatable="true">Pay</string>
+    <string name="done_button" translatable="true">Done</string>
 
 </resources>
