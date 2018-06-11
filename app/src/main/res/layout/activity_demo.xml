@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:checkot="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".DemoActivity">
+
+    <com.example.android_sdk.PaymentForm
+        android:id="@+id/checkout_card_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        checkot:highlight="#000"
+        checkot:formBackground="#eaeaea"
+        />
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name" translatable="false">checkout-android-sdk</string>
+
+    <string name="card_title" translatable="true">Card Details</string>
+    <string name="card_accepted_helper_label" translatable="true">Accepted Cards</string>
+    <string name="card_input_placeholder" translatable="true">Card Number*</string>
+    <string name="expiration_date_helper_label" translatable="true">Expiration Date*</string>
+    <string name="billing_helper_label" translatable="true">Billing Details</string>
+    <string name="card_error" translatable="true">Enter a valid card number</string>
+    <string name="cvv_error" translatable="true">Enter a valid Cvv</string>
+    <string name="cvv_input_placeholder" translatable="false">Cvv*</string>
+    <string name="card_icon_resource" translatable="false">card_icon*</string>
+    <string name="done_button" translatable="true">card_icon*</string>
+
+    <string name="address_one_placeholder" translatable="true">Address Line 1</string>
+    <string name="address_two_placeholder" translatable="true">Address Line 2</string>
+    <string name="city_placeholder" translatable="true">City</string>
+    <string name="state_placeholder" translatable="true">State</string>
+    <string name="zipcode_placeholder" translatable="true">Zip/Post code</string>
+    <string name="phone_placeholder" translatable="true">Phone</string>
+
+
+    <string name="pay_button" translatable="true">Pay</string>
+
+</resources>

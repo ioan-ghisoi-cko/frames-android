@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="background">#eeeeee</color>
+    <color name="card_view_title_background">#263238</color>
+    <color name="card_view_title_text">#fff</color>
+    <color name="card_view_helper_label">#757575</color>
+    <color name="card_view_card_highlight">#5283eb</color>
+    <color name="card_view_details_text">#000</color>
+    <color name="spinner_background">#eeeeee</color>
+    <color name="error">#e73a3a</color>
+    <color name="pay_button">#357AE8</color>
+
+</resources>

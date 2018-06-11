@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_detail_title_text">17sp</dimen>
+    <dimen name="card_detail_title">55dp</dimen>
+    <dimen name="card_helper_label">11sp</dimen>
+    <dimen name="card_helper_padding_left">14dp</dimen>
+    <dimen name="card_icons_view_padding_left">12dp</dimen>
+    <dimen name="fields_padding">10dp</dimen>
+    <dimen name="card_icon">35dp</dimen>
+    <dimen name="pay_button">40dp</dimen>
+    <dimen name="pay_button_padding">10dp</dimen>
+    <dimen name="field_height">40dp</dimen>
+    <dimen name="field_margin_top">10dp</dimen>
+    <dimen name="field_margin_top_small">5dp</dimen>
+    <dimen name="helper_label_margin_top">15dp</dimen>
+    <dimen name="layout_min_width">400dp</dimen>
+    <dimen name="bt_input_text_size">10dp</dimen>
+
+</resources>
