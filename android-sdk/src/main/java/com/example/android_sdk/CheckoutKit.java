@@ -106,14 +106,6 @@ public class CheckoutKit extends FrameLayout {
     /**
      * This is the constructor used when the module is used without the UI.
      */
-    public CheckoutKit(@NonNull Context context, String environemnt, String key) {
-        super(context, null);
-        mContext = context;
-        this.ENVIRONMENT = environemnt;
-        this.KEY = key;
-        // No need to use initView() since no UI needs rendering
-    }
-
     public CheckoutKit(@NonNull Context context) {
         this(context, null);
     }
