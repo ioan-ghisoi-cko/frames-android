@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.example.android_sdk.Kit;
 import com.example.android_sdk.PaymentForm;
+import com.example.android_sdk.Utils.TokenSuccessResponse;
 import com.example.android_sdk.Utils.TokenisationRequest;
 
 public class DemoActivity extends Activity {
@@ -27,8 +28,8 @@ public class DemoActivity extends Activity {
     private final PaymentForm.OnTokenGenerated mTokenListener = new PaymentForm.OnTokenGenerated() {
 
         @Override
-        public void onTokenGenerated(String token) {
-            Toast.makeText(DemoActivity.this, token,
+        public void onTokenGenerated(TokenSuccessResponse token) {
+            Toast.makeText(DemoActivity.this, token.getLast4(),
                     Toast.LENGTH_LONG).show();
         }
 

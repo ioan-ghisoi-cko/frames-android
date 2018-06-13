@@ -39,8 +39,10 @@ public class BillingDetailsView extends LinearLayout {
     private final CountryInput.CountryListener mCountryListener = new CountryInput.CountryListener() {
 
         @Override
-        public void onCountryInputFinish(String country) {
+        public void onCountryInputFinish(String country, String prefix) {
             mDatastore.setCustomerCountry(country);
+            mDatastore.setCustomerPhonePrefix(prefix);
+            mPhone.setText(prefix + " ");
             mAddressOne.requestFocus();
             mAddressOne.performClick();
         }
@@ -130,7 +132,7 @@ public class BillingDetailsView extends LinearLayout {
     private final PhoneInput.PhoneListener mPhoneListener = new PhoneInput.PhoneListener() {
         @Override
         public void onPhoneInputFinish(String phone) {
-            mDatastore.setCustomerPhone(phone);
+            mDatastore.setCustomerPhone(phone.replace(mDatastore.getCustomerPhonePrefix(),""));
         }
 
         @Override

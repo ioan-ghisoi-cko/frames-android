@@ -7,7 +7,7 @@ public class BillingDetails {
     private String country;
     private String city;
     private String state;
-    private PhoneDetails phone;
+    public PhoneDetails phone;
 
     public void setAddressLine1(String addressLine1) {
         this.addressLine1 = addressLine1;
@@ -35,5 +35,33 @@ public class BillingDetails {
 
     public void setPhone(PhoneDetails phone) {
         this.phone = phone;
+    }
+
+    public String getAddressLine1() {
+        return addressLine1;
+    }
+
+    public String getAddressLine2() {
+        return addressLine2;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public PhoneDetails getPhone() {
+        return phone;
     }
 }

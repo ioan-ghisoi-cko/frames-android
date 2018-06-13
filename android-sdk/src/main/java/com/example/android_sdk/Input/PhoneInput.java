@@ -56,6 +56,7 @@ public class PhoneInput extends android.support.v7.widget.AppCompatEditText {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (mPhoneListener != null && hasFocus) {
+                    setSelection(getText().toString().length());
                     mPhoneListener.clearPhoneError();
                 }
             }

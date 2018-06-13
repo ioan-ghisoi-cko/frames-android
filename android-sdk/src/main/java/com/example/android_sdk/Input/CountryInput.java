@@ -2,27 +2,31 @@ package com.example.android_sdk.Input;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.telephony.TelephonyManager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
-import java.io.IOException;
+import com.example.android_sdk.Utils.PhoneUtils;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class CountryInput extends android.support.v7.widget.AppCompatSpinner {
 
     public interface CountryListener {
-        void onCountryInputFinish(String country);
+        void onCountryInputFinish(String country, String prefix);
     }
 
     private @Nullable
     CountryInput.CountryListener mCountryListener;
     private Context mContext;
-
+    private PhoneUtils phoneUtils = new PhoneUtils();
 
     public CountryInput(Context context) {
         this(context, 0);
@@ -55,7 +59,7 @@ public class CountryInput extends android.support.v7.widget.AppCompatSpinner {
                     for( Locale loc : locale ){
                         country = loc.getDisplayCountry();
                         if(country.equals(getSelectedItem().toString())){
-                            mCountryListener.onCountryInputFinish(loc.getCountry());
+                            mCountryListener.onCountryInputFinish(loc.getCountry(), phoneUtils.getPrefix(loc.getCountry()));
                         }
                     }
                 }

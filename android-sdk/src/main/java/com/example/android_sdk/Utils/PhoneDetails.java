@@ -11,4 +11,12 @@ public class PhoneDetails {
     public void setNumber(String number) {
         this.number = number;
     }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public String getNumber() {
+        return number;
+    }
 }

@@ -11,8 +11,8 @@ public class DataStore {
 
     private static final String CARD_ENV_SANDBOX = "https://sandbox.checkout.com/api2/v2/tokens/card/";
     private static final String CARD_ENV_LIVE = "https://api2.checkout.com/v2/tokens/card/";
-    private static final String GOOGLE_ENV_SANDBOX = "https://sandbox.checkout.com/api2/v2/tokens/card/";
-    private static final String GOOGLE_ENV_LIVE = "https://api2.checkout.com/v2/tokens/card/";
+    private static final String GOOGLE_ENV_SANDBOX = "https://sandbox.checkout.com/api2/v2/tokens/";
+    private static final String GOOGLE_ENV_LIVE = "https://api2.checkout.com/v2/tokens/";
     private String mSuccessUrl;
     private String mFailUrl;
 

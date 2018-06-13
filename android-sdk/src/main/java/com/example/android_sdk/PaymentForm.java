@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import com.example.android_sdk.Store.DataStore;
 import com.example.android_sdk.Utils.CustomAdapter;
 import com.example.android_sdk.Utils.HttpUtils;
+import com.example.android_sdk.Utils.TokenSuccessResponse;
 import com.example.android_sdk.Utils.TokenisationRequest;
 import com.example.android_sdk.View.BillingDetailsView;
 import com.example.android_sdk.View.CardDetailsView;
@@ -23,36 +24,21 @@ import org.json.JSONException;
 
 public class PaymentForm extends FrameLayout {
 
+    private static final String CARD_ENV_SANDBOX = "https://sandbox.checkout.com/api2/v2/tokens/card/";
+    private static final String CARD_ENV_LIVE = "https://api2.checkout.com/v2/tokens/card/";
+    private static final String GOOGLE_ENV_SANDBOX = "https://sandbox.checkout.com/api2/v2/tokens/";
+    private static final String GOOGLE_ENV_LIVE = "https://api2.checkout.com/v2/tokens/";
+
     private final CardDetailsView.DetailsCompleted mDetailsCompletedListener = new CardDetailsView.DetailsCompleted() {
         @Override
         public void onDetailsCompleted() {
-            TokenisationRequest request = new TokenisationRequest();
-
-            request
-                    .setCardNumber(sanitizeEntry(mDataStore.getCardNumber()))
-                    .setExpiryMonth(mDataStore.getCardMonth())
-                    .setExpiryYear(mDataStore.getCardYear())
-                    .setCvv(mDataStore.getCardCvv());
-
-            // Only populate billing details if the user has completed the full form
-            if(mDataStore.isBillingCompleted()) {
-                request
-                        .setName(mDataStore.getCustomerName())
-                        .setCountry(mDataStore.getCustomerCountry())
-                        .setAddressLine1(mDataStore.getCustomerAddress1())
-                        .setAddressLine2(mDataStore.getCustomerAddress2())
-                        .setCity(mDataStore.getCustomerCity())
-                        .setState(mDataStore.getCustomerState())
-                        .setPostcode(mDataStore.getCustomerZipcode())
-                        .setPhoneNumber(mDataStore.getCustomerPhonePrefix(), mDataStore.getCustomerPhone());
-            }
-
-            generateToken(request);
+            generateToken(generateRequest());
         }
     };
 
     public interface OnTokenGenerated {
-        void onTokenGenerated(String token);
+        void onTokenGenerated(TokenSuccessResponse token);
+
         void onError(String errorMessage);
     }
 
@@ -145,11 +131,11 @@ public class PaymentForm extends FrameLayout {
         web.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                if (url.contains(successUrl)){
+                if (url.contains(successUrl)) {
                     Uri uri = Uri.parse(url);
                     String paymentToken = uri.getQueryParameter("cko-payment-token");
                     m3DSecureListener.onSuccess(paymentToken);
-                } else if(url.contains(failsUrl)){
+                } else if (url.contains(failsUrl)) {
                     Uri uri = Uri.parse(url);
                     String paymentToken = uri.getQueryParameter("cko-payment-token");
                     m3DSecureListener.onSuccess(paymentToken);
@@ -182,20 +168,49 @@ public class PaymentForm extends FrameLayout {
         String jsonBody = gson.toJson(request);
 
         try {
-            http.generateToken(this.KEY, DataStore.getInstance().getCardEnvSandbox(), jsonBody);
+            if(ENVIRONMENT.toLowerCase().replaceAll(" ", "").equals("live")) {
+                http.generateToken(this.KEY, CARD_ENV_LIVE, jsonBody);
+            } else {
+                http.generateToken(this.KEY, CARD_ENV_SANDBOX, jsonBody);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
 
-    public void set3DSListener (PaymentForm.on3DSFinished listener) {
+    public void set3DSListener(PaymentForm.on3DSFinished listener) {
         this.m3DSecureListener = listener;
     }
 
     public PaymentForm setTokenListener(OnTokenGenerated listener) {
         this.mTokenListener = listener;
         return this;
+    }
+
+    private TokenisationRequest generateRequest() {
+        TokenisationRequest request = new TokenisationRequest();
+
+        request
+                .setCardNumber(sanitizeEntry(mDataStore.getCardNumber()))
+                .setExpiryMonth(mDataStore.getCardMonth())
+                .setExpiryYear(mDataStore.getCardYear())
+                .setCvv(mDataStore.getCardCvv());
+
+        // Only populate billing details if the user has completed the full form
+        if (mDataStore.isBillingCompleted()) {
+            request
+                    .setName(mDataStore.getCustomerName())
+                    .setCountry(mDataStore.getCustomerCountry())
+                    .setAddressLine1(mDataStore.getCustomerAddress1())
+                    .setAddressLine2(mDataStore.getCustomerAddress2())
+                    .setCity(mDataStore.getCustomerCity())
+                    .setState(mDataStore.getCustomerState())
+                    .setPostcode(mDataStore.getCustomerZipcode())
+                    .setPhoneNumber(mDataStore.getCustomerPhonePrefix(), mDataStore.getCustomerPhone());
+        }
+
+        return request;
     }
 
     public void includeBilling(Boolean include) {

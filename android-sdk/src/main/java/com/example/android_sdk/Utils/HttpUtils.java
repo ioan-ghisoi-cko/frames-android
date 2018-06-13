@@ -40,31 +40,57 @@ public class HttpUtils {
 
     private @Nullable
     PaymentForm.OnTokenGenerated mTokenListener;
-    private Context  mContext;
+    private Context mContext;
 
     public HttpUtils(Context context) {
         //empty constructor
         mContext = context;
     }
 
-    public void generateToken(String key, String url, String body) throws JSONException {
-
-
-        performRequest(key, url, body);
-    }
-
-    private void performRequest(final String key, String url, String body) throws JSONException {
+    public void generateToken(final String key, String url, String body) throws JSONException {
 
         RequestQueue queue = Volley.newRequestQueue(mContext);
 
         JsonObjectRequest portRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(body),
-                new Response.Listener<JSONObject>()
-                {
+                new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            if(mTokenListener != null) {
-                                mTokenListener.onTokenGenerated(String.valueOf(response.get("id")));
+                            if (mTokenListener != null) {
+                                TokenSuccessResponse responseBody = new TokenSuccessResponse();
+                                JSONObject card = response.getJSONObject("card");
+                                JSONObject billing = card.getJSONObject("billingDetails");
+                                JSONObject phone = billing.getJSONObject("phone");
+                                responseBody
+                                        .setId(response.getString("id"))
+                                        .setLiveMode(response.getString("liveMode"))
+                                        .setCreated(response.getString("created"))
+                                        .setUsed(response.getString("used"))
+                                        .setExpiryMonth(card.getString("expiryMonth"))
+                                        .setExpiryYear(card.getString("expiryYear"))
+                                        .setCardId(card.getString("id"))
+                                        .setCardLast4(card.getString("last4"))
+                                        .setCardBin(card.getString("bin"))
+                                        .setCardPaymentMethod(card.getString("paymentMethod"))
+                                        .setAddressLine1(billing.getString("addressLine1"))
+                                        .setAddressLine2(billing.getString("addressLine2"))
+                                        .setPostoce(billing.getString("postcode"))
+                                        .setCountry(billing.getString("country"))
+                                        .setCity(billing.getString("city"))
+                                        .setState(billing.getString("state"))
+                                        .setAddressLine1(billing.getString("addressLine1"));
+                                try{
+                                    responseBody.setPhoneCountryCode(phone.getString("countryCode"));
+                                } catch (Exception e) {
+                                    // null value
+                                }
+
+                                try{
+                                    responseBody.setPhoneNumber(phone.getString("number"));
+                                } catch (Exception e) {
+                                    // null value
+                                }
+                                mTokenListener.onTokenGenerated(responseBody);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -72,15 +98,14 @@ public class HttpUtils {
 
                     }
                 },
-                new Response.ErrorListener()
-                {
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         NetworkResponse networkResponse = error.networkResponse;
                         if (networkResponse != null && networkResponse.data != null) {
                             try {
                                 JSONObject jsonError = new JSONObject(new String(networkResponse.data));
-                                if(mTokenListener != null) {
+                                if (mTokenListener != null) {
                                     mTokenListener.onError(jsonError.getString("message"));
                                 }
                             } catch (JSONException e) {
