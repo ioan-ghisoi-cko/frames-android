@@ -14,6 +14,8 @@ public class CvvInput extends android.support.v7.widget.AppCompatEditText {
 
     public interface CvvListener {
         void onCvvInputFinish(String number);
+        void onCvvError();
+        void onClearCvvError();
     }
 
     private @Nullable
@@ -56,11 +58,17 @@ public class CvvInput extends android.support.v7.widget.AppCompatEditText {
         setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
+                if (mCvvInputListener != null && hasFocus) {
                     setFilters(new InputFilter[]{new InputFilter.LengthFilter(mDataStore.getCvvLength())});
+                    mCvvInputListener.onClearCvvError();
+                } else {
+                    if(mCvvInputListener != null && getText().length() != mDataStore.getCvvLength()) {
+                        mCvvInputListener.onCvvError();
+                    }
                 }
             }
         });
+
     }
 
     public void setCvvListener(CvvInput.CvvListener listener) {

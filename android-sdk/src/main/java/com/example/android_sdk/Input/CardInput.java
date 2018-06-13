@@ -69,6 +69,10 @@ public class CardInput extends android.support.v7.widget.AppCompatEditText {
 
             @Override
             public void afterTextChanged(Editable s) {
+                // Remove error if the user is typing
+                if (mCardInputListener != null) {
+                    mCardInputListener.onClearCardError();
+                }
                 // Remove Spaces
                 String initial = sanitizeEntry(s.toString());
                 // Save State
@@ -183,7 +187,6 @@ public class CardInput extends android.support.v7.widget.AppCompatEditText {
                 break;
         }
     }
-
 
     public static String sanitizeEntry(String entry) {
         return entry.replaceAll("\\D", "");

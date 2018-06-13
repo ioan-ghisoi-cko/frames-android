@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.View;
 
 import com.example.android_sdk.Store.DataStore;
 
@@ -12,6 +13,7 @@ public class CityInput extends android.support.v7.widget.AppCompatEditText {
 
     public interface CityListener {
         void onCityInputFinish(String number);
+        void clearCityError();
     }
 
     private @Nullable
@@ -49,6 +51,15 @@ public class CityInput extends android.support.v7.widget.AppCompatEditText {
                 // Save state
                 if(mCityListener != null) {
                     mCityListener.onCityInputFinish(s.toString());
+                }
+            }
+        });
+
+        setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (mCityListener != null && hasFocus) {
+                    mCityListener.clearCityError();
                 }
             }
         });

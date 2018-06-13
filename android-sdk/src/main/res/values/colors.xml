@@ -12,6 +12,6 @@
     <color name="card_view_details_text">#000</color>
     <color name="spinner_background">#eeeeee</color>
     <color name="error">#e73a3a</color>
-    <color name="pay_button">#357AE8</color>
+    <color name="pay_button_text">#ffffff</color>
 
 </resources>

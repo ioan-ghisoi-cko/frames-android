@@ -5,7 +5,27 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">#000</item>
+        <item name="colorAccent">#ce8b8b</item>
     </style>
+
+    <!-- Customise the theme.-->
+    <style name="YourCustomTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <!-- TOOLBAR COLOR. -->
+        <item name="colorPrimary">#000000</item>
+
+        <!--FIELDS HIGHLIGHT COLOR-->
+        <item name="colorAccent">#000</item>
+
+        <!--PAY/DONE BUTTON COLOR-->
+        <item name="colorButtonNormal">#000000</item>
+
+        <!--HELPER LABELS AND FIELD UNSELECTED FIELD COLOR-->
+        <item name="colorControlNormal">#000</item>
+
+    </style>
+
+
 
 </resources>

@@ -6,19 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="BlackButton" parent="Widget.AppCompat.Button.Colored">
-        <item name="android:textColor">#fff</item>
-        <item name="colorButtonNormal">#000</item>
-    </style>
-
-    <style name="AppTheme.Button" parent="Base.Widget.AppCompat.Button">
-        <item name="colorButtonNormal">#4050b5</item>
-    </style>
-
-    <style name="CustomToolbar">
-        <item name="colorButtonNormal">#fff</item>
+        <item name="colorButtonNormal">#000000</item>
+        <item name="button">#4050b5</item>
+        <item name="colorControlNormal">#000000</item>
     </style>
 
 </resources>

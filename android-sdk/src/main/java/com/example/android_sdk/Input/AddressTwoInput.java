@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.View;
 
 import com.example.android_sdk.Store.DataStore;
 
@@ -12,6 +13,7 @@ public class AddressTwoInput extends android.support.v7.widget.AppCompatEditText
 
     public interface AddressTwoListener {
         void onAddressTwoInputFinish(String number);
+        void clearAddressOneError();
     }
 
     private @Nullable
@@ -46,6 +48,15 @@ public class AddressTwoInput extends android.support.v7.widget.AppCompatEditText
                 // Save state
                 if(mAddressTwoListener != null) {
                     mAddressTwoListener.onAddressTwoInputFinish(s.toString());
+                }
+            }
+        });
+
+        setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (mAddressTwoListener != null && hasFocus) {
+                    mAddressTwoListener.clearAddressOneError();
                 }
             }
         });

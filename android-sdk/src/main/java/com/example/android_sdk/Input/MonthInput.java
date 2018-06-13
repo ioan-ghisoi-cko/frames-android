@@ -108,6 +108,9 @@ public class MonthInput extends android.support.v7.widget.AppCompatSpinner {
             }
         });
 
+        // Remove extra padding left
+        setPadding(0, this.getPaddingTop(), this.getPaddingRight(), this.getPaddingBottom());
+
     }
 
     public void populateSpinner() {

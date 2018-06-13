@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:background="@color/background">
+    android:gravity="center_horizontal">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,15 +16,13 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:theme="@style/CustomToolbar"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:navigationIcon="?attr/homeAsUpIndicator"
-            app:title="Card Details"
-            app:titleTextColor="#fff" />
+            app:title="@string/card_details_title" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:minWidth="@dimen/layout_min_width">
+            android:layout_height="fill_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,75 +37,77 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/helper_label_margin_top"
-                        android:paddingLeft="@dimen/card_helper_padding_left"
-                        android:paddingRight="@dimen/card_helper_padding_left"
-                        android:text="@string/card_accepted_helper_label"
-                        android:textColor="@color/card_view_helper_label"
-                        android:textSize="@dimen/card_helper_label" />
+                        android:layout_marginTop="@dimen/accepted_cards_margin_top"
+                        android:paddingLeft="@dimen/accepted_cards_margin_side"
+                        android:paddingRight="@dimen/accepted_cards_margin_side"
+                        android:text="@string/accepted_cards_label"
+                        android:textColor="?attr/colorControlNormal"
+                        android:textSize="@dimen/label_text_size" />
 
                 </LinearLayout>
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/card_icon"
+                    android:layout_height="@dimen/cards_icons_view_height"
                     android:orientation="horizontal"
-                    android:paddingLeft="@dimen/card_icons_view_padding_left"
-                    android:paddingRight="@dimen/card_icons_view_padding_left">
+                    android:paddingLeft="@dimen/cards_icons_view_margin_sides"
+                    android:paddingRight="@dimen/cards_icons_view_margin_sides">
 
                     <LinearLayout
                         android:id="@+id/card_icons_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="start"
+                        android:layout_marginLeft="-3dp"
+                        android:layout_marginStart="-3dp"
                         android:gravity="center"
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="@dimen/card_icon"
-                            android:layout_height="@dimen/card_icon"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginRight="3dp"
+                            android:layout_width="@dimen/cards_icon_size"
+                            android:layout_height="@dimen/cards_icon_size"
+                            android:layout_marginEnd="@dimen/cards_icon_margin"
+                            android:layout_marginRight="@dimen/cards_icon_margin"
                             android:contentDescription="@string/card_icon_resource"
                             android:src="@drawable/visa" />
 
                         <ImageView
-                            android:layout_width="@dimen/card_icon"
-                            android:layout_height="@dimen/card_icon"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginRight="3dp"
+                            android:layout_width="@dimen/cards_icon_size"
+                            android:layout_height="@dimen/cards_icon_size"
+                            android:layout_marginEnd="@dimen/cards_icon_margin"
+                            android:layout_marginRight="@dimen/cards_icon_margin"
                             android:contentDescription="@string/card_icon_resource"
                             android:src="@drawable/mastercard" />
 
                         <ImageView
-                            android:layout_width="@dimen/card_icon"
-                            android:layout_height="@dimen/card_icon"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginRight="3dp"
+                            android:layout_width="@dimen/cards_icon_size"
+                            android:layout_height="@dimen/cards_icon_size"
+                            android:layout_marginEnd="@dimen/cards_icon_margin"
+                            android:layout_marginRight="@dimen/cards_icon_margin"
                             android:contentDescription="@string/card_icon_resource"
                             android:src="@drawable/amex" />
 
                         <ImageView
-                            android:layout_width="@dimen/card_icon"
-                            android:layout_height="@dimen/card_icon"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginRight="3dp"
+                            android:layout_width="@dimen/cards_icon_size"
+                            android:layout_height="@dimen/cards_icon_size"
+                            android:layout_marginEnd="@dimen/cards_icon_margin"
+                            android:layout_marginRight="@dimen/cards_icon_margin"
                             android:contentDescription="@string/card_icon_resource"
                             android:src="@drawable/discover" />
 
                         <ImageView
-                            android:layout_width="@dimen/card_icon"
-                            android:layout_height="@dimen/card_icon"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginRight="3dp"
+                            android:layout_width="@dimen/cards_icon_size"
+                            android:layout_height="@dimen/cards_icon_size"
+                            android:layout_marginEnd="@dimen/cards_icon_margin"
+                            android:layout_marginRight="@dimen/cards_icon_margin"
                             android:contentDescription="@string/card_icon_resource"
                             android:src="@drawable/diners" />
 
                         <ImageView
-                            android:layout_width="@dimen/card_icon"
-                            android:layout_height="@dimen/card_icon"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginRight="3dp"
+                            android:layout_width="@dimen/cards_icon_size"
+                            android:layout_height="@dimen/cards_icon_size"
+                            android:layout_marginEnd="@dimen/cards_icon_margin"
+                            android:layout_marginRight="@dimen/cards_icon_margin"
                             android:contentDescription="@string/card_icon_resource"
                             android:src="@drawable/jcb" />
 
@@ -119,24 +118,22 @@
                     android:id="@+id/card_input_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/fields_padding"
-                    android:layout_marginRight="@dimen/fields_padding"
-                    android:layout_marginTop="@dimen/field_margin_top"
-                    android:hint="@string/card_input_placeholder"
+                    android:layout_marginLeft="@dimen/basic_field_margin_side"
+                    android:layout_marginRight="@dimen/basic_field_margin_side"
+                    android:layout_marginTop="@dimen/basic_field_margin_top"
+                    android:hint="@string/card_number_placeholder"
                     android:nextFocusForward="@+id/month_input"
                     app:errorEnabled="true">
 
                     <com.example.android_sdk.Input.CardInput
                         android:id="@+id/card_input"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/field_height"
+                        android:layout_height="wrap_content"
                         android:digits="0123456789 "
                         android:imeOptions="flagNoExtractUi|actionNext"
                         android:inputType="number"
                         android:maxLines="1"
-                        android:nextFocusDown="@id/month_input"
-                        android:textColor="@color/card_view_details_text"
-                        android:textSize="@dimen/card_detail_title_text" />
+                        android:nextFocusDown="@id/month_input" />
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -144,51 +141,52 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/card_helper_padding_left"
-                    android:paddingRight="@dimen/card_helper_padding_left"
-                    android:text="@string/expiration_date_helper_label"
-                    android:textColor="@color/card_view_helper_label"
-                    android:textSize="@dimen/card_helper_label" />
+                    android:layout_marginLeft="@dimen/expiration_date_margin_side"
+                    android:layout_marginStart="@dimen/expiration_date_margin_side"
+                    android:paddingRight="@dimen/basic_field_margin_side"
+                    android:paddingLeft="@dimen/basic_field_margin_side"
+                    android:text="@string/expiration_date_label"
+                    android:textColor="?attr/colorControlNormal"
+                    android:textSize="@dimen/expiration_date_text_size" />
 
                 <LinearLayout
                     android:id="@+id/date_input_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/fields_padding"
-                    android:layout_marginRight="@dimen/fields_padding"
-                    android:layout_marginTop="@dimen/field_margin_top_small"
+                    android:layout_marginBottom="@dimen/date_margin_bottom"
+                    android:layout_marginLeft="@dimen/basic_field_margin_side"
+                    android:layout_marginRight="@dimen/basic_field_margin_side"
+                    android:layout_marginTop="@dimen/basic_field_margin_top"
                     android:orientation="horizontal">
 
                     <com.example.android_sdk.Input.MonthInput
                         android:id="@+id/month_input"
                         style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/field_height"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginEnd="10dp"
+                        android:layout_height="@dimen/basic_field_height"
+                        android:layout_marginEnd="@dimen/basic_field_margin_side"
+                        android:layout_marginRight="@dimen/basic_field_margin_side"
                         android:layout_weight="1"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:imeOptions="flagNoExtractUi|actionNext"
                         android:nextFocusDown="@id/year_input"
                         android:nextFocusForward="@+id/year_input"
-                        android:popupBackground="@color/spinner_background"
-                        android:textSize="16sp" />
+                        android:popupBackground="@color/spinner_background" />
 
                     <com.example.android_sdk.Input.YearInput
                         android:id="@+id/year_input"
                         style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/field_height"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
+                        android:layout_height="@dimen/basic_field_height"
+                        android:layout_marginLeft="@dimen/basic_field_margin_side"
+                        android:layout_marginStart="@dimen/basic_field_margin_side"
                         android:layout_weight="1"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:imeOptions="flagNoExtractUi|actionNext"
                         android:nextFocusDown="@id/card_input"
-                        android:popupBackground="@color/spinner_background"
-                        android:textSize="16sp" />
+                        android:popupBackground="@color/spinner_background" />
 
                 </LinearLayout>
 
@@ -196,64 +194,70 @@
                     android:id="@+id/cvv_input_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/fields_padding"
-                    android:layout_marginRight="@dimen/fields_padding"
-                    android:layout_marginTop="@dimen/field_margin_top"
-                    android:hint="@string/cvv_input_placeholder"
+                    android:layout_marginLeft="@dimen/basic_field_margin_side"
+                    android:layout_marginRight="@dimen/basic_field_margin_side"
+                    android:layout_marginTop="@dimen/basic_field_margin_top"
+                    android:hint="@string/cvv_placeholder"
                     app:errorEnabled="true">
 
                     <com.example.android_sdk.Input.CvvInput
                         android:id="@+id/cvv_input"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/field_height"
-                        android:digits="0123456789 "
+                        android:layout_height="wrap_content"
+                        android:digits="0123456789"
                         android:imeOptions="flagNoExtractUi|actionDone"
                         android:inputType="number"
-                        android:maxLines="1"
-                        android:textColor="@color/card_view_details_text"
-                        android:textSize="@dimen/card_detail_title_text" />
+                        android:maxLines="1" />
 
                 </android.support.design.widget.TextInputLayout>
 
                 <TextView
+                    android:id="@+id/billing_helper_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="@dimen/card_helper_padding_left"
-                    android:paddingLeft="@dimen/card_helper_padding_left"
-                    android:paddingRight="@dimen/card_helper_padding_left"
-                    android:text="@string/billing_helper_label"
-                    android:textColor="@color/card_view_helper_label"
-                    android:textSize="@dimen/card_helper_label" />
+                    android:layout_marginLeft="@dimen/expiration_date_margin_side"
+                    android:paddingRight="@dimen/basic_field_margin_side"
+                    android:paddingLeft="@dimen/basic_field_margin_side"
+                    android:layout_marginStart="@dimen/basic_field_margin_side"
+                    android:text="@string/billing_details_label"
+                    android:textColor="?attr/colorControlNormal"
+                    android:textSize="@dimen/expiration_date_text_size" />
 
                 <com.example.android_sdk.Input.BillingInput
                     android:id="@+id/go_to_billing"
                     style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/field_height"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="@dimen/field_margin_top_small"
+                    android:layout_height="@dimen/basic_field_height"
+                    android:layout_marginLeft="@dimen/basic_field_margin_side"
+                    android:layout_marginRight="@dimen/basic_field_margin_side"
+                    android:layout_marginTop="@dimen/basic_field_margin_top"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:popupBackground="@color/spinner_background"
-                    android:textSize="16sp" />
+                    android:popupBackground="@color/spinner_background" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_area"
+                    android:layout_marginTop="@dimen/basic_field_margin_top"
+                    android:gravity="end"
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/pay_button"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="@dimen/fields_padding"
-                    android:layout_marginRight="@dimen/fields_padding"
-                    android:layout_marginTop="25dp"
-                    android:height="@dimen/field_height"
-                    android:padding="@dimen/pay_button_padding"
-                    android:text="@string/pay_button"
-                    android:textAlignment="center"
-                    android:textAllCaps="true"
-                    android:textColor="#fff"
-                    android:theme="@style/AppTheme.Button" />
+                    <Button
+                        android:id="@+id/pay_button"
+                        style="@style/ThemeOverlay.AppCompat.Dark"
+                        android:layout_width="@dimen/button_width"
+                        android:layout_height="@dimen/button_height"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/basic_field_margin_side"
+                        android:layout_marginRight="@dimen/basic_field_margin_side"
+                        android:height="@dimen/button_height"
+                        android:background="?attr/colorButtonNormal"
+                        android:focusable="true"
+                        android:text="@string/pay_button"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/pay_button_text" />
+                </LinearLayout>
 
             </LinearLayout>
 

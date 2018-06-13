@@ -14,6 +14,7 @@ public class AddressOneInput  extends android.support.v7.widget.AppCompatEditTex
 
     public interface AddressOneListener {
         void onAddressOneInputFinish(String number);
+        void clearAddressOneError();
     }
 
     private @Nullable
@@ -45,6 +46,10 @@ public class AddressOneInput  extends android.support.v7.widget.AppCompatEditTex
 
             @Override
             public void afterTextChanged(Editable s) {
+                // Clear error if the user starts typing
+                if (mAddressOneListener != null) {
+                    mAddressOneListener.clearAddressOneError();
+                }
                 // Save state
                 if(mAddressOneListener != null) {
                     mAddressOneListener.onAddressOneInputFinish(s.toString());
@@ -57,7 +62,6 @@ public class AddressOneInput  extends android.support.v7.widget.AppCompatEditTex
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     performClick();
-
                     @Nullable InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
                     if(imm != null) {
                         imm.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT);

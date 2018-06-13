@@ -8,6 +8,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import com.example.android_sdk.Store.DataStore;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,7 @@ public class BillingInput extends android.support.v7.widget.AppCompatSpinner {
     private @Nullable
     BillingInput.BillingListener mBillingListener;
     private Context mContext;
+    private DataStore mDatastore = DataStore.getInstance();
 
     public BillingInput(Context context) {
         this(context, null);
@@ -55,15 +58,27 @@ public class BillingInput extends android.support.v7.widget.AppCompatSpinner {
     }
 
     private void populateSpinner() {
-        List<String> billingElement = new ArrayList<>();
+        if(mDatastore != null && !mDatastore.getCustomerAddress1().equals("")) {
+            List<String> billingElement = new ArrayList<>();
 
-        billingElement.add("SELECT");
-        billingElement.add("  + ADD");
+            billingElement.add(mDatastore.getCustomerAddress1());
+            billingElement.add("Edit");
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(mContext,
-                android.R.layout.simple_spinner_item, billingElement);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        setAdapter(dataAdapter);
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(mContext,
+                    android.R.layout.simple_spinner_item, billingElement);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            setAdapter(dataAdapter);
+        } else {
+            List<String> billingElement = new ArrayList<>();
+
+            billingElement.add("SELECT");
+            billingElement.add("  + ADD");
+
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(mContext,
+                    android.R.layout.simple_spinner_item, billingElement);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            setAdapter(dataAdapter);
+        }
     }
 
     @Override

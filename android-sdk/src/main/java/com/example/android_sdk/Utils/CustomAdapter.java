@@ -20,7 +20,9 @@ public class CustomAdapter extends PagerAdapter {
     private CardDetailsView cardDetailsView;
     private List<LinearLayout> mViews = new ArrayList<>();
     private CardDetailsView.GoToBillingListener mCardDetailsListener;
+    private BillingDetailsView billingDetailsView;
     private BillingDetailsView.Listener mBillingListener;
+    private CardDetailsView.DetailsCompleted mDetailsCompletedListener;
 
     public CustomAdapter(Context context) {
         mContext = context;
@@ -34,8 +36,16 @@ public class CustomAdapter extends PagerAdapter {
         mBillingListener = listener;
     }
 
-    public void updateBillingSpinner(String address) {
-        cardDetailsView.updateBillingSpinner(address);
+    public void setTokenDetailsCompletedListener(CardDetailsView.DetailsCompleted listener) {
+        mDetailsCompletedListener = listener;
+    }
+
+    public void updateBillingSpinner() {
+        cardDetailsView.updateBillingSpinner();
+    }
+
+    public void clearBillingSpinner() {
+        cardDetailsView.clearBillingSpinner();
     }
 
     @NonNull
@@ -65,8 +75,9 @@ public class CustomAdapter extends PagerAdapter {
         if (mViews.isEmpty()) {
             cardDetailsView = new CardDetailsView(mContext);
             cardDetailsView.setGoToBillingListener(mCardDetailsListener);
+            cardDetailsView.setDetailsCompletedListener(mDetailsCompletedListener);
 
-            BillingDetailsView billingDetailsView = new BillingDetailsView(mContext);
+            billingDetailsView = new BillingDetailsView(mContext);
             billingDetailsView.setGoToCardDetailsListener(mBillingListener);
 
             mViews.add(cardDetailsView);

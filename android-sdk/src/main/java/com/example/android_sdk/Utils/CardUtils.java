@@ -21,13 +21,13 @@ public class CardUtils {
         VISA("visa", "^4\\d*$", "^4[0-9]{12}(?:[0-9]{3})?$", new int[]{13, 16}, 19, 3, new int[]{4, 9, 14}, true),
         AMEX("amex", "^3[47]\\d*$", "/(\\d{1,4})(\\d{1,6})?(\\d{1,5})?/", new int[]{15}, 18, 4, new int[]{4, 6}, true),
         DISCOVER("discover", "^(6011|65|64[4-9])\\d*$", "^6(?:011|5[0-9]{2})[0-9]{12}$", new int[]{16}, 23, 3, new int[]{4, 9, 14}, true),
-        UNIONPAY("unionpay", "^(((620|(621(?!83|88|98|99))|622(?!06|018)|62[3-6]|627[02,06,07]|628(?!0|1)|629[1,2]))\\d*|622018\\d{12})$", "^6(?:011|5[0-9]{2})[0-9]{12}$", new int[]{16, 17, 18, 19}, 24, 3, new int[]{4, 9, 14}, false),
-        JCB("jcb", "^(2131|1800|35)\\d*$", "^(?:2131|1800|35[0-9]{3})[0-9]{11}$", new int[]{16}, 24, 3, new int[]{4, 9, 14}, true),
-        LASER("laser", "^(6706|6771|6709)\\d*$", "^(6304|6706|6709|6771)[0-9]{12,15}$", new int[]{16, 17, 18, 19}, 24, 3, new int[]{4, 9, 14}, true),
-        DINERSCLUB("dinersclub", "^3(0[0-5]|[689])\\d*$", "^3(?:0[0-5]|[68][0-9])?[0-9]{11}$", new int[]{14}, 19, 3, new int[]{4, 6}, true),
+        UNIONPAY("unionpay", "^(((620|(621(?!83|88|98|99))|622(?!06|018)|62[3-6]|627[02,06,07]|628(?!0|1)|629[1,2]))\\d*|622018\\d{12})$", "^6(?:011|5[0-9]{2})[0-9]{12}$", new int[]{16, 17, 18, 19}, 23, 3, new int[]{4, 6, 14}, false),
+        JCB("jcb", "^(2131|1800|35)\\d*$", "^(?:2131|1800|35[0-9]{3})[0-9]{11}$", new int[]{16}, 23, 3, new int[]{4, 9, 14}, true),
+        LASER("laser", "^(6706|6771|6709)\\d*$", "^(6304|6706|6709|6771)[0-9]{12,15}$", new int[]{16, 17, 18, 19}, 23, 3, new int[]{4, 9, 14}, true),
+        DINERSCLUB("dinersclub", "^3(0[0-5]|[689])\\d*$", "^3(?:0[0-5]|[68][0-9])?[0-9]{11}$", new int[]{14}, 23, 3, new int[]{4, 6}, true),
         MASTERCARD("mastercard", "^(5[1-5]|222[1-9]|22[3-9]|2[3-6]|27[0-1]|2720)\\d*$", "^5[1-5][0-9]{14}$", new int[]{16, 17}, 19, 3, new int[]{4, 9, 14}, true),
-        MAESTRO("maestro", "^(?:5[06789]\\d\\d|(?!6011[0234])(?!60117[4789])(?!60118[6789])(?!60119)(?!64[456789])(?!65)6\\d{3})\\d{8,15}$", "^(5[06-9]|6[37])[0-9]{10,17}$", new int[]{12, 13, 14, 15, 16, 17, 18, 19}, 24, 3, new int[]{4, 9, 14}, true),
-        DEFAULT("maestro", "", "", new int[]{16}, 19, 4, new int[]{4, 9, 14}, false);
+        MAESTRO("maestro", "^(?:5[06789]\\d\\d|(?!6011[0234])(?!60117[4789])(?!60118[6789])(?!60119)(?!64[456789])(?!65)6\\d{3})\\d{8,15}$", "^(5[06-9]|6[37])[0-9]{10,17}$", new int[]{12, 13, 14, 15, 16, 17, 18, 19}, 23, 3, new int[]{4, 9, 14}, true),
+        DEFAULT("maestro", "", "", new int[]{16}, 19, 3, new int[]{4, 9, 14}, false);
 
         public final String name;
         private final String pattern;
@@ -181,7 +181,7 @@ public class CardUtils {
         CardUtils.Cards cardType = getType(number);
 
         // If the card is an AMEX or DINERSCLUB we iterate and span spaces at specific positions
-        if (cardType.name.equals("amex") || cardType.name.equals("dinersclub")) {
+        if (cardType.name.equals("amex") || cardType.name.equals("dinersclub") || cardType.name.equals("unionpay")) {
             for (int i = 0; i < cardType.gaps.length; i++) {
                 processedCard = processedCard.replaceFirst("(\\d{" + cardType.gaps[i] + "})(?=\\d)", "$1 ");
             }

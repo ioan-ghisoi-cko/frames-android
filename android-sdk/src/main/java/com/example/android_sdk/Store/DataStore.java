@@ -29,6 +29,7 @@ public class DataStore {
     private boolean IsValidCardYear = false;
     private boolean IsValidCardCvv = false;
 
+    private String mCustomerName = "";
     private String mCustomerCountry = "";
     private String mCustomerAddress1 = "";
     private String mCustomerAddress2 = "";
@@ -37,6 +38,12 @@ public class DataStore {
     private String mCustomerZipcode = "";
     private String mCustomerPhonePrefix = "";
     private String mCustomerPhone = "";
+
+    private boolean showBilling = true;
+    private boolean billingCompleted = false;
+
+    private String formBackground;
+    private String fieldHighlight;
 
     protected DataStore() {
     }
@@ -214,6 +221,47 @@ public class DataStore {
 
     public void setCustomerPhone(String customerPhone) {
         mCustomerPhone = customerPhone;
+    }
+
+
+    public boolean getBillingVisibility() {
+        return showBilling;
+    }
+
+    public void setShowBilling(boolean showBilling) {
+        this.showBilling = showBilling;
+    }
+
+    public String getFormBackground() {
+        return formBackground;
+    }
+
+    public void setFormBackground(String formBackground) {
+        this.formBackground = formBackground;
+    }
+
+    public String getFieldHighlight() {
+        return fieldHighlight;
+    }
+
+    public void setFieldHighlight(String fieldHighlight) {
+        this.fieldHighlight = fieldHighlight;
+    }
+
+    public String getCustomerName() {
+        return mCustomerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        mCustomerName = customerName;
+    }
+
+    public boolean isBillingCompleted() {
+        return billingCompleted;
+    }
+
+    public void setBillingCompleted(boolean billingCompleted) {
+        this.billingCompleted = billingCompleted;
     }
 
     public void cleanBillingData() {

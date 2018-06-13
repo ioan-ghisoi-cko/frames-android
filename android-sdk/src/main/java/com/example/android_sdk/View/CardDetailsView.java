@@ -1,6 +1,10 @@
 package com.example.android_sdk.View;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatSpinner;
@@ -29,6 +33,11 @@ import java.util.List;
 
 public class CardDetailsView extends LinearLayout {
 
+    public interface DetailsCompleted {
+        void onDetailsCompleted();
+
+    }
+
     DataStore mDataStore = DataStore.getInstance();
 
     public interface GoToBillingListener {
@@ -43,13 +52,14 @@ public class CardDetailsView extends LinearLayout {
 
         @Override
         public void onCardError() {
-            mCardLayout.setError(getResources().getString(R.string.card_error));
+            mCardLayout.setError(getResources().getString(R.string.card_number_error));
             mDataStore.setValidCardNumber(false);
         }
 
         @Override
         public void onClearCardError() {
             mCardLayout.setError(null);
+            mCardLayout.setErrorEnabled(false);
         }
     };
 
@@ -57,6 +67,7 @@ public class CardDetailsView extends LinearLayout {
 
         @Override
         public void onMonthInputFinish(String month) {
+            mDataStore.setCardMonth(month);
             mDataStore.setValidCardMonth(true);
         }
     };
@@ -65,6 +76,7 @@ public class CardDetailsView extends LinearLayout {
 
         @Override
         public void onYearInputFinish(String year) {
+            mDataStore.setCardYear(year);
             mDataStore.setValidCardYear(true);
         }
     };
@@ -75,13 +87,25 @@ public class CardDetailsView extends LinearLayout {
         public void onCvvInputFinish(String cvv) {
             mDataStore.setValidCardCvv(true);
         }
+
+        @Override
+        public void onCvvError() {
+            mDataStore.setValidCardCvv(false);
+            mCvvLayout.setError(getResources().getString(R.string.cvv_error));
+        }
+
+        @Override
+        public void onClearCvvError() {
+            mCvvLayout.setError(null);
+            mCvvLayout.setErrorEnabled(false);
+        }
     };
 
     private final BillingInput.BillingListener mBillingInputListener = new BillingInput.BillingListener() {
 
         @Override
         public void onGoToBilling() {
-            if(mGotoBillingListener != null) {
+            if (mGotoBillingListener != null) {
                 mGotoBillingListener.onGoToBilingPressed();
             }
         }
@@ -89,6 +113,8 @@ public class CardDetailsView extends LinearLayout {
 
     private @Nullable
     CardDetailsView.GoToBillingListener mGotoBillingListener;
+    private @Nullable
+    CardDetailsView.DetailsCompleted mDetailsCompletedListener;
     private Context mContext;
 
     private CardInput mCardInput;
@@ -98,11 +124,15 @@ public class CardDetailsView extends LinearLayout {
     private CvvInput mCvvInput;
     private TextInputLayout mCardLayout;
     final CardUtils mCardUtils = new CardUtils();
+    private TextInputLayout mCvvLayout;
     private Button mPayButton;
+    private TextView mBillingHelper;
     android.support.v7.widget.Toolbar mToolbar;
 
     public CardDetailsView(Context context) {
-        this(context, null);
+        super(context);
+        mContext = context;
+        init();
     }
 
     public CardDetailsView(Context context, @Nullable AttributeSet attrs) {
@@ -145,7 +175,7 @@ public class CardDetailsView extends LinearLayout {
         //Repopulate card year
         if (DataStore.getInstance().getCardYear() != null) {
             try {
-                mYearInput.setSelection(((ArrayAdapter<String>)mYearInput.getAdapter()).getPosition(DataStore.getInstance().getCardYear()));
+                mYearInput.setSelection(((ArrayAdapter<String>) mYearInput.getAdapter()).getPosition(DataStore.getInstance().getCardYear()));
             } catch (Exception e) {
                 //null
             }
@@ -156,8 +186,12 @@ public class CardDetailsView extends LinearLayout {
             // Update the cvv field with the last input value
             mCvvInput.setText(mDataStore.getCardCvv());
         }
+
+        //Repopulate billing spinner
+        updateBillingSpinner();
     }
 
+    @SuppressLint("RestrictedApi")
     private void init() {
         inflate(mContext, R.layout.card_details, this);
 
@@ -174,10 +208,19 @@ public class CardDetailsView extends LinearLayout {
         mYearInput.setYearListener(mYearInputListener);
 
         mCvvInput = findViewById(R.id.cvv_input);
+        mCvvLayout = findViewById(R.id.cvv_input_layout);
         mCvvInput.setCvvListener(mCvvInputListener);
 
+        mBillingHelper = findViewById(R.id.billing_helper_text);
+
         mGoToBilling = findViewById(R.id.go_to_billing);
-        mGoToBilling.setBillingListener(mBillingInputListener);
+
+        if (!mDataStore.getBillingVisibility()) {
+            mBillingHelper.setVisibility(GONE);
+            mGoToBilling.setVisibility(GONE);
+        } else {
+            mGoToBilling.setBillingListener(mBillingInputListener);
+        }
 
 
         mPayButton = findViewById(R.id.pay_button);
@@ -185,13 +228,8 @@ public class CardDetailsView extends LinearLayout {
         mPayButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                isValidDate();
-                if( mDataStore.isValidCardNumber() &&
-                        mDataStore.isValidCardMonth() &&
-                        mDataStore.isValidCardYear() &&
-                        mDataStore.isValidCardCvv()) {
-                    Toast.makeText(mContext, "VALID",
-                            Toast.LENGTH_LONG).show();
+                if(mDetailsCompletedListener != null && isValidForm() ) {
+                    mDetailsCompletedListener.onDetailsCompleted();
                 }
             }
         });
@@ -200,23 +238,69 @@ public class CardDetailsView extends LinearLayout {
         repopulateField();
     }
 
-    private boolean isValidDate() {
+    private boolean isValidForm() {
+
+        boolean outcome = true;
+
+        checkFullDate();
+
+        if(!mDataStore.isValidCardMonth()) {
+            outcome = false;
+        }
+
+        if(!mDataStore.isValidCardNumber()) {
+            mCardLayout.setError(getResources().getString(R.string.card_number_error));
+            outcome = false;
+        }
+
+        if(!mDataStore.isValidCardCvv()) {
+            mCvvLayout.setError(getResources().getString(R.string.cvv_error));
+            outcome = false;
+        }
+
+        return outcome;
+    }
+
+    private boolean checkFullDate() {
 
         Calendar calendar = Calendar.getInstance();
         int calendarYear = calendar.get(Calendar.YEAR);
         int calendarMonth = calendar.get(Calendar.MONTH);
 
-        if(mDataStore.getCardYear()  != null && Integer.valueOf(mDataStore.getCardYear()) == calendarYear &&
+        if (mDataStore.getCardYear() != null &&
+                mDataStore.getCardYear() != null &&
+                Integer.valueOf(mDataStore.getCardYear()) == calendarYear &&
                 (mMonthInput.getSelectedItemPosition()) < calendarMonth) {
             mDataStore.setValidCardMonth(false);
-            ((TextView)mMonthInput.getSelectedView()).setError("Error message");
+            ((TextView) mMonthInput.getSelectedView()).setError(getResources()
+                    .getString(R.string.expiration_date_error));
             return false;
         }
         return true;
     }
 
-    public void updateBillingSpinner(String address) {
-        if(address.length() > 6) {
+    public void clearBillingSpinner() {
+        List<String> billingElement = new ArrayList<>();
+
+        billingElement.add("SELECT");
+        billingElement.add("  + ADD");
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(mContext,
+                android.R.layout.simple_spinner_item, billingElement);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mGoToBilling.setAdapter(dataAdapter);
+        mGoToBilling.setSelection(0);
+    }
+
+    public void updateBillingSpinner() {
+
+        String address = mDataStore.getCustomerAddress1() +
+                ", " + mDataStore.getCustomerAddress2() +
+                ", " + mDataStore.getCustomerCity() +
+                ", " + mDataStore.getCustomerState();
+
+        // Avoid updates for there are no values set
+        if (address.length() > 6) {
             List<String> billingElement = new ArrayList<>();
 
             billingElement.add(address);
@@ -227,20 +311,12 @@ public class CardDetailsView extends LinearLayout {
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             mGoToBilling.setAdapter(dataAdapter);
             mGoToBilling.setSelection(0);
-        } else {
-            List<String> billingElement = new ArrayList<>();
-
-            billingElement.add("SELECT");
-            billingElement.add("  + ADD");
-
-            ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(mContext,
-                    android.R.layout.simple_spinner_item, billingElement);
-            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            mGoToBilling.setAdapter(dataAdapter);
-            mGoToBilling.setSelection(0);
         }
     }
 
+    public void setDetailsCompletedListener(CardDetailsView.DetailsCompleted listener) {
+        mDetailsCompletedListener = listener;
+    }
 
 
 }
