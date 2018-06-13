@@ -219,7 +219,6 @@ public class PhoneUtils {
         mCountryPhonePrefix.put("AI", "+1-264");
         mCountryPhonePrefix.put("BM", "+1-441");
         mCountryPhonePrefix.put("IO", "+246");
-        mCountryPhonePrefix.put("", "+357");
         mCountryPhonePrefix.put("VG", "+1-284");
         mCountryPhonePrefix.put("KY", "+1-345");
         mCountryPhonePrefix.put("FK", "+500");
