@@ -3,7 +3,7 @@
 
     <string name="card_details_title" translatable="true">Card Details</string>
 
-    <string name="accepted_cards_label" translatable="true">Accepted Cards*</string>
+    <string name="accepted_cards_label" translatable="true">Accepted Cards</string>
 
     <string name="card_number_placeholder" translatable="true">Card number*</string>
     <string name="card_number_error" translatable="true">Enter a valid card number</string>
@@ -18,7 +18,7 @@
     <string name="billing_details_label" translatable="true">Billing Details</string>
     <string name="billing_details_select" translatable="true">SELECT</string>
     <string name="billing_details_edit" translatable="true">Edit</string>
-    <string name="billing_details_add" translatable="true">Add</string>
+    <string name="billing_details_add" translatable="true"> + ADD</string>
 
     <string name="pay_button" translatable="true">Pay</string>
 

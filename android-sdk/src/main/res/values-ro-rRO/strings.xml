@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">checkout-android-sdk</string>
+    <string name="card_details_title">Detalii Card</string>
+    <string name="accepted_cards_label">Carduri Acceptate</string>
+    <string name="card_number_placeholder">Numar de Card</string>
+    <string name="card_number_error">Introduceti un numar de card valid</string>
+    <string name="expiration_date_label">Date expirarii*</string>
+    <string name="expiration_date_error">Introduceti o data  valida</string>
+    <string name="cvv_placeholder">Cod de scuritate CVV*</string>
+    <string name="cvv_error">Introduceti un cod valid</string>
+    <string name="billing_details_label">Adress de facturare</string>
+    <string name="billing_details_select">SELECTATI</string>
+    <string name="billing_details_edit">Editati</string>
+    <string name="billing_details_add"> + ADAUGA</string>
+    <string name="pay_button">Plateste</string>
+    <string name="billing_details_title">Detalii Facturare</string>
+    <string name="name_placeholder">Nume</string>
+    <string name="name_error">Numele trebuie sa aiba minim 3 caractere</string>
+    <string name="country_placeholder">" SELECTATI TARA"</string>
+    <string name="country_error">Selectati o tara</string>
+    <string name="address_one_placeholder">Prima linie de din adresa</string>
+    <string name="address_one_error">Adresa trebuie sa aiba minim 3 caractere</string>
+    <string name="address_two_placeholder">A doua linie de adresa</string>
+    <string name="address_tow_error">Adresa trebuie sa aiba minim 3 caractere</string>
+    <string name="city_placeholder">Oras</string>
+    <string name="city_error">Orasul trebuie sa aiba cel putin 2 caractere</string>
+    <string name="state_placeholder">Statul</string>
+    <string name="state_error">Statul trebuie sa contina mimim 3 caractere</string>
+    <string name="postcode_placeholder">Codul postal</string>
+    <string name="postcode_error">Codul postal trebuie sa contina cel putin 3 caractere</string>
+    <string name="phone_placeholder">Numar de telefon</string>
+    <string name="phone_error">Numarul de telefon trebuie sa contina cel putin 3 caractere</string>
+    <string name="clear_button">Reseteaza</string>
+    <string name="done_button">Gata</string>
+</resources>

@@ -214,10 +214,8 @@
                     android:id="@+id/billing_helper_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
                     android:paddingLeft="@dimen/accepted_cards_margin_side"
                     android:paddingRight="@dimen/accepted_cards_margin_side"
-                    android:layout_marginStart="@dimen/basic_field_margin_side"
                     android:text="@string/billing_details_label"
                     android:textColor="?attr/colorControlNormal"
                     android:textSize="@dimen/expiration_date_text_size" />

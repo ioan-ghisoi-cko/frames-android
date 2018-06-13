@@ -276,8 +276,8 @@ public class CardDetailsView extends LinearLayout {
     public void clearBillingSpinner() {
         List<String> billingElement = new ArrayList<>();
 
-        billingElement.add("SELECT");
-        billingElement.add("  + ADD");
+        billingElement.add(getResources().getString(R.string.billing_details_select));
+        billingElement.add(getResources().getString(R.string.billing_details_add));
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(mContext,
                 android.R.layout.simple_spinner_item, billingElement);
