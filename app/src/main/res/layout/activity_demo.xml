@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context=".DemoActivity">
 
-    <com.example.android_sdk.PaymentForm
+    <com.example.android_sdk.CheckoutKit
         android:id="@+id/checkout_card_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

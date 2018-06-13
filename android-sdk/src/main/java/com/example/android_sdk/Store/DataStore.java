@@ -223,7 +223,6 @@ public class DataStore {
         mCustomerPhone = customerPhone;
     }
 
-
     public boolean getBillingVisibility() {
         return showBilling;
     }

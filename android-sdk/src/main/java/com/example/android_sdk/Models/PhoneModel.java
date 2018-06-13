@@ -1,6 +1,7 @@
-package com.example.android_sdk.Utils;
+package com.example.android_sdk.Models;
 
-public class PhoneDetails {
+public class PhoneModel {
+
     private String countryCode;
     private String number;
 

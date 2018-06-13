@@ -38,8 +38,6 @@ public class CardDetailsView extends LinearLayout {
 
     }
 
-    DataStore mDataStore = DataStore.getInstance();
-
     public interface GoToBillingListener {
         void onGoToBilingPressed();
     }
@@ -111,6 +109,7 @@ public class CardDetailsView extends LinearLayout {
         }
     };
 
+    DataStore mDataStore = DataStore.getInstance();
     private @Nullable
     CardDetailsView.GoToBillingListener mGotoBillingListener;
     private @Nullable
@@ -141,8 +140,50 @@ public class CardDetailsView extends LinearLayout {
         init();
     }
 
-    public void setGoToBillingListener(GoToBillingListener listener) {
-        mGotoBillingListener = listener;
+    private void init() {
+        inflate(mContext, R.layout.card_details, this);
+
+        mToolbar = findViewById(R.id.my_toolbar);
+
+        mCardInput = findViewById(R.id.card_input);
+        mCardLayout = findViewById(R.id.card_input_layout);
+        mCardInput.setCardListener(mCardInputListener);
+
+        mMonthInput = findViewById(R.id.month_input);
+        mMonthInput.setMonthListener(mMonthInputListener);
+
+        mYearInput = findViewById(R.id.year_input);
+        mYearInput.setYearListener(mYearInputListener);
+
+        mCvvInput = findViewById(R.id.cvv_input);
+        mCvvLayout = findViewById(R.id.cvv_input_layout);
+        mCvvInput.setCvvListener(mCvvInputListener);
+
+        mBillingHelper = findViewById(R.id.billing_helper_text);
+
+        mGoToBilling = findViewById(R.id.go_to_billing);
+
+        if (!mDataStore.getBillingVisibility()) {
+            mBillingHelper.setVisibility(GONE);
+            mGoToBilling.setVisibility(GONE);
+        } else {
+            mGoToBilling.setBillingListener(mBillingInputListener);
+        }
+
+
+        mPayButton = findViewById(R.id.pay_button);
+
+        mPayButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mDetailsCompletedListener != null && isValidForm()) {
+                    mDetailsCompletedListener.onDetailsCompleted();
+                }
+            }
+        });
+
+        // Restore state in case the orientation changes
+        repopulateField();
     }
 
     private void repopulateField() {
@@ -191,69 +232,22 @@ public class CardDetailsView extends LinearLayout {
         updateBillingSpinner();
     }
 
-    @SuppressLint("RestrictedApi")
-    private void init() {
-        inflate(mContext, R.layout.card_details, this);
-
-        mToolbar = findViewById(R.id.my_toolbar);
-
-        mCardInput = findViewById(R.id.card_input);
-        mCardLayout = findViewById(R.id.card_input_layout);
-        mCardInput.setCardListener(mCardInputListener);
-
-        mMonthInput = findViewById(R.id.month_input);
-        mMonthInput.setMonthListener(mMonthInputListener);
-
-        mYearInput = findViewById(R.id.year_input);
-        mYearInput.setYearListener(mYearInputListener);
-
-        mCvvInput = findViewById(R.id.cvv_input);
-        mCvvLayout = findViewById(R.id.cvv_input_layout);
-        mCvvInput.setCvvListener(mCvvInputListener);
-
-        mBillingHelper = findViewById(R.id.billing_helper_text);
-
-        mGoToBilling = findViewById(R.id.go_to_billing);
-
-        if (!mDataStore.getBillingVisibility()) {
-            mBillingHelper.setVisibility(GONE);
-            mGoToBilling.setVisibility(GONE);
-        } else {
-            mGoToBilling.setBillingListener(mBillingInputListener);
-        }
-
-
-        mPayButton = findViewById(R.id.pay_button);
-
-        mPayButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(mDetailsCompletedListener != null && isValidForm() ) {
-                    mDetailsCompletedListener.onDetailsCompleted();
-                }
-            }
-        });
-
-        // Restore state in case the orientation changes
-        repopulateField();
-    }
-
     private boolean isValidForm() {
 
         boolean outcome = true;
 
         checkFullDate();
 
-        if(!mDataStore.isValidCardMonth()) {
+        if (!mDataStore.isValidCardMonth()) {
             outcome = false;
         }
 
-        if(!mDataStore.isValidCardNumber()) {
+        if (!mDataStore.isValidCardNumber()) {
             mCardLayout.setError(getResources().getString(R.string.card_number_error));
             outcome = false;
         }
 
-        if(!mDataStore.isValidCardCvv()) {
+        if (!mDataStore.isValidCardCvv()) {
             mCvvLayout.setError(getResources().getString(R.string.cvv_error));
             outcome = false;
         }
@@ -318,5 +312,8 @@ public class CardDetailsView extends LinearLayout {
         mDetailsCompletedListener = listener;
     }
 
+    public void setGoToBillingListener(GoToBillingListener listener) {
+        mGotoBillingListener = listener;
+    }
 
 }

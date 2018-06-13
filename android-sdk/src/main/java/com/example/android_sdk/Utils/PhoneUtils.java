@@ -254,18 +254,4 @@ public class PhoneUtils {
         return mCountryPhonePrefix.get(iso);
     }
 
-    public String getValidPrefix(String phone) {
-        phone = phone.replace(" ", "");
-
-        if (!phone.equals("")) {
-            for (Map.Entry<String, String> entry : mCountryPhonePrefix.entrySet()) {
-
-                if (phone.contains(entry.getValue())) {
-                    return entry.getValue();
-                }
-            }
-        }
-
-        return "";
-    }
 }

@@ -1,105 +1,107 @@
-package com.example.android_sdk.Utils;
+package com.example.android_sdk.Response;
 
-public class TokenSuccessResponse {
+import com.example.android_sdk.Models.CardModel;
+
+public class CardTokenisationResponse {
 
     private String id;
     private String liveMode;
     private String created;
     private String used;
-    private CardResponse card = new CardResponse();
+    private CardModel card = new CardModel();
 
 
-    public TokenSuccessResponse setId(String id) {
+    public CardTokenisationResponse setId(String id) {
         this.id = id;
         return this;
     }
 
-    public TokenSuccessResponse setLiveMode(String liveMode) {
+    public CardTokenisationResponse setLiveMode(String liveMode) {
         this.liveMode = liveMode;
         return this;
     }
 
-    public TokenSuccessResponse setCreated(String created) {
+    public CardTokenisationResponse setCreated(String created) {
         this.created = created;
         return this;
     }
 
-    public TokenSuccessResponse setUsed(String used) {
+    public CardTokenisationResponse setUsed(String used) {
         this.used = used;
         return this;
     }
 
-    public TokenSuccessResponse setExpiryMonth(String expiryMonth) {
+    public CardTokenisationResponse setExpiryMonth(String expiryMonth) {
         this.card.setExpiryMonth(expiryMonth);
         return this;
     }
 
-    public TokenSuccessResponse setExpiryYear(String expiryYear) {
+    public CardTokenisationResponse setExpiryYear(String expiryYear) {
         this.card.setExpiryYear(expiryYear);
         return this;
     }
 
-    public TokenSuccessResponse setCardId(String id) {
+    public CardTokenisationResponse setCardId(String id) {
         this.card.setId(id);
         return this;
     }
 
-    public TokenSuccessResponse setCardLast4(String last4) {
+    public CardTokenisationResponse setCardLast4(String last4) {
         this.card.setLast4(last4);
         return this;
     }
 
-    public TokenSuccessResponse setCardBin(String bin) {
+    public CardTokenisationResponse setCardBin(String bin) {
         this.card.setBin(bin);
         return this;
     }
 
-    public TokenSuccessResponse setCardPaymentMethod(String paymentMethod) {
+    public CardTokenisationResponse setCardPaymentMethod(String paymentMethod) {
         this.card.setPaymentMethod(paymentMethod);
         return this;
     }
 
-    public TokenSuccessResponse setCardName(String name) {
+    public CardTokenisationResponse setCardName(String name) {
         this.card.setName(name);
         return this;
     }
 
-    public TokenSuccessResponse setAddressLine1(String addressLine1) {
+    public CardTokenisationResponse setAddressLine1(String addressLine1) {
         this.card.billingDetails.setAddressLine1(addressLine1);
         return this;
     }
 
-    public TokenSuccessResponse setAddressLine2(String addressLine2) {
+    public CardTokenisationResponse setAddressLine2(String addressLine2) {
         this.card.billingDetails.setAddressLine2(addressLine2);
         return this;
     }
 
-    public TokenSuccessResponse setPostoce(String postcode) {
+    public CardTokenisationResponse setPostoce(String postcode) {
         this.card.billingDetails.setPostcode(postcode);
         return this;
     }
 
-    public TokenSuccessResponse setCountry(String country) {
+    public CardTokenisationResponse setCountry(String country) {
         this.card.billingDetails.setCountry(country);
         return this;
     }
 
-    public TokenSuccessResponse setCity(String city) {
+    public CardTokenisationResponse setCity(String city) {
         this.card.billingDetails.setCity(city);
         return this;
     }
 
-    public TokenSuccessResponse setState(String state) {
+    public CardTokenisationResponse setState(String state) {
         this.card.billingDetails.setState(state);
         return this;
     }
 
-    public TokenSuccessResponse setPhoneCountryCode(String phoneCountryCode) {
+    public CardTokenisationResponse setPhoneCountryCode(String phoneCountryCode) {
         this.card.billingDetails.phone.setCountryCode(phoneCountryCode);
         return this;
     }
 
-    public TokenSuccessResponse setPhoneNumber(String phoneNumber) {
+    public CardTokenisationResponse setPhoneNumber(String phoneNumber) {
         this.card.billingDetails.phone.setNumber(phoneNumber);
         return this;
     }

@@ -1,9 +1,10 @@
-package com.example.android_sdk.Utils;
+package com.example.android_sdk.Models;
 
-public class CardResponse {
+public class CardModel {
+
     private String expiryMonth;
     private String expiryYear;
-    public BillingDetails billingDetails = new BillingDetails();
+    public BillingModel billingDetails = new BillingModel();
     private String id;
     private String last4;
     private String bin;
@@ -18,7 +19,7 @@ public class CardResponse {
         this.expiryYear = expiryYear;
     }
 
-    public void setBillingDetails(BillingDetails billingDetails) {
+    public void setBillingDetails(BillingModel billingDetails) {
         this.billingDetails = billingDetails;
     }
 
@@ -50,7 +51,7 @@ public class CardResponse {
         return expiryYear;
     }
 
-    public BillingDetails getBillingDetails() {
+    public BillingModel getBillingDetails() {
         return billingDetails;
     }
 

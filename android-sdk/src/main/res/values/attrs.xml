@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="PaymentForm">
+    <declare-styleable name="CheckoutKit">
         <attr name="formBackground" format="string"/>
         <attr name="highlight" format="string"/>
     </declare-styleable>

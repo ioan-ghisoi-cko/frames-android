@@ -1,6 +1,9 @@
-package com.example.android_sdk.Utils;
+package com.example.android_sdk.Request;
 
-public class TokenisationRequest {
+import com.example.android_sdk.Models.BillingModel;
+import com.example.android_sdk.Models.PhoneModel;
+
+public class CardTokenisationRequest {
 
     private String number;
     private String name;
@@ -8,20 +11,20 @@ public class TokenisationRequest {
     private String expiryYear;
     private String cvv;
 
-    private BillingDetails billingDetails = new BillingDetails();
+    private BillingModel billingDetails = new BillingModel();
 
-    public TokenisationRequest() {
+    public CardTokenisationRequest() {
         // Empty constructor
     }
 
-    public TokenisationRequest(String number, String expiryMonth, String expiryYear, String cvv) {
+    public CardTokenisationRequest(String number, String expiryMonth, String expiryYear, String cvv) {
         this.number = number;
         this.expiryMonth = expiryMonth;
         this.expiryYear = expiryYear;
         this.cvv = cvv;
     }
 
-    public TokenisationRequest(String number, String expiryMonth, String expiryYear, String cvv, String name, String addressLine1, String addressLine2, String postcode, String country, String city, String state) {
+    public CardTokenisationRequest(String number, String expiryMonth, String expiryYear, String cvv, String name, String addressLine1, String addressLine2, String postcode, String country, String city, String state) {
         this.number = number;
         this.expiryMonth = expiryMonth;
         this.expiryYear = expiryYear;
@@ -35,7 +38,7 @@ public class TokenisationRequest {
         billingDetails.setState(state);
     }
 
-    public TokenisationRequest(String number, String expiryMonth, String expiryYear, String cvv, String name, String addressLine1, String addressLine2, String postcode, String country, String city, String state, PhoneDetails phoneDetails, String countryCode, String phoneNumber) {
+    public CardTokenisationRequest(String number, String expiryMonth, String expiryYear, String cvv, String name, String addressLine1, String addressLine2, String postcode, String country, String city, String state, PhoneModel phoneDetails, String countryCode, String phoneNumber) {
         this.number = number;
         this.expiryMonth = expiryMonth;
         this.expiryYear = expiryYear;
@@ -47,73 +50,72 @@ public class TokenisationRequest {
         billingDetails.setCountry(country);
         billingDetails.setCity(city);
         billingDetails.setState(state);
-        PhoneDetails phone = new PhoneDetails();
+        PhoneModel phone = new PhoneModel();
         phone.setNumber(phoneNumber);
         phone.setCountryCode(countryCode);
         billingDetails.setPhone(phone);
     }
 
-    public TokenisationRequest setCardNumber(String number) {
+    public CardTokenisationRequest setCardNumber(String number) {
         this.number = number;
         return this;
     }
 
-    public TokenisationRequest setExpiryMonth(String expiryMonth) {
+    public CardTokenisationRequest setExpiryMonth(String expiryMonth) {
         this.expiryMonth = expiryMonth;
         return this;
     }
 
-    public TokenisationRequest setExpiryYear(String expiryYear) {
+    public CardTokenisationRequest setExpiryYear(String expiryYear) {
         this.expiryYear = expiryYear;
         return this;
     }
 
-    public TokenisationRequest setCvv(String cvv) {
+    public CardTokenisationRequest setCvv(String cvv) {
         this.cvv = cvv;
         return this;
     }
 
-    public TokenisationRequest setName(String name) {
+    public CardTokenisationRequest setName(String name) {
         this.name = name;
         return this;
     }
 
-    public TokenisationRequest setAddressLine1(String addressLine1) {
+    public CardTokenisationRequest setAddressLine1(String addressLine1) {
         this.billingDetails.setAddressLine1(addressLine1);
         return this;
     }
 
-    public TokenisationRequest setAddressLine2(String addressLine2) {
+    public CardTokenisationRequest setAddressLine2(String addressLine2) {
         this.billingDetails.setAddressLine2(addressLine2);
         return this;
     }
 
-    public TokenisationRequest setPostcode(String postcode) {
+    public CardTokenisationRequest setPostcode(String postcode) {
         this.billingDetails.setPostcode(postcode);
         return this;
     }
 
-    public TokenisationRequest setCountry(String country) {
+    public CardTokenisationRequest setCountry(String country) {
         this.billingDetails.setCountry(country);
         return this;
     }
 
-    public TokenisationRequest setCity(String city) {
+    public CardTokenisationRequest setCity(String city) {
         this.billingDetails.setCity(city);
         return this;
     }
 
-    public TokenisationRequest setState(String state) {
+    public CardTokenisationRequest setState(String state) {
         this.billingDetails.setState(state);
         return this;
     }
 
-    public TokenisationRequest setPhoneNumber(String countryCode, String number) {
-        PhoneDetails phone = new PhoneDetails();
+    public CardTokenisationRequest setPhoneNumber(String countryCode, String number) {
+        PhoneModel phone = new PhoneModel();
         phone.setCountryCode(countryCode);
         phone.setNumber(number);
         this.billingDetails.setPhone(phone);
         return this;
     }
 }
-

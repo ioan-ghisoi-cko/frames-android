@@ -36,20 +36,7 @@ public class BillingDetailsView extends LinearLayout {
         void onBillingCanceled();
     }
 
-    private final CountryInput.CountryListener mCountryListener = new CountryInput.CountryListener() {
-
-        @Override
-        public void onCountryInputFinish(String country, String prefix) {
-            mDatastore.setCustomerCountry(country);
-            mDatastore.setCustomerPhonePrefix(prefix);
-            mPhone.setText(prefix + " ");
-            mAddressOne.requestFocus();
-            mAddressOne.performClick();
-        }
-    };
-
     private final NameInput.NameListener mNameListener = new NameInput.NameListener() {
-
         @Override
         public void onNameInputFinish(String number) {
             mDatastore.setCustomerName(number);
@@ -62,6 +49,19 @@ public class BillingDetailsView extends LinearLayout {
         }
 
     };
+
+    private final CountryInput.CountryListener mCountryListener = new CountryInput.CountryListener() {
+
+        @Override
+        public void onCountryInputFinish(String country, String prefix) {
+            mDatastore.setCustomerCountry(country);
+            mDatastore.setCustomerPhonePrefix(prefix);
+            mPhone.setText(prefix + " ");
+            mAddressOne.requestFocus();
+            mAddressOne.performClick();
+        }
+    };
+
 
     private final AddressOneInput.AddressOneListener mAddressOneListener = new AddressOneInput.AddressOneListener() {
 
@@ -159,7 +159,6 @@ public class BillingDetailsView extends LinearLayout {
     private ZipInput mZip;
     private PhoneInput mPhone;
     private DataStore mDatastore = DataStore.getInstance();
-
     private TextInputLayout mAddressOneLayout;
     private TextInputLayout mAddressTwoLayout;
     private TextInputLayout mCityLayout;
@@ -256,6 +255,41 @@ public class BillingDetailsView extends LinearLayout {
 
     }
 
+    private void repopulateFields() {
+        // Repopulate name
+        mName.setText(mDatastore.getCustomerName());
+
+        // Repopulate country
+        Locale[] locale = Locale.getAvailableLocales();
+        String country;
+
+        for (Locale loc : locale) {
+            country = loc.getDisplayCountry();
+            if (loc.getCountry().equals(mDatastore.getCustomerCountry())) {
+                mCountryInput.setSelection(((ArrayAdapter<String>) mCountryInput.getAdapter())
+                        .getPosition(country));
+            }
+        }
+
+        // Repopulate address line 1
+        mAddressOne.setText(mDatastore.getCustomerAddress1());
+
+        // Repopulate address line 1
+        mAddressTwo.setText(mDatastore.getCustomerAddress2());
+
+        // Repopulate city
+        mCity.setText(mDatastore.getCustomerCity());
+
+        // Repopulate state
+        mState.setText(mDatastore.getCustomerState());
+
+        // Repopulate zip/post code
+        mZip.setText(mDatastore.getCustomerZipcode());
+
+        // Repopulate phone
+        mPhone.setText(mDatastore.getCustomerPhone());
+    }
+
     private boolean isValisForm() {
         boolean result = true;
 
@@ -296,41 +330,6 @@ public class BillingDetailsView extends LinearLayout {
         return result;
     }
 
-    private void repopulateFields() {
-        // Repopulate name
-        mName.setText(mDatastore.getCustomerName());
-
-        // Repopulate country
-        Locale[] locale = Locale.getAvailableLocales();
-        String country;
-
-        for (Locale loc : locale) {
-            country = loc.getDisplayCountry();
-            if (loc.getCountry().equals(mDatastore.getCustomerCountry())) {
-                mCountryInput.setSelection(((ArrayAdapter<String>) mCountryInput.getAdapter())
-                        .getPosition(country));
-            }
-        }
-
-        // Repopulate address line 1
-        mAddressOne.setText(mDatastore.getCustomerAddress1());
-
-        // Repopulate address line 1
-        mAddressTwo.setText(mDatastore.getCustomerAddress2());
-
-        // Repopulate city
-        mCity.setText(mDatastore.getCustomerCity());
-
-        // Repopulate state
-        mState.setText(mDatastore.getCustomerState());
-
-        // Repopulate zip/post code
-        mZip.setText(mDatastore.getCustomerZipcode());
-
-        // Repopulate phone
-        mPhone.setText(mDatastore.getCustomerPhone());
-    }
-
     private void resetFields() {
         mName.setText("");
         mNameLayout.setError(null);
@@ -357,10 +356,6 @@ public class BillingDetailsView extends LinearLayout {
         mPhoneLayout.setErrorEnabled(false);
     }
 
-    public void setGoToCardDetailsListener(BillingDetailsView.Listener listener) {
-        mListener = listener;
-    }
-
     // Move to previous view on back button pressed
     @Override
     public boolean dispatchKeyEventPreIme(KeyEvent event) {
@@ -382,6 +377,10 @@ public class BillingDetailsView extends LinearLayout {
         }
 
         return super.dispatchKeyEventPreIme(event);
+    }
+
+    public void setGoToCardDetailsListener(BillingDetailsView.Listener listener) {
+        mListener = listener;
     }
 
 }

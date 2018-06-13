@@ -1,13 +1,13 @@
-package com.example.android_sdk.Utils;
+package com.example.android_sdk.Models;
 
-public class BillingDetails {
+public class BillingModel {
     private String addressLine1;
     private String addressLine2;
     private String postcode;
     private String country;
     private String city;
     private String state;
-    public PhoneDetails phone;
+    public PhoneModel phone;
 
     public void setAddressLine1(String addressLine1) {
         this.addressLine1 = addressLine1;
@@ -33,7 +33,7 @@ public class BillingDetails {
         this.state = state;
     }
 
-    public void setPhone(PhoneDetails phone) {
+    public void setPhone(PhoneModel phone) {
         this.phone = phone;
     }
 
@@ -61,7 +61,7 @@ public class BillingDetails {
         return state;
     }
 
-    public PhoneDetails getPhone() {
+    public PhoneModel getPhone() {
         return phone;
     }
 }

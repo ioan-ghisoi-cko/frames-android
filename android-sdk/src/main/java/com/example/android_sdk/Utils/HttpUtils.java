@@ -3,7 +3,6 @@ package com.example.android_sdk.Utils;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -12,11 +11,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.android_sdk.Input.CityInput;
-import com.example.android_sdk.PaymentForm;
-import com.example.android_sdk.Store.DataStore;
-import com.google.gson.Gson;
+import com.example.android_sdk.CheckoutKit;
+import com.example.android_sdk.Response.CardTokenisationFail;
+import com.example.android_sdk.Response.CardTokenisationResponse;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,21 +24,8 @@ import java.util.Map;
 
 public class HttpUtils {
 
-//    private PaymentForm.OnTokenGenerated mCardListener = new PaymentForm.OnTokenGenerated() {
-//        @Override
-//        public void onTokenGenerated(String token) {
-//
-//        }
-//
-//        @Override
-//        public void onError(String errorMessage) {
-//
-//        }
-//
-//    };
-
     private @Nullable
-    PaymentForm.OnTokenGenerated mTokenListener;
+    CheckoutKit.OnTokenGenerated mTokenListener;
     private Context mContext;
 
     public HttpUtils(Context context) {
@@ -57,7 +43,7 @@ public class HttpUtils {
                     public void onResponse(JSONObject response) {
                         try {
                             if (mTokenListener != null) {
-                                TokenSuccessResponse responseBody = new TokenSuccessResponse();
+                                CardTokenisationResponse responseBody = new CardTokenisationResponse();
                                 JSONObject card = response.getJSONObject("card");
                                 JSONObject billing = card.getJSONObject("billingDetails");
                                 JSONObject phone = billing.getJSONObject("phone");
@@ -79,13 +65,13 @@ public class HttpUtils {
                                         .setCity(billing.getString("city"))
                                         .setState(billing.getString("state"))
                                         .setAddressLine1(billing.getString("addressLine1"));
-                                try{
+                                try {
                                     responseBody.setPhoneCountryCode(phone.getString("countryCode"));
                                 } catch (Exception e) {
                                     // null value
                                 }
 
-                                try{
+                                try {
                                     responseBody.setPhoneNumber(phone.getString("number"));
                                 } catch (Exception e) {
                                     // null value
@@ -105,8 +91,27 @@ public class HttpUtils {
                         if (networkResponse != null && networkResponse.data != null) {
                             try {
                                 JSONObject jsonError = new JSONObject(new String(networkResponse.data));
+
+                                JSONArray errorMessageCodes = jsonError.getJSONArray("errorMessageCodes");
+                                String[] codes = new String[errorMessageCodes.length()];
+                                for (int i = 0; i < errorMessageCodes.length(); i++)
+                                    codes[i] = errorMessageCodes.getString(i);
+
+                                JSONArray errors = jsonError.getJSONArray("errors");
+                                String[] err = new String[errors.length()];
+                                for (int i = 0; i < errors.length(); i++)
+                                    err[i] = errors.getString(i);
+
+
+                                CardTokenisationFail cardTokenisationFail = new CardTokenisationFail();
+                                cardTokenisationFail
+                                        .setEventId(jsonError.getString("eventId"))
+                                        .setErrorCode(jsonError.getString("errorCode"))
+                                        .setMessage(jsonError.getString("message"))
+                                        .setErrorMessageCodes(codes)
+                                        .setErrors(err);
                                 if (mTokenListener != null) {
-                                    mTokenListener.onError(jsonError.getString("message"));
+                                    mTokenListener.onError(cardTokenisationFail);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -126,7 +131,7 @@ public class HttpUtils {
         queue.add(portRequest);
     }
 
-    public void setTokenListener(PaymentForm.OnTokenGenerated listener) {
+    public void setTokenListener(CheckoutKit.OnTokenGenerated listener) {
         mTokenListener = listener;
     }
 }
