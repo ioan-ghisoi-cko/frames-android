@@ -10,9 +10,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 
+import com.example.android_sdk.Models.GooglePayModel;
 import com.example.android_sdk.Request.CardTokenisationRequest;
+import com.example.android_sdk.Request.GooglePayTokenisationRequest;
 import com.example.android_sdk.Response.CardTokenisationFail;
 import com.example.android_sdk.Response.CardTokenisationResponse;
+import com.example.android_sdk.Response.GooglePayTokenisationFail;
+import com.example.android_sdk.Response.GooglePayTokenisationResponse;
 import com.example.android_sdk.Store.DataStore;
 import com.example.android_sdk.Utils.CustomAdapter;
 import com.example.android_sdk.Utils.HttpUtils;
@@ -21,6 +25,7 @@ import com.example.android_sdk.View.CardDetailsView;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 public class CheckoutKit extends FrameLayout {
 
@@ -42,11 +47,20 @@ public class CheckoutKit extends FrameLayout {
         void onError(String errorMessage);
     }
 
+    /**
+     * This is interface used as a callback for when the google pay token is generated
+     */
+    public interface OnGooglePayTokenGenerated {
+        void onTokenGenerated(GooglePayTokenisationResponse response);
+
+        void onError(GooglePayTokenisationFail error);
+    }
+
     // Environments
     private static final String CARD_ENV_SANDBOX = "https://sandbox.checkout.com/api2/v2/tokens/card/";
     private static final String CARD_ENV_LIVE = "https://api2.checkout.com/v2/tokens/card/";
-    private static final String GOOGLE_ENV_SANDBOX = "https://sandbox.checkout.com/api2/v2/tokens/";
-    private static final String GOOGLE_ENV_LIVE = "https://api2.checkout.com/v2/tokens/";
+    private static final String GOOGLE_ENV_SANDBOX = "https://sandbox.checkout.com/api2/tokens";
+    private static final String GOOGLE_ENV_LIVE = "https://api2.checkout.com/tokens";
     // Indexes for the pages
     private static int CARD_DETAILS_PAGE_INDEX = 0;
     private static int BILLING_DETAILS_PAGE_INDEX = 1;
@@ -94,6 +108,7 @@ public class CheckoutKit extends FrameLayout {
     private Context mContext;
     private CheckoutKit.OnTokenGenerated mTokenListener;
     public CheckoutKit.on3DSFinished m3DSecureListener;
+    private CheckoutKit.OnGooglePayTokenGenerated mGooglePayTokenListener;
 
     private String ENVIRONMENT = "sandbox";
     private String KEY = "";
@@ -232,6 +247,46 @@ public class CheckoutKit extends FrameLayout {
     }
 
     /**
+     * This method used to create a token that can be used in a server environment to create a
+     * charge. It take a GooglePay payload in JSONObject. The payload is usually generated in
+     * the handlePaymentSuccess method shown in the Google Pay example from Google (token.getToken())
+     *
+     * @param googlePayToken Google Pay Payload
+     */
+    public void generateGooglePayToken(JSONObject googlePayToken) throws JSONException {
+
+        // Initialise the HTTP utility class
+        HttpUtils http = new HttpUtils(mContext);
+
+        // Provide a callback for when the token request is completed
+        http.setGooglePayTokenListener(mGooglePayTokenListener);
+
+        GooglePayTokenisationRequest gPay = new GooglePayTokenisationRequest();
+
+        gPay
+                .setSignature(googlePayToken.getString("signature"))
+                .setProtocolVersion(googlePayToken.getString("protocolVersion"))
+                .setSignedMessage(googlePayToken.getString("signedMessage"));
+
+        // Using Gson to convert the custom request object into a JSON string for use in the HTTP call
+        Gson gson = new Gson();
+        String jsonBody = gson.toJson(gPay);
+
+        try {
+            // Remove any spaces or uppercase letters when defining the environment
+            // Decide the environment and perform the request
+            if (ENVIRONMENT.toLowerCase().replaceAll(" ", "").equals("live")) {
+                http.generateGooglePayToken(this.KEY, GOOGLE_ENV_LIVE, jsonBody);
+            } else {
+                http.generateGooglePayToken(this.KEY, GOOGLE_ENV_SANDBOX, jsonBody);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
      * This method used to generate a {@link CardTokenisationRequest} with the details
      * completed by the user in the payment from
      * displayed in the payment form.
@@ -293,8 +348,9 @@ public class CheckoutKit extends FrameLayout {
     /**
      * This method used to set a callback for when the 3D Secure handling.
      */
-    public void set3DSListener(CheckoutKit.on3DSFinished listener) {
+    public CheckoutKit set3DSListener(CheckoutKit.on3DSFinished listener) {
         this.m3DSecureListener = listener;
+        return this;
     }
 
     /**
@@ -304,6 +360,11 @@ public class CheckoutKit extends FrameLayout {
      */
     public CheckoutKit setTokenListener(OnTokenGenerated listener) {
         this.mTokenListener = listener;
+        return this;
+    }
+
+    public CheckoutKit setGooglePayListener(OnGooglePayTokenGenerated listener) {
+        this.mGooglePayTokenListener = listener;
         return this;
     }
 }

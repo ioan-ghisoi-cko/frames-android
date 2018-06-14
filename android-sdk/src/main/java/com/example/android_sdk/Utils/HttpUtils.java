@@ -14,6 +14,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.android_sdk.CheckoutKit;
 import com.example.android_sdk.Response.CardTokenisationFail;
 import com.example.android_sdk.Response.CardTokenisationResponse;
+import com.example.android_sdk.Response.GooglePayTokenisationFail;
+import com.example.android_sdk.Response.GooglePayTokenisationResponse;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,11 +28,74 @@ public class HttpUtils {
 
     private @Nullable
     CheckoutKit.OnTokenGenerated mTokenListener;
+    private @Nullable
+    CheckoutKit.OnGooglePayTokenGenerated mGooglePayTokenListener;
     private Context mContext;
 
     public HttpUtils(Context context) {
         //empty constructor
         mContext = context;
+    }
+
+    public void generateGooglePayToken(final String key, String url, String body) throws JSONException {
+
+        RequestQueue queue = Volley.newRequestQueue(mContext);
+
+        JsonObjectRequest portRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(body),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        GooglePayTokenisationResponse responseBody = new GooglePayTokenisationResponse();
+                        try {
+                            responseBody
+                                    .setType(response.getString("type"))
+                                    .setToken(response.getString("token"))
+                                    .setExpiration(response.getString("expires_on"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        mGooglePayTokenListener.onTokenGenerated(responseBody);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        NetworkResponse networkResponse = error.networkResponse;
+                        if (networkResponse != null && networkResponse.data != null) {
+                            try {
+                                JSONObject jsonError = new JSONObject(new String(networkResponse.data));
+
+                                GooglePayTokenisationFail errorBody = new GooglePayTokenisationFail();
+
+                                errorBody
+                                        .setRequestId(jsonError.getString("request_id"))
+                                        .setErrorType(jsonError.getString("error_type"));
+
+                                JSONArray errors = jsonError.getJSONArray("error_codes");
+                                String[] err = new String[errors.length()];
+                                for (int i = 0; i < errors.length(); i++)
+                                    err[i] = errors.getString(i);
+
+                                errorBody.setErrorCodes(err);
+
+                                mGooglePayTokenListener.onError(errorBody);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", key);
+                return params;
+            }
+        };
+        portRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 10, 1.0f));
+        queue.add(portRequest);
     }
 
     public void generateToken(final String key, String url, String body) throws JSONException {
@@ -133,5 +198,9 @@ public class HttpUtils {
 
     public void setTokenListener(CheckoutKit.OnTokenGenerated listener) {
         mTokenListener = listener;
+    }
+
+    public void setGooglePayTokenListener(CheckoutKit.OnGooglePayTokenGenerated listener) {
+        mGooglePayTokenListener = listener;
     }
 }

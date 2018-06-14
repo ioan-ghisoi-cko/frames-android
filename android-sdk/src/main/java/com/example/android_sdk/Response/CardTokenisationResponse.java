@@ -126,7 +126,7 @@ public class CardTokenisationResponse {
         return this.card.getExpiryMonth();
     }
 
-    public String getExpiryYear(String expiryYear) {
+    public String getExpiryYear() {
         return this.card.getExpiryYear();
     }
 
@@ -158,7 +158,7 @@ public class CardTokenisationResponse {
         return this.card.billingDetails.getAddressLine2();
     }
 
-    public String getPostoce() {
+    public String getPostcode() {
         return this.card.billingDetails.getPostcode();
     }
 
@@ -180,5 +180,9 @@ public class CardTokenisationResponse {
 
     public String getPhoneNumber() {
         return this.card.billingDetails.phone.getNumber();
+    }
+
+    public String getPhoneCountryCode() {
+        return this.card.billingDetails.phone.getCountryCode();
     }
 }

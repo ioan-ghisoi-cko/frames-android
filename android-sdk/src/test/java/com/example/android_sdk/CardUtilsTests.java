@@ -229,7 +229,7 @@ public class CardUtilsTests {
 
     @Test
     public void unionpay_full_isFormatted() {
-        assertEquals("6212 3456 7890 1265", utils.getFormattedCardNumber("6212345678901265"));
+        assertEquals("6212 345678 901265", utils.getFormattedCardNumber("6212345678901265"));
     }
 
     // MAESTRO

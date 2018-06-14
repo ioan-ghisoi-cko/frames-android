@@ -152,7 +152,7 @@ public class CardUtils {
         return (oddSum + evenSum) % 10 == 0;
     }
 
-    /**
+    /**f
      * Returns a String without any spaces
      * <p>
      * This method used to take a card number input String and return a
