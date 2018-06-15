@@ -101,7 +101,7 @@
                             android:layout_marginEnd="@dimen/cards_icon_margin"
                             android:layout_marginRight="@dimen/cards_icon_margin"
                             android:contentDescription="@string/card_icon_resource"
-                            android:src="@drawable/diners" />
+                            android:src="@drawable/dinersclub" />
 
                         <ImageView
                             android:layout_width="@dimen/cards_icon_size"

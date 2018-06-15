@@ -161,7 +161,7 @@ public class CardInput extends android.support.v7.widget.AppCompatEditText {
                 setCompoundDrawablePadding(5);
                 break;
             case "UNIONPAY":
-                img = getContext().getResources().getDrawable(R.drawable.union);
+                img = getContext().getResources().getDrawable(R.drawable.unionpay);
                 img.setBounds(0, 0, 68, 68);
                 setCompoundDrawables(null, null, img, null);
                 setCompoundDrawablePadding(5);
@@ -173,7 +173,7 @@ public class CardInput extends android.support.v7.widget.AppCompatEditText {
                 setCompoundDrawablePadding(5);
                 break;
             case "DINERSCLUB":
-                img = getContext().getResources().getDrawable(R.drawable.diners);
+                img = getContext().getResources().getDrawable(R.drawable.dinersclub);
                 img.setBounds(0, 0, 68, 68);
                 setCompoundDrawables(null, null, img, null);
                 setCompoundDrawablePadding(5);

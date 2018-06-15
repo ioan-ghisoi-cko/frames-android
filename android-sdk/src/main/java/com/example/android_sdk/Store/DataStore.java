@@ -1,5 +1,7 @@
 package com.example.android_sdk.Store;
 
+import com.example.android_sdk.Utils.CardUtils;
+
 /**
  * The DataStore
  * <p>
@@ -14,6 +16,8 @@ public class DataStore {
     private String mCardYear;
     private String mCardCvv;
     private int mCvvLength = 4;
+
+    private CardUtils.Cards[] acceptedCards;
 
     private String mSuccessUrl;
     private String mFailUrl;
@@ -241,5 +245,13 @@ public class DataStore {
         DataStore.getInstance().setCustomerState("");
         DataStore.getInstance().setCustomerZipcode("");
         DataStore.getInstance().setCustomerPhone("");
+    }
+
+    public CardUtils.Cards[] getAcceptedCards() {
+        return acceptedCards;
+    }
+
+    public void setAcceptedCards(CardUtils.Cards[] acceptedCards) {
+        this.acceptedCards = acceptedCards;
     }
 }

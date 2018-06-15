@@ -17,6 +17,7 @@ import com.example.android_sdk.Response.CardTokenisationResponse;
 import com.example.android_sdk.Response.GooglePayTokenisationFail;
 import com.example.android_sdk.Response.GooglePayTokenisationResponse;
 import com.example.android_sdk.Store.DataStore;
+import com.example.android_sdk.Utils.CardUtils;
 import com.example.android_sdk.Utils.CustomAdapter;
 import com.example.android_sdk.Utils.HttpUtils;
 import com.example.android_sdk.View.BillingDetailsView;
@@ -149,7 +150,7 @@ public class CheckoutKit extends FrameLayout {
     }
 
     /**
-     * This method used to initialise the UI of the module
+     * This method is used to initialise the UI of the module
      */
     private void initView() {
         // Set up the layout
@@ -167,7 +168,7 @@ public class CheckoutKit extends FrameLayout {
     }
 
     /**
-     * This method used to generate a card token.
+     * This method is used to generate a card token.
      * <p>
      * It takes a {@link CardTokenisationRequest} as the argumnet and it will perform a
      * HTTP Post request to generate the token. it is important to you select an environment and
@@ -205,7 +206,7 @@ public class CheckoutKit extends FrameLayout {
     }
 
     /**
-     * This method used set the the environment for use in the card tokenisation requests
+     * This method is used set the the environment for use in the card tokenisation requests
      *
      * @param environment this can be either live or sandbox
      */
@@ -215,7 +216,7 @@ public class CheckoutKit extends FrameLayout {
     }
 
     /**
-     * This method used set the the public key for use in the card tokenisation requests
+     * This method is used set the the public key for use in the card tokenisation requests
      *
      * @param key the public key from the Checkout.com HUB
      */
@@ -225,7 +226,17 @@ public class CheckoutKit extends FrameLayout {
     }
 
     /**
-     * This method used to handle 3D Secure URLs.
+     * This method is used set the accepted card schemes
+     *
+     * @param cards array of accepted cards
+     */
+    public CheckoutKit setAcceptedCard(CardUtils.Cards[] cards) {
+        mDataStore.setAcceptedCards(cards);
+        return this;
+    }
+
+    /**
+     * This method is used to handle 3D Secure URLs.
      * <p>
      * It wil programmatically generate a WebView and listen for when the url changes
      * in either the success url or the fail url.

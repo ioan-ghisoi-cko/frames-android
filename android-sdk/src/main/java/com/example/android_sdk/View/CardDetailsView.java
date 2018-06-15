@@ -6,9 +6,11 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -164,6 +166,7 @@ public class CardDetailsView extends LinearLayout {
     private Button mPayButton;
     private TextView mBillingHelper;
     private Toolbar mToolbar;
+    private LinearLayout mAcceptedCardsView;
     private AttributeSet attrs;
 
     public CardDetailsView(Context context) {
@@ -226,6 +229,10 @@ public class CardDetailsView extends LinearLayout {
 
         // Restore state in case the orientation changes
         repopulateField();
+
+        // Populate accepted cards
+        mAcceptedCardsView = findViewById(R.id.card_icons_layout);
+        setAcceptedCards();
     }
 
     /**
@@ -310,6 +317,7 @@ public class CardDetailsView extends LinearLayout {
 
         return outcome;
     }
+
     /**
      * Used to indicate the validity of the date
      * <p>
@@ -339,7 +347,6 @@ public class CardDetailsView extends LinearLayout {
      * <p>
      * The method will be used to clear/reset the billing details spinner in case the user
      * has decide to clear their details from the {@link BillingDetailsView}
-     *
      */
     public void clearBillingSpinner() {
         List<String> billingElement = new ArrayList<>();
@@ -361,7 +368,6 @@ public class CardDetailsView extends LinearLayout {
      * The method will be called when the user has successfully saved their billing details and
      * to visually confirm that, the spinner is populated with the details and the default ADD
      * button is replaced by a EDIT button
-     *
      */
     public void updateBillingSpinner() {
 
@@ -386,11 +392,47 @@ public class CardDetailsView extends LinearLayout {
     }
 
     /**
+     * Used dynamically populate the accepted cards view is the option is used
+     */
+    public void setAcceptedCards() {
+
+        // if the accepted card were selected show only the accepted card otherwise show all options
+        if (mDataStore.getAcceptedCards() != null) {
+
+
+            for (int i = 0; i < mAcceptedCardsView.getChildCount(); i++) {
+                final View child = mAcceptedCardsView.getChildAt(i);
+                if (child instanceof ImageView) {
+                    child.setVisibility(GONE);
+                }
+            }
+
+
+
+            int size = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 35, getResources().getDisplayMetrics());
+            int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, getResources().getDisplayMetrics());
+
+            for (CardUtils.Cards card : mDataStore.getAcceptedCards()) {
+                ImageView image = new ImageView(mContext);
+                image.setLayoutParams(new android.view.ViewGroup.LayoutParams(size, size));
+                image.setImageResource(getResources().getIdentifier(card.name, "drawable", mContext.getPackageName()));
+                MarginLayoutParams marginParams = new MarginLayoutParams(image.getLayoutParams());
+                marginParams.setMargins(0, 0, margin, 0);
+
+                // Adds the view to the layout
+                mAcceptedCardsView.addView(image);
+            }
+        }
+
+    }
+
+    /**
      * Used to set the callback listener for when the form is submitted
      */
     public void setDetailsCompletedListener(CardDetailsView.DetailsCompleted listener) {
         mDetailsCompletedListener = listener;
     }
+
     /**
      * Used to set the callback listener for when the billing details page is requested
      */
