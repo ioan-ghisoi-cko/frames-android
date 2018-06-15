@@ -2,6 +2,9 @@ package com.example.android_sdk.Response;
 
 import com.example.android_sdk.Models.CardModel;
 
+/**
+ * The response model object for the card tokenisation response
+ */
 public class CardTokenisationResponse {
 
     private String id;

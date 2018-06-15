@@ -5,17 +5,8 @@ package com.example.android_sdk.Store;
  * <p>
  * Used to contain state within the SDK for easy communication between custom components.
  * It is also used preserve and restore state when in case the device orientation changes.
- *
  */
 public class DataStore {
-
-    private static final String CARD_ENV_SANDBOX = "https://sandbox.checkout.com/api2/v2/tokens/card/";
-    private static final String CARD_ENV_LIVE = "https://api2.checkout.com/v2/tokens/card/";
-    private static final String GOOGLE_ENV_SANDBOX = "https://sandbox.checkout.com/api2/v2/tokens/";
-    private static final String GOOGLE_ENV_LIVE = "https://api2.checkout.com/v2/tokens/";
-    private String mSuccessUrl;
-    private String mFailUrl;
-
 
     private static DataStore INSTANCE = null;
     private String mCardNumber;
@@ -23,6 +14,9 @@ public class DataStore {
     private String mCardYear;
     private String mCardCvv;
     private int mCvvLength = 4;
+
+    private String mSuccessUrl;
+    private String mFailUrl;
 
     private boolean IsValidCardNumber = false;
     private boolean IsValidCardMonth = false;
@@ -53,22 +47,6 @@ public class DataStore {
             INSTANCE = new DataStore();
         }
         return (INSTANCE);
-    }
-
-    public static String getCardEnvSandbox() {
-        return CARD_ENV_SANDBOX;
-    }
-
-    public static String getCardEnvLive() {
-        return CARD_ENV_LIVE;
-    }
-
-    public static String getGoogleEnvSandbox() {
-        return GOOGLE_ENV_SANDBOX;
-    }
-
-    public static String getGoogleEnvLive() {
-        return GOOGLE_ENV_LIVE;
     }
 
     public String getSuccessUrl() {
@@ -237,14 +215,6 @@ public class DataStore {
 
     public void setFormBackground(String formBackground) {
         this.formBackground = formBackground;
-    }
-
-    public String getFieldHighlight() {
-        return fieldHighlight;
-    }
-
-    public void setFieldHighlight(String fieldHighlight) {
-        this.fieldHighlight = fieldHighlight;
     }
 
     public String getCustomerName() {

@@ -1,5 +1,8 @@
 package com.example.android_sdk.Response;
 
+/**
+ * The response model object for the Google Pay tokenisation error
+ */
 public class GooglePayTokenisationFail {
 
     private String request_id;

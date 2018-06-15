@@ -14,6 +14,12 @@ import com.example.android_sdk.View.CardDetailsView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The adapter of the viewpager used to have the 2 pages {@link CardDetailsView}
+ * and {@link BillingDetailsView}
+ * <p>
+ * This class handles interaction initialisation and interaction between the to pages
+ */
 public class CustomAdapter extends PagerAdapter {
 
     private Context mContext;
@@ -28,26 +34,44 @@ public class CustomAdapter extends PagerAdapter {
         mContext = context;
     }
 
+    /**
+     * Pass the callback to go to the billing page
+     */
     public void setCardDetailsListener(CardDetailsView.GoToBillingListener listener) {
         mCardDetailsListener = listener;
     }
 
+    /**
+     * Pass the callback to go to the card details page
+     */
     public void setBillingListener(BillingDetailsView.Listener listener) {
         mBillingListener = listener;
     }
 
+    /**
+     * Pass the callback for when the card toke is generated
+     */
     public void setTokenDetailsCompletedListener(CardDetailsView.DetailsCompleted listener) {
         mDetailsCompletedListener = listener;
     }
 
+    /**
+     * Indicate the {@link CardDetailsView} need to update the billing spinner
+     */
     public void updateBillingSpinner() {
         cardDetailsView.updateBillingSpinner();
     }
 
+     /**
+     * Indicate the {@link CardDetailsView} need to clear the billing spinner
+     */
     public void clearBillingSpinner() {
         cardDetailsView.clearBillingSpinner();
     }
 
+    /**
+     * Instantiation function
+     */
     @NonNull
     @Override
     public LinearLayout instantiateItem(@NonNull ViewGroup container, int position) {
@@ -55,12 +79,18 @@ public class CustomAdapter extends PagerAdapter {
         return mViews.get(position);
     }
 
+    /**
+     * Indicate there viewpager position
+     */
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
         return "page " + position;
     }
 
+    /**
+     * Indicate there is only a 2 level depth in the viewpager
+     */
     @Override
     public int getCount() {
         return 2;
@@ -71,6 +101,10 @@ public class CustomAdapter extends PagerAdapter {
         return view == object;
     }
 
+    /**
+     * Instantiates teh viewpager and adds the 2 pages: {@link CardDetailsView}
+     * and {@link BillingDetailsView}
+     */
     private void maybeInstantiateViews(ViewGroup container) {
         if (mViews.isEmpty()) {
             cardDetailsView = new CardDetailsView(mContext);

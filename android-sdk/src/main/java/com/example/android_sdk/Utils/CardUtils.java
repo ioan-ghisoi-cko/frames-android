@@ -1,14 +1,12 @@
 package com.example.android_sdk.Utils;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+
+import java.util.Calendar;
 
 /**
- * <h1>CardUtils class</h1>
- * This class will provide information about different card types.
- *
- * @author Ioan Ghisoi
- * @version 1.0
- * @since 2018-06-01
+ * Provide information about different card types.
  */
 public class CardUtils {
 
@@ -63,13 +61,6 @@ public class CardUtils {
     }
 
     /**
-     * Constructor required to initialise the {@link CardUtils} class.
-     */
-    public CardUtils() {
-        // Empty constructor needed
-    }
-
-    /**
      * Returns a Cards object can be used to identify the card type and
      * information about: regex, card/cvv maximum length, space separation
      * The number argument must specify as a String.
@@ -82,7 +73,7 @@ public class CardUtils {
      * @return Cards object for the given type found
      * @see Cards
      */
-    public Cards getType(String number) {
+    public static Cards getType(String number) {
 
         // Remove spaces from The number String
         number = sanitizeEntry(number);
@@ -90,7 +81,7 @@ public class CardUtils {
 
         // Iterate over the card card types and check what pattern matches
         if (!number.equals("")) {
-            for (Cards card: cards) {
+            for (Cards card : cards) {
                 if (number.matches(card.pattern)) {
                     return card;
                 }
@@ -110,7 +101,7 @@ public class CardUtils {
      * @param number the String value of a card number
      * @return If the card number is valid or not
      */
-    public boolean isValidCard(@Nullable String number) {
+    public static boolean isValidCard(@Nullable String number) {
         if (number == null || number.equals("")) {
             return false;
         } else {
@@ -120,7 +111,7 @@ public class CardUtils {
                 if (number.length() == getType(number).cardLength[i] &&
                         checkLuhn(number) &&
                         getType(number) != cards[9]) {
-                        return true;
+                    return true;
                 }
             }
         }
@@ -135,7 +126,7 @@ public class CardUtils {
      * @param number the String value of a card number
      * @return If the card number passes Luhn validation
      */
-    private boolean checkLuhn(String number) {
+    private static boolean checkLuhn(String number) {
         final String rev = new StringBuffer(number).reverse().toString();
         final int len = rev.length();
         int oddSum = 0;
@@ -152,7 +143,8 @@ public class CardUtils {
         return (oddSum + evenSum) % 10 == 0;
     }
 
-    /**f
+    /**
+     * f
      * Returns a String without any spaces
      * <p>
      * This method used to take a card number input String and return a
@@ -173,7 +165,7 @@ public class CardUtils {
      * @param number card number in string format
      * @return processedCard
      */
-    public String getFormattedCardNumber(String number) {
+    public static String getFormattedCardNumber(String number) {
 
         // Remove spaces form the card String
         String processedCard = sanitizeEntry(number);
@@ -191,5 +183,55 @@ public class CardUtils {
         }
 
         return processedCard;
+    }
+
+    /**
+     * Returns a boolean showing is the date is valid
+     * <p>
+     * Used to take a card number String and provide formatting (span space characters)
+     *
+     * @param month the card expiration month as a string
+     * @param year the card expiration year as a string
+     * @return boolean representing validity
+     */
+    public static boolean isValidDate(String month, String year) {
+        if (TextUtils.isDigitsOnly(sanitizeEntry(month)) &&
+                TextUtils.isDigitsOnly(sanitizeEntry(year))) {
+
+            if (Integer.valueOf(month) < 1 || Integer.valueOf(month) > 12)
+                return false;
+
+            // Get current year and month
+            Calendar calendar = Calendar.getInstance();
+            int calendarYear = calendar.get(Calendar.YEAR);
+            int calendarMonth = calendar.get(Calendar.MONTH);
+
+            if (Integer.valueOf(year) < calendarYear)
+                return false;
+            if (Integer.valueOf(year) == calendarYear &&
+                    Integer.valueOf(month) < calendarMonth)
+                return false;
+
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Returns a boolean showing is the cvv is valid in relation to the card type
+     * <p>
+     * Used to take a card number String and provide formatting (span space characters)
+     *
+     * @param cvv the card cvv
+     * @param card the card object
+     * @return boolean representing validity
+     */
+    public static boolean isValidCvv(String cvv, Cards card) {
+        if (TextUtils.isDigitsOnly(sanitizeEntry(cvv)) &&
+                card!= null) {
+            if(card.maxCvvLength == cvv.length())
+                return true;
+        }
+        return false;
     }
 }

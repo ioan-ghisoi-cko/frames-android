@@ -1,8 +1,12 @@
 package com.example.android_sdk.Request;
 
+/**
+ * The request model object for the Google Pay tokenisation request
+ */
 import com.example.android_sdk.Models.GooglePayModel;
 
 public class GooglePayTokenisationRequest {
+
     private String type = "googlepay";
     private GooglePayModel token_data = new GooglePayModel();
 

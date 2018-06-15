@@ -1,11 +1,13 @@
 package com.example.android_sdk.Response;
 
+/**
+ * The response model object for the Google Pay tokenisation response
+ */
 public class GooglePayTokenisationResponse {
 
     private String type;
     private String token;
     private String expires_on;
-
 
     public GooglePayTokenisationResponse setType(String type) {
         this.type = type;

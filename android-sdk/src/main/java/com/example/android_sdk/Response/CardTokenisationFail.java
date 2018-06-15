@@ -1,5 +1,8 @@
 package com.example.android_sdk.Response;
 
+/**
+ * The response model object for the card tokenisation error
+ */
 public class CardTokenisationFail {
 
     private String eventId;

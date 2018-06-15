@@ -1,5 +1,8 @@
 package com.example.android_sdk.Models;
 
+/**
+ * Http request Phone object model
+ */
 public class PhoneModel {
 
     private String countryCode;

@@ -24,6 +24,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Helper class used to create HTTP calls
+ * <p>
+ * This class handles interaction with the Checkout.com API
+ */
 public class HttpUtils {
 
     private @Nullable
@@ -37,6 +42,17 @@ public class HttpUtils {
         mContext = context;
     }
 
+    /**
+     * Used to do a HTTP call with the card details
+     * <p>
+     * This method will perform an HTTP POST request to the Checkout.com API.
+     * The API call is async so it will us the callback to communicate the result
+     * This method is used to generate a card token
+     *
+     * @param key  the public key of the customer
+     * @param url  the request URL
+     * @param body the body of the request as a JSON String
+     */
     public void generateGooglePayToken(final String key, String url, String body) throws JSONException {
 
         RequestQueue queue = Volley.newRequestQueue(mContext);
@@ -45,6 +61,7 @@ public class HttpUtils {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        // Create a response object and populate it
                         GooglePayTokenisationResponse responseBody = new GooglePayTokenisationResponse();
                         try {
                             responseBody
@@ -54,7 +71,10 @@ public class HttpUtils {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        mGooglePayTokenListener.onTokenGenerated(responseBody);
+                        // Use the callback to send the response
+                        if(mGooglePayTokenListener != null) {
+                            mGooglePayTokenListener.onTokenGenerated(responseBody);
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -64,13 +84,11 @@ public class HttpUtils {
                         if (networkResponse != null && networkResponse.data != null) {
                             try {
                                 JSONObject jsonError = new JSONObject(new String(networkResponse.data));
-
                                 GooglePayTokenisationFail errorBody = new GooglePayTokenisationFail();
-
                                 errorBody
                                         .setRequestId(jsonError.getString("request_id"))
                                         .setErrorType(jsonError.getString("error_type"));
-
+                                // Iterate the errors and create an array of string with them
                                 JSONArray errors = jsonError.getJSONArray("error_codes");
                                 String[] err = new String[errors.length()];
                                 for (int i = 0; i < errors.length(); i++)
@@ -78,7 +96,10 @@ public class HttpUtils {
 
                                 errorBody.setErrorCodes(err);
 
-                                mGooglePayTokenListener.onError(errorBody);
+                                // Use the callback to send the response
+                                if(mGooglePayTokenListener != null) {
+                                    mGooglePayTokenListener.onError(errorBody);
+                                }
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -89,15 +110,28 @@ public class HttpUtils {
         ) {
             @Override
             public Map<String, String> getHeaders() {
+                // Add the Authorisation headers
                 Map<String, String> params = new HashMap<>();
                 params.put("Authorization", key);
                 return params;
             }
         };
+        // Enable retry policy since is not enabled by default in the Volley
         portRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 10, 1.0f));
         queue.add(portRequest);
     }
 
+    /**
+     * Used to do a HTTP call with the Google Pay's payload
+     * <p>
+     * This method will perform an HTTP POST request to the Checkout.com API.
+     * The API call is async so it will us the callback to communicate the result.
+     * This method is used to generate a token for Google Pay
+     *
+     * @param key  the public key of the customer
+     * @param url  the request URL
+     * @param body the body of the request as a JSON String
+     */
     public void generateToken(final String key, String url, String body) throws JSONException {
 
         RequestQueue queue = Volley.newRequestQueue(mContext);
@@ -196,10 +230,16 @@ public class HttpUtils {
         queue.add(portRequest);
     }
 
+    /**
+     * Used to set the callback listener for when the card token is generated
+     */
     public void setTokenListener(CheckoutKit.OnTokenGenerated listener) {
         mTokenListener = listener;
     }
 
+    /**
+     * Used to set the callback listener for when the token for Google Pay is generated
+     */
     public void setGooglePayTokenListener(CheckoutKit.OnGooglePayTokenGenerated listener) {
         mGooglePayTokenListener = listener;
     }

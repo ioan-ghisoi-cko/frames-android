@@ -2,7 +2,6 @@ package com.example.android_sdk.Input;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.telephony.TelephonyManager;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -13,10 +12,11 @@ import com.example.android_sdk.Utils.PhoneUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
+/**
+ * A custom Spinner with handling of city input
+ */
 public class CountryInput extends android.support.v7.widget.AppCompatSpinner {
 
     public interface CountryListener {
@@ -26,7 +26,6 @@ public class CountryInput extends android.support.v7.widget.AppCompatSpinner {
     private @Nullable
     CountryInput.CountryListener mCountryListener;
     private Context mContext;
-    private PhoneUtils phoneUtils = new PhoneUtils();
 
     public CountryInput(Context context) {
         this(context, 0);
@@ -42,6 +41,11 @@ public class CountryInput extends android.support.v7.widget.AppCompatSpinner {
         init();
     }
 
+    /**
+     * The UI initialisation
+     * <p>
+     * Used to initialise element as well as setting up appropriate listeners
+     */
     private void init() {
 
         setFocusable(true);
@@ -49,17 +53,17 @@ public class CountryInput extends android.support.v7.widget.AppCompatSpinner {
 
         populateSpinner();
 
+        // Based on the country selected save teh ISO2 and set a prefix for teh phone number
         setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (mCountryListener != null && getSelectedItemPosition() > 0) {
                     Locale[] locale = Locale.getAvailableLocales();
                     String country;
-
                     for( Locale loc : locale ){
                         country = loc.getDisplayCountry();
                         if(country.equals(getSelectedItem().toString())){
-                            mCountryListener.onCountryInputFinish(loc.getCountry(), phoneUtils.getPrefix(loc.getCountry()));
+                            mCountryListener.onCountryInputFinish(loc.getCountry(), PhoneUtils.getPrefix(loc.getCountry()));
                         }
                     }
                 }
@@ -88,6 +92,9 @@ public class CountryInput extends android.support.v7.widget.AppCompatSpinner {
         setPadding(0, this.getPaddingTop(), this.getPaddingRight(), this.getPaddingBottom());
     }
 
+    /**
+     * Populate the Spinner with all country regions
+     */
     private void populateSpinner() {
         Locale[] locale = Locale.getAvailableLocales();
         ArrayList<String> countries = new ArrayList<>();
@@ -106,6 +113,9 @@ public class CountryInput extends android.support.v7.widget.AppCompatSpinner {
         setAdapter(adapter);
     }
 
+    /**
+     * Used to set the callback listener for when the country input is completed
+     */
     public void setCountryListener(CountryInput.CountryListener listener) {
         this.mCountryListener = listener;
     }

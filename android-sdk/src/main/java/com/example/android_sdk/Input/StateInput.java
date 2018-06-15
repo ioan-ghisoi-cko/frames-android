@@ -7,8 +7,9 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.example.android_sdk.Store.DataStore;
-
+/**
+ * A custom EdiText with validation and handling of state number input
+ */
 public class StateInput extends android.support.v7.widget.AppCompatEditText {
 
     public interface StateListener {
@@ -18,8 +19,6 @@ public class StateInput extends android.support.v7.widget.AppCompatEditText {
 
     private @Nullable
     StateInput.StateListener mStateListener;
-    private Context mContext;
-    private DataStore mDataStore = DataStore.getInstance();
 
     public StateInput(Context context) {
         this(context, null);
@@ -27,21 +26,21 @@ public class StateInput extends android.support.v7.widget.AppCompatEditText {
 
     public StateInput(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mContext = context;
         init();
     }
 
+    /**
+     * The UI initialisation
+     * <p>
+     * Used to initialise element as well as setting up appropriate listeners
+     */
     private void init() {
         addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -62,6 +61,9 @@ public class StateInput extends android.support.v7.widget.AppCompatEditText {
         });
     }
 
+    /**
+     * Used to set the callback listener for when the state input is completed
+     */
     public void setStateListener(StateInput.StateListener listener) {
         this.mStateListener = listener;
     }

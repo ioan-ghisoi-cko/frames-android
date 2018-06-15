@@ -3,6 +3,11 @@ package com.example.android_sdk.Utils;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Helper class used to determine the phone prefix
+ * <p>
+ * This class is used to take an ISO2 of a country and determine the phone prefix
+ */
 public class PhoneUtils {
 
     private static Map<String, String> mCountryPhonePrefix = new HashMap<>();
@@ -250,8 +255,12 @@ public class PhoneUtils {
         mCountryPhonePrefix.put("EH", "+212");
     }
 
-    public String getPrefix(String iso) {
+    /**
+     * This method is used to determine the phone prefix based on the country ISO2
+     * @param iso  ISO2 of the country
+     * @return phone prefix as String
+     */
+    public static String getPrefix(String iso) {
         return mCountryPhonePrefix.get(iso);
     }
-
 }

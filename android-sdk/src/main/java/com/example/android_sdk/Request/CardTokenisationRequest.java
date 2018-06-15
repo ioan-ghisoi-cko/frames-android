@@ -3,6 +3,9 @@ package com.example.android_sdk.Request;
 import com.example.android_sdk.Models.BillingModel;
 import com.example.android_sdk.Models.PhoneModel;
 
+/**
+ * The request model object for the card tokenisation request
+ */
 public class CardTokenisationRequest {
 
     private String number;
@@ -17,14 +20,18 @@ public class CardTokenisationRequest {
         // Empty constructor
     }
 
-    public CardTokenisationRequest(String number, String expiryMonth, String expiryYear, String cvv) {
+    public CardTokenisationRequest(String number, String expiryMonth, String expiryYear,
+                                   String cvv) {
         this.number = number;
         this.expiryMonth = expiryMonth;
         this.expiryYear = expiryYear;
         this.cvv = cvv;
     }
 
-    public CardTokenisationRequest(String number, String expiryMonth, String expiryYear, String cvv, String name, String addressLine1, String addressLine2, String postcode, String country, String city, String state) {
+    public CardTokenisationRequest(String number, String expiryMonth, String expiryYear,
+                                   String cvv, String name, String addressLine1,
+                                   String addressLine2, String postcode, String country,
+                                   String city, String state) {
         this.number = number;
         this.expiryMonth = expiryMonth;
         this.expiryYear = expiryYear;
@@ -38,7 +45,11 @@ public class CardTokenisationRequest {
         billingDetails.setState(state);
     }
 
-    public CardTokenisationRequest(String number, String expiryMonth, String expiryYear, String cvv, String name, String addressLine1, String addressLine2, String postcode, String country, String city, String state, PhoneModel phoneDetails, String countryCode, String phoneNumber) {
+    public CardTokenisationRequest(String number, String expiryMonth, String expiryYear,
+                                   String cvv, String name, String addressLine1,
+                                   String addressLine2, String postcode, String country,
+                                   String city, String state, PhoneModel phoneDetails,
+                                   String countryCode, String phoneNumber) {
         this.number = number;
         this.expiryMonth = expiryMonth;
         this.expiryYear = expiryYear;

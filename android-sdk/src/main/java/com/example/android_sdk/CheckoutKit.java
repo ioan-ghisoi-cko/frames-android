@@ -10,7 +10,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 
-import com.example.android_sdk.Models.GooglePayModel;
 import com.example.android_sdk.Request.CardTokenisationRequest;
 import com.example.android_sdk.Request.GooglePayTokenisationRequest;
 import com.example.android_sdk.Response.CardTokenisationFail;
@@ -27,6 +26,13 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Contains helper methods dealing with the tokenisation or payment from customisation
+ * <p>
+ * Most of the methods that include interaction with the Checkout.com API rely on
+ * callbacks to communicate outcomes. Please make sure you set the key/environment
+ * and appropriate  callbacks to a ensure successful interaction
+ */
 public class CheckoutKit extends FrameLayout {
 
     /**
@@ -34,7 +40,6 @@ public class CheckoutKit extends FrameLayout {
      */
     public interface OnTokenGenerated {
         void onTokenGenerated(CardTokenisationResponse response);
-
         void onError(CardTokenisationFail error);
     }
 
@@ -43,7 +48,6 @@ public class CheckoutKit extends FrameLayout {
      */
     public interface on3DSFinished {
         void onSuccess(String token);
-
         void onError(String errorMessage);
     }
 
@@ -52,15 +56,27 @@ public class CheckoutKit extends FrameLayout {
      */
     public interface OnGooglePayTokenGenerated {
         void onTokenGenerated(GooglePayTokenisationResponse response);
-
         void onError(GooglePayTokenisationFail error);
     }
 
-    // Environments
-    private static final String CARD_ENV_SANDBOX = "https://sandbox.checkout.com/api2/v2/tokens/card/";
-    private static final String CARD_ENV_LIVE = "https://api2.checkout.com/v2/tokens/card/";
-    private static final String GOOGLE_ENV_SANDBOX = "https://sandbox.checkout.com/api2/tokens";
-    private static final String GOOGLE_ENV_LIVE = "https://api2.checkout.com/tokens";
+    // Environments for card tokenisation
+    public enum card {
+        SANDBOX("https://sandbox.checkout.com/api2/v2/tokens/card/"),
+        LIVE("https://api2.checkout.com/v2/tokens/card/");
+        private String url;
+        card(String url) {
+            this.url = url;
+        }
+    }
+    // Environments for Google Pay tokenisation
+    public enum googlepay {
+        SANDBOX("https://sandbox.checkout.com/api2/tokens"),
+        LIVE("https://api2.checkout.com/tokens");
+        private String url;
+        googlepay(String url) {
+            this.url = url;
+        }
+    }
     // Indexes for the pages
     private static int CARD_DETAILS_PAGE_INDEX = 0;
     private static int BILLING_DETAILS_PAGE_INDEX = 1;
@@ -99,7 +115,7 @@ public class CheckoutKit extends FrameLayout {
      */
     private CardDetailsView.GoToBillingListener mCardListener = new CardDetailsView.GoToBillingListener() {
         @Override
-        public void onGoToBilingPressed() {
+        public void onGoToBillingPressed() {
             mPager.setCurrentItem(BILLING_DETAILS_PAGE_INDEX);
         }
     };
@@ -179,9 +195,9 @@ public class CheckoutKit extends FrameLayout {
             // Remove any spaces or uppercase letters when defining the environment
             // Decide the environment and perform the request
             if (ENVIRONMENT.toLowerCase().replaceAll(" ", "").equals("live")) {
-                http.generateToken(this.KEY, CARD_ENV_LIVE, jsonBody);
+                http.generateToken(this.KEY, card.LIVE.url, jsonBody);
             } else {
-                http.generateToken(this.KEY, CARD_ENV_SANDBOX, jsonBody);
+                http.generateToken(this.KEY, card.SANDBOX.url, jsonBody);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -276,9 +292,9 @@ public class CheckoutKit extends FrameLayout {
             // Remove any spaces or uppercase letters when defining the environment
             // Decide the environment and perform the request
             if (ENVIRONMENT.toLowerCase().replaceAll(" ", "").equals("live")) {
-                http.generateGooglePayToken(this.KEY, GOOGLE_ENV_LIVE, jsonBody);
+                http.generateGooglePayToken(this.KEY, googlepay.LIVE.url, jsonBody);
             } else {
-                http.generateGooglePayToken(this.KEY, GOOGLE_ENV_SANDBOX, jsonBody);
+                http.generateGooglePayToken(this.KEY, googlepay.SANDBOX.url, jsonBody);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -354,7 +370,7 @@ public class CheckoutKit extends FrameLayout {
     }
 
     /**
-     * This method used to set a callback for when the 3D Secure handling.
+     * This method used to set a callback for 3D Secure handling.
      *
      * @return CheckoutKit to allow method chaining
      */
@@ -363,6 +379,11 @@ public class CheckoutKit extends FrameLayout {
         return this;
     }
 
+    /**
+     * This method used to set a callback for Google Pay handling.
+     *
+     * @return CheckoutKit to allow method chaining
+     */
     public CheckoutKit setGooglePayListener(OnGooglePayTokenGenerated listener) {
         this.mGooglePayTokenListener = listener;
         return this;

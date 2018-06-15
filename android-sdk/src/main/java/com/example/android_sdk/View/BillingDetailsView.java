@@ -4,9 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,16 +24,33 @@ import com.example.android_sdk.Store.DataStore;
 
 import java.util.Locale;
 
-import static android.content.ContentValues.TAG;
-
+/**
+ * The controller of the billing details view page
+ * <p>
+ * This class handles interaction with the custom inputs in the billing details form.
+ * The state of the view is handled here, so are action like focus changes, full form
+ * validation, listeners, persistence over orientation.
+ */
 public class BillingDetailsView extends LinearLayout {
-
+    /**
+     * The callback used to indicate is the billing details were completed
+     * <p>
+     * After the user completes their details and the form is valid this callback will
+     * be used to communicate to the parent that teh focus needs to change
+     */
     public interface Listener {
         void onBillingCompleted();
 
         void onBillingCanceled();
     }
 
+    /**
+     * The callback is used to communicate with the name input
+     * <p>
+     * The custom {@link NameInput} takes care takes care of the validation and it uses a callback
+     * to indicate this controller if there is any error or if the error state needs to
+     * be cleared. State is also updates based on the outcome of the input.
+     */
     private final NameInput.NameListener mNameListener = new NameInput.NameListener() {
         @Override
         public void onNameInputFinish(String number) {
@@ -50,8 +65,14 @@ public class BillingDetailsView extends LinearLayout {
 
     };
 
+    /**
+     * The callback is used to communicate with the country input
+     * <p>
+     * The custom {@link CountryInput} takes care of populating the values in the spinner
+     * and will trigger this callback when the user selects a new option. State is update
+     * accordingly. Moreover, the phone prefix is added bade on the country selected.
+     */
     private final CountryInput.CountryListener mCountryListener = new CountryInput.CountryListener() {
-
         @Override
         public void onCountryInputFinish(String country, String prefix) {
             mDatastore.setCustomerCountry(country);
@@ -62,7 +83,13 @@ public class BillingDetailsView extends LinearLayout {
         }
     };
 
-
+    /**
+     * The callback is used to communicate with the address one  input
+     * <p>
+     * The custom {@link AddressTwoInput} takes care takes care of the validation and it uses a callback
+     * to indicate this controller if there is any error or if the error state needs to
+     * be cleared. State is also updates based on the outcome of the input.
+     */
     private final AddressOneInput.AddressOneListener mAddressOneListener = new AddressOneInput.AddressOneListener() {
 
         @Override
@@ -77,6 +104,13 @@ public class BillingDetailsView extends LinearLayout {
         }
     };
 
+    /**
+     * The callback is used to communicate with the address two input
+     * <p>
+     * The custom {@link AddressTwoInput} takes care takes care of the validation and it uses a callback
+     * to indicate this controller if there is any error or if the error state needs to
+     * be cleared. State is also updates based on the outcome of the input.
+     */
     private final AddressTwoInput.AddressTwoListener mAddressTwoListener = new AddressTwoInput.AddressTwoListener() {
         @Override
         public void onAddressTwoInputFinish(String address) {
@@ -90,6 +124,13 @@ public class BillingDetailsView extends LinearLayout {
         }
     };
 
+    /**
+     * The callback is used to communicate with the city input
+     * <p>
+     * The custom {@link CityInput} takes care takes care of the validation and it uses a callback
+     * to indicate this controller if there is any error or if the error state needs to
+     * be cleared. State is also updates based on the outcome of the input.
+     */
     private final CityInput.CityListener mCityListener = new CityInput.CityListener() {
         @Override
         public void onCityInputFinish(String city) {
@@ -103,6 +144,13 @@ public class BillingDetailsView extends LinearLayout {
         }
     };
 
+    /**
+     * The callback is used to communicate with the state input
+     * <p>
+     * The custom {@link StateInput} takes care takes care of the validation and it uses a callback
+     * to indicate this controller if there is any error or if the error state needs to
+     * be cleared. State is also updates based on the outcome of the input.
+     */
     private final StateInput.StateListener mStateListener = new StateInput.StateListener() {
         @Override
         public void onStateInputFinish(String state) {
@@ -116,6 +164,13 @@ public class BillingDetailsView extends LinearLayout {
         }
     };
 
+    /**
+     * The callback is used to communicate with the zip input
+     * <p>
+     * The custom {@link ZipInput} takes care takes care of the validation and it uses a callback
+     * to indicate this controller if there is any error or if the error state needs to
+     * be cleared. State is also updates based on the outcome of the input.
+     */
     private final ZipInput.ZipListener mZipListener = new ZipInput.ZipListener() {
         @Override
         public void onZipInputFinish(String zip) {
@@ -129,10 +184,17 @@ public class BillingDetailsView extends LinearLayout {
         }
     };
 
+    /**
+     * The callback is used to communicate with the phone input
+     * <p>
+     * The custom {@link PhoneInput} takes care takes care of the validation and it uses a callback
+     * to indicate this controller if there is any error or if the error state needs to
+     * be cleared. State is also updates based on the outcome of the input.
+     */
     private final PhoneInput.PhoneListener mPhoneListener = new PhoneInput.PhoneListener() {
         @Override
         public void onPhoneInputFinish(String phone) {
-            mDatastore.setCustomerPhone(phone.replace(mDatastore.getCustomerPhonePrefix(),""));
+            mDatastore.setCustomerPhone(phone.replace(mDatastore.getCustomerPhonePrefix(), ""));
         }
 
         @Override
@@ -166,7 +228,6 @@ public class BillingDetailsView extends LinearLayout {
     private TextInputLayout mZipLayout;
     private TextInputLayout mPhoneLayout;
 
-
     public BillingDetailsView(Context context) {
         this(context, null);
     }
@@ -177,6 +238,11 @@ public class BillingDetailsView extends LinearLayout {
         init();
     }
 
+    /**
+     * The UI initialisation
+     * <p>
+     * Used to initialise element and pass callbacks as well as setting up appropriate listeners
+     */
     private void init() {
         inflate(mContext, R.layout.blling_details, this);
         mToolbar = findViewById(R.id.my_toolbar);
@@ -188,6 +254,7 @@ public class BillingDetailsView extends LinearLayout {
         mZipLayout = findViewById(R.id.zipcode_input_layout);
         mPhoneLayout = findViewById(R.id.phone_input_layout);
 
+        // trigger focus change to the card details view on the toolbar back button press
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,8 +293,10 @@ public class BillingDetailsView extends LinearLayout {
 
         mDone = findViewById(R.id.done_button);
 
+        // Used to restore state on orientation changes
         repopulateFields();
 
+        // Clear the state and the fields if the user chooses to press the clear button
         mClear.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -240,10 +309,12 @@ public class BillingDetailsView extends LinearLayout {
             }
         });
 
+        // Is the form is valid indicate the billing was completed using the callback
+        // so the billing spinner can be updated adn teh focus can be changes
         mDone.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isValisForm()) {
+                if (isValidForm()) {
                     if (mListener != null) {
                         mDatastore.setBillingCompleted(true);
                         mListener.onBillingCompleted();
@@ -251,10 +322,14 @@ public class BillingDetailsView extends LinearLayout {
                 }
             }
         });
-
-
     }
 
+    /**
+     * Used to restore state on orientation changes
+     * <p>
+     * The method will repopulate all the card input fields with the latest state they were in
+     * if the device orientation changes, and therefore avoiding the text inputs to be cleared.
+     */
     private void repopulateFields() {
         // Repopulate name
         mName.setText(mDatastore.getCustomerName());
@@ -290,7 +365,15 @@ public class BillingDetailsView extends LinearLayout {
         mPhone.setText(mDatastore.getCustomerPhone());
     }
 
-    private boolean isValisForm() {
+    /**
+     * Used to indicate the validity of the billing details from
+     * <p>
+     * The method will check if the inputs are valid.
+     * This method will also populate the field error accordingly
+     *
+     * @return boolean abut form validity
+     */
+    private boolean isValidForm() {
         boolean result = true;
 
         if (mName.length() < 3) {
@@ -330,6 +413,9 @@ public class BillingDetailsView extends LinearLayout {
         return result;
     }
 
+    /**
+     * Used to clear the text from teh fields
+     */
     private void resetFields() {
         mName.setText("");
         mNameLayout.setError(null);
@@ -379,6 +465,9 @@ public class BillingDetailsView extends LinearLayout {
         return super.dispatchKeyEventPreIme(event);
     }
 
+    /**
+     * Used to set the callback listener for when the card details page is requested
+     */
     public void setGoToCardDetailsListener(BillingDetailsView.Listener listener) {
         mListener = listener;
     }

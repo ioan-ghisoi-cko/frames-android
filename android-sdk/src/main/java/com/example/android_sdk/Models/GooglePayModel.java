@@ -1,5 +1,8 @@
 package com.example.android_sdk.Models;
 
+/**
+ * Http request Google Pay object model
+ */
 public class GooglePayModel {
 
     private String signature;

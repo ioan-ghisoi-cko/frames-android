@@ -8,12 +8,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
-import com.example.android_sdk.Store.DataStore;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * A custom Spinner with handling of card expiration year input
+ */
 public class YearInput extends android.support.v7.widget.AppCompatSpinner {
 
     public interface YearListener {
@@ -23,7 +24,6 @@ public class YearInput extends android.support.v7.widget.AppCompatSpinner {
     private @Nullable
     YearInput.YearListener mYearInputListener;
     Context mContext;
-    private DataStore mDatastore = DataStore.getInstance();
 
     public YearInput(Context context) {
         this(context, 0);
@@ -40,6 +40,11 @@ public class YearInput extends android.support.v7.widget.AppCompatSpinner {
         init();
     }
 
+    /**
+     * The UI initialisation
+     * <p>
+     * Used to initialise element as well as setting up appropriate listeners
+     */
     private void init() {
         // Options needed for focus context switching
         setFocusable(true);
@@ -79,6 +84,9 @@ public class YearInput extends android.support.v7.widget.AppCompatSpinner {
 
     }
 
+    /**
+     * Populate the spinner with the next 15 year
+     */
     private void populateYears() {
 
         List<String> yearElements = new ArrayList<>();
@@ -93,6 +101,9 @@ public class YearInput extends android.support.v7.widget.AppCompatSpinner {
         setAdapter(dataAdapter);
     }
 
+    /**
+     * Used to set the callback listener for when the year input is completed
+     */
     public void setYearListener(YearInput.YearListener listener) {
         this.mYearInputListener = listener;
     }

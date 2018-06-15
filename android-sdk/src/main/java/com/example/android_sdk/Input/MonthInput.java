@@ -13,12 +13,16 @@ import com.example.android_sdk.Store.DataStore;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A custom Spinner with handling of card expiration month input
+ */
 public class MonthInput extends android.support.v7.widget.AppCompatSpinner {
 
     public interface MonthListener {
         void onMonthInputFinish(String month);
     }
 
+    // enum with month is different formats
     public enum Months {
         JANUARY("JAN", 1, "01"),
         FEBRUARY("FEB", 2, "02"),
@@ -51,7 +55,6 @@ public class MonthInput extends android.support.v7.widget.AppCompatSpinner {
     private Context mContext;
     private DataStore mDatastore = DataStore.getInstance();
 
-
     public MonthInput(Context context) {
         this(context, 0);
     }
@@ -67,6 +70,11 @@ public class MonthInput extends android.support.v7.widget.AppCompatSpinner {
         init();
     }
 
+    /**
+     * The UI initialisation
+     * <p>
+     * Used to initialise element as well as setting up appropriate listeners
+     */
     private void init() {
         // Options needed for focus context switching
         setFocusable(true);
@@ -113,6 +121,9 @@ public class MonthInput extends android.support.v7.widget.AppCompatSpinner {
 
     }
 
+    /**
+     * Populate the spinner with all the month of the year
+     */
     public void populateSpinner() {
         MonthInput.Months[] months = MonthInput.Months.values();
 
@@ -128,6 +139,9 @@ public class MonthInput extends android.support.v7.widget.AppCompatSpinner {
         setAdapter(dataAdapter);
     }
 
+    /**
+     * Used to set the callback listener for when the month input is completed
+     */
     public void setMonthListener(MonthInput.MonthListener listener) {
         this.mMonthInputListener = listener;
     }

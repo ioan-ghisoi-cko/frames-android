@@ -20,10 +20,6 @@ import com.example.android_sdk.Utils.CardUtils;
  * <p>
  * This class will validate on the "afterTextChanged" event and display a card icon on the right
  * side based on  the users input. It will also span spaces following the {@link CardUtils} details.
- *
- * @author Ioan Ghisoi
- * @version 1.0
- * @since 2018-06-02
  */
 public class CardInput extends android.support.v7.widget.AppCompatEditText {
     /**
@@ -53,19 +49,20 @@ public class CardInput extends android.support.v7.widget.AppCompatEditText {
         init();
     }
 
+    /**
+     * The UI initialisation
+     * <p>
+     * Used to initialise element as well as setting up appropriate listeners
+     */
     private void init() {
 
         // Add listener for text input
         addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -90,7 +87,6 @@ public class CardInput extends android.support.v7.widget.AppCompatEditText {
                 if (!s.toString().equals(formatted)) {
                     s.replace(0, s.toString().length(), formatted);
                 }
-
                 checkIfCardIsValid(initial, cardType);
             }
         });
@@ -115,6 +111,9 @@ public class CardInput extends android.support.v7.widget.AppCompatEditText {
         });
     }
 
+    /**
+     * This method is used to validate the card number
+     */
     public void checkIfCardIsValid(String number, CardUtils.Cards cardType) {
         boolean hasDesiredLength = false;
         for(int i : cardType.cardLength){
@@ -131,6 +130,9 @@ public class CardInput extends android.support.v7.widget.AppCompatEditText {
         }
     }
 
+    /**
+     * This method will display a card icon associated to the specific card scheme
+     */
     public void setCardTypeIcon(String type) {
         Drawable img;
         switch (type) {
@@ -188,10 +190,16 @@ public class CardInput extends android.support.v7.widget.AppCompatEditText {
         }
     }
 
+    /**
+     * This method will clear the whitespace in a number string
+     */
     public static String sanitizeEntry(String entry) {
         return entry.replaceAll("\\D", "");
     }
 
+    /**
+     * Used to set the callback listener for when the card input is completed
+     */
     public void setCardListener(Listener listener) {
         this.mCardInputListener = listener;
     }

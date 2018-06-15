@@ -1,5 +1,8 @@
 package com.example.android_sdk.Models;
 
+/**
+ * Http request card details object model
+ */
 public class CardModel {
 
     private String expiryMonth;

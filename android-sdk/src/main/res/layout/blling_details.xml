@@ -30,7 +30,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/basic_field_margin_side"
                 android:layout_marginRight="@dimen/basic_field_margin_side"
-                android:hint="@string/name_placeholder">
+                android:hint="@string/name_placeholder"
+                app:errorTextAppearance="@style/Error">
 
                 <com.example.android_sdk.Input.NameInput
                     android:id="@+id/name_input"
@@ -68,7 +69,8 @@
                 android:layout_marginLeft="@dimen/basic_field_margin_side"
                 android:layout_marginRight="@dimen/basic_field_margin_side"
                 android:layout_marginTop="@dimen/basic_field_margin_top"
-                android:hint="@string/address_one_placeholder">
+                android:hint="@string/address_one_placeholder"
+                app:errorTextAppearance="@style/Error">
 
                 <com.example.android_sdk.Input.AddressOneInput
                     android:id="@+id/address_one_input"
@@ -93,7 +95,8 @@
                 android:layout_marginLeft="@dimen/basic_field_margin_side"
                 android:layout_marginRight="@dimen/basic_field_margin_side"
                 android:layout_marginTop="@dimen/basic_field_margin_top"
-                android:hint="@string/address_two_placeholder">
+                android:hint="@string/address_two_placeholder"
+                app:errorTextAppearance="@style/Error">
 
                 <com.example.android_sdk.Input.AddressTwoInput
                     android:id="@+id/address_two_input"
@@ -119,7 +122,8 @@
                 android:layout_marginLeft="@dimen/basic_field_margin_side"
                 android:layout_marginRight="@dimen/basic_field_margin_side"
                 android:layout_marginTop="@dimen/basic_field_margin_top"
-                android:hint="@string/city_placeholder">
+                android:hint="@string/city_placeholder"
+                app:errorTextAppearance="@style/Error">
 
                 <com.example.android_sdk.Input.CityInput
                     android:id="@+id/city_input"
@@ -144,7 +148,8 @@
                 android:layout_marginLeft="@dimen/basic_field_margin_side"
                 android:layout_marginRight="@dimen/basic_field_margin_side"
                 android:layout_marginTop="@dimen/basic_field_margin_top"
-                android:hint="@string/state_placeholder">
+                android:hint="@string/state_placeholder"
+                app:errorTextAppearance="@style/Error">
 
                 <com.example.android_sdk.Input.StateInput
                     android:id="@+id/state_input"
@@ -170,7 +175,8 @@
                 android:layout_marginLeft="@dimen/basic_field_margin_side"
                 android:layout_marginRight="@dimen/basic_field_margin_side"
                 android:layout_marginTop="@dimen/basic_field_margin_top"
-                android:hint="@string/postcode_placeholder">
+                android:hint="@string/postcode_placeholder"
+                app:errorTextAppearance="@style/Error">
 
                 <com.example.android_sdk.Input.ZipInput
                     android:id="@+id/zipcode_input"
@@ -195,7 +201,8 @@
                 android:layout_marginLeft="@dimen/basic_field_margin_side"
                 android:layout_marginRight="@dimen/basic_field_margin_side"
                 android:layout_marginTop="@dimen/basic_field_margin_top"
-                android:hint="@string/phone_placeholder">
+                android:hint="@string/phone_placeholder"
+                app:errorTextAppearance="@style/Error">
 
                 <com.example.android_sdk.Input.PhoneInput
                     android:id="@+id/phone_input"
@@ -239,8 +246,8 @@
                     style="@style/ThemeOverlay.AppCompat.Dark"
                     android:layout_width="@dimen/button_width"
                     android:layout_height="@dimen/button_height"
-                    android:layout_marginRight="@dimen/basic_field_margin_side"
                     android:layout_marginEnd="@dimen/basic_field_margin_side"
+                    android:layout_marginRight="@dimen/basic_field_margin_side"
                     android:height="@dimen/button_height"
                     android:background="?attr/colorButtonNormal"
                     android:focusable="true"

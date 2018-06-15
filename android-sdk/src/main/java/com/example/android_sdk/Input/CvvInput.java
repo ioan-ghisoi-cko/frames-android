@@ -10,6 +10,9 @@ import android.view.View;
 
 import com.example.android_sdk.Store.DataStore;
 
+/**
+ * A custom EdiText with validation and handling of cvv input
+ */
 public class CvvInput extends android.support.v7.widget.AppCompatEditText {
 
     public interface CvvListener {
@@ -33,17 +36,18 @@ public class CvvInput extends android.support.v7.widget.AppCompatEditText {
         init();
     }
 
+    /**
+     * The UI initialisation
+     * <p>
+     * Used to initialise element as well as setting up appropriate listeners
+     */
     private void init() {
         addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -71,6 +75,9 @@ public class CvvInput extends android.support.v7.widget.AppCompatEditText {
 
     }
 
+    /**
+     * Used to set the callback listener for when the cvv input is completed
+     */
     public void setCvvListener(CvvInput.CvvListener listener) {
         this.mCvvInputListener = listener;
     }

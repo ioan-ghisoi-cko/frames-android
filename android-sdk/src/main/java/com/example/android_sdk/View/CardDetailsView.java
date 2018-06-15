@@ -1,22 +1,16 @@
 package com.example.android_sdk.View;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.android_sdk.Input.BillingInput;
 import com.example.android_sdk.Input.CardInput;
@@ -28,20 +22,44 @@ import com.example.android_sdk.Store.DataStore;
 import com.example.android_sdk.Utils.CardUtils;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
+/**
+ * The controller of the card details view page
+ * <p>
+ * This class handles interaction with the custom inputs in the card details form.
+ * The state of the view is handled here, so are action like focus changes, full form
+ * validation, listeners, persistence over orientation.
+ */
 public class CardDetailsView extends LinearLayout {
 
+    /**
+     * The callback used to indicate the form submission
+     * <p>
+     * After the user completes their details and the form is valid this callback will
+     * be used to communicate to the parent and start the necessary API call(s).
+     */
     public interface DetailsCompleted {
         void onDetailsCompleted();
-
     }
 
+    /**
+     * The callback used to indicate the view needs to moved to the billing details page
+     * <p>
+     * When the user selects the option to add billing details this callback will be used
+     * to communicate to the parent the focus change is requested
+     */
     public interface GoToBillingListener {
-        void onGoToBilingPressed();
+        void onGoToBillingPressed();
     }
 
+    /**
+     * The callback is used to communicate with the card input
+     * <p>
+     * The custom {@link CardInput} takes care of the validation and it uses a callback
+     * to indicate this controller if there is any error or if the error state needs to
+     * be cleared. State is also updates based on the outcome of the input.
+     */
     private final CardInput.Listener mCardInputListener = new CardInput.Listener() {
         @Override
         public void onCardInputFinish(String number) {
@@ -61,8 +79,14 @@ public class CardDetailsView extends LinearLayout {
         }
     };
 
+    /**
+     * The callback is used to communicate with the month input
+     * <p>
+     * The custom {@link MonthInput} takes care of populating the values in the spinner
+     * and will trigger this callback when the user selects a new option. State is update
+     * accordingly.
+     */
     private final MonthInput.MonthListener mMonthInputListener = new MonthInput.MonthListener() {
-
         @Override
         public void onMonthInputFinish(String month) {
             mDataStore.setCardMonth(month);
@@ -70,8 +94,14 @@ public class CardDetailsView extends LinearLayout {
         }
     };
 
+    /**
+     * The callback is used to communicate with the year input
+     * <p>
+     * The custom {@link YearInput} takes care of populating the values in the spinner
+     * and will trigger this callback when the user selects a new option. State is update
+     * accordingly.
+     */
     private final YearInput.YearListener mYearInputListener = new YearInput.YearListener() {
-
         @Override
         public void onYearInputFinish(String year) {
             mDataStore.setCardYear(year);
@@ -79,8 +109,14 @@ public class CardDetailsView extends LinearLayout {
         }
     };
 
+    /**
+     * The callback is used to communicate with the cvv input
+     * <p>
+     * The custom {@link CvvInput} takes care of the validation and it uses a callback
+     * to indicate this controller if there is any error or if the error state needs to
+     * be cleared. State is also updates based on the outcome of the input.
+     */
     private final CvvInput.CvvListener mCvvInputListener = new CvvInput.CvvListener() {
-
         @Override
         public void onCvvInputFinish(String cvv) {
             mDataStore.setValidCardCvv(true);
@@ -99,12 +135,14 @@ public class CardDetailsView extends LinearLayout {
         }
     };
 
+    /**
+     * The callback is used to trigger the focus change to the billing page
+     */
     private final BillingInput.BillingListener mBillingInputListener = new BillingInput.BillingListener() {
-
         @Override
         public void onGoToBilling() {
             if (mGotoBillingListener != null) {
-                mGotoBillingListener.onGoToBilingPressed();
+                mGotoBillingListener.onGoToBillingPressed();
             }
         }
     };
@@ -122,16 +160,14 @@ public class CardDetailsView extends LinearLayout {
     private BillingInput mGoToBilling;
     private CvvInput mCvvInput;
     private TextInputLayout mCardLayout;
-    final CardUtils mCardUtils = new CardUtils();
     private TextInputLayout mCvvLayout;
     private Button mPayButton;
     private TextView mBillingHelper;
-    android.support.v7.widget.Toolbar mToolbar;
+    private Toolbar mToolbar;
+    private AttributeSet attrs;
 
     public CardDetailsView(Context context) {
-        super(context);
-        mContext = context;
-        init();
+        this(context, null);
     }
 
     public CardDetailsView(Context context, @Nullable AttributeSet attrs) {
@@ -140,6 +176,11 @@ public class CardDetailsView extends LinearLayout {
         init();
     }
 
+    /**
+     * The UI initialisation
+     * <p>
+     * Used to initialise element and pass callbacks as well as setting up appropriate listeners
+     */
     private void init() {
         inflate(mContext, R.layout.card_details, this);
 
@@ -160,16 +201,15 @@ public class CardDetailsView extends LinearLayout {
         mCvvInput.setCvvListener(mCvvInputListener);
 
         mBillingHelper = findViewById(R.id.billing_helper_text);
-
         mGoToBilling = findViewById(R.id.go_to_billing);
 
+        // Hide billing details options based on the module initialisation option
         if (!mDataStore.getBillingVisibility()) {
             mBillingHelper.setVisibility(GONE);
             mGoToBilling.setVisibility(GONE);
         } else {
             mGoToBilling.setBillingListener(mBillingInputListener);
         }
-
 
         mPayButton = findViewById(R.id.pay_button);
 
@@ -178,6 +218,8 @@ public class CardDetailsView extends LinearLayout {
             public void onClick(View v) {
                 if (mDetailsCompletedListener != null && isValidForm()) {
                     mDetailsCompletedListener.onDetailsCompleted();
+                    // disable the pay button to avoid multiple clicks
+                    //mPayButton.setEnabled(false);
                 }
             }
         });
@@ -186,13 +228,18 @@ public class CardDetailsView extends LinearLayout {
         repopulateField();
     }
 
+    /**
+     * Used to restore state on orientation changes
+     * <p>
+     * The method will repopulate all the card input fields with the latest state they were in
+     * if the device orientation changes, and therefore avoiding the text inputs to be cleared.
+     */
     private void repopulateField() {
-
         // Repopulate card number
         if (DataStore.getInstance().getCardNumber() != null) {
             if (mDataStore.getCardNumber() != null) {
                 // Get card type based on the saved card number
-                CardUtils.Cards cardType = mCardUtils.getType(DataStore.getInstance().getCardNumber());
+                CardUtils.Cards cardType = CardUtils.getType(DataStore.getInstance().getCardNumber());
                 // Set the CardInput maximum length based on the type of card
                 mCardInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(cardType.maxCardLength)});
                 // Set the CardInput icon based on the type of card
@@ -200,7 +247,7 @@ public class CardDetailsView extends LinearLayout {
                 // Check if the card is valid
                 mCardInput.checkIfCardIsValid(mDataStore.getCardNumber(), cardType);
                 // Update the card field with the last input value
-                String formattedCard = mCardUtils.getFormattedCardNumber(mDataStore.getCardNumber());
+                String formattedCard = CardUtils.getFormattedCardNumber(mDataStore.getCardNumber());
                 mCardInput.setText(formattedCard);
                 // Set the cursor to the end of the input
                 mCardInput.setSelection(formattedCard.length());
@@ -218,7 +265,7 @@ public class CardDetailsView extends LinearLayout {
             try {
                 mYearInput.setSelection(((ArrayAdapter<String>) mYearInput.getAdapter()).getPosition(DataStore.getInstance().getCardYear()));
             } catch (Exception e) {
-                //null
+                e.printStackTrace();
             }
         }
 
@@ -232,6 +279,15 @@ public class CardDetailsView extends LinearLayout {
         updateBillingSpinner();
     }
 
+    /**
+     * Used to indicate the validity of the full card from
+     * <p>
+     * The method will check if the inputs are valid and also check the relation between the inputs
+     * to ensure validity (e.g. month to year relation).
+     * This method will also populate the field error accordingly
+     *
+     * @return boolean abut form validity
+     */
     private boolean isValidForm() {
 
         boolean outcome = true;
@@ -254,17 +310,22 @@ public class CardDetailsView extends LinearLayout {
 
         return outcome;
     }
-
+    /**
+     * Used to indicate the validity of the date
+     * <p>
+     * The method will check if the values from the {@link MonthInput} and {@link YearInput} are
+     * not representing a date in the past.
+     *
+     * @return boolean abut form validity of the date
+     */
     private boolean checkFullDate() {
 
-        Calendar calendar = Calendar.getInstance();
-        int calendarYear = calendar.get(Calendar.YEAR);
-        int calendarMonth = calendar.get(Calendar.MONTH);
-
+        // Check is the state contain the date and if it is check if the current selected
+        // values are valid. Display error if applicable.
         if (mDataStore.getCardYear() != null &&
                 mDataStore.getCardYear() != null &&
-                Integer.valueOf(mDataStore.getCardYear()) == calendarYear &&
-                (mMonthInput.getSelectedItemPosition()) < calendarMonth) {
+                !CardUtils.isValidDate(String.valueOf(mMonthInput.getSelectedItemPosition()),
+                        mDataStore.getCardYear())) {
             mDataStore.setValidCardMonth(false);
             ((TextView) mMonthInput.getSelectedView()).setError(getResources()
                     .getString(R.string.expiration_date_error));
@@ -273,9 +334,17 @@ public class CardDetailsView extends LinearLayout {
         return true;
     }
 
+    /**
+     * Used to clear/reset the billing details spinner
+     * <p>
+     * The method will be used to clear/reset the billing details spinner in case the user
+     * has decide to clear their details from the {@link BillingDetailsView}
+     *
+     */
     public void clearBillingSpinner() {
         List<String> billingElement = new ArrayList<>();
 
+        // Set the default value fo the spinner
         billingElement.add(getResources().getString(R.string.billing_details_select));
         billingElement.add(getResources().getString(R.string.billing_details_add));
 
@@ -286,6 +355,14 @@ public class CardDetailsView extends LinearLayout {
         mGoToBilling.setSelection(0);
     }
 
+    /**
+     * Used to populate the billing spinner with the user billing details
+     * <p>
+     * The method will be called when the user has successfully saved their billing details and
+     * to visually confirm that, the spinner is populated with the details and the default ADD
+     * button is replaced by a EDIT button
+     *
+     */
     public void updateBillingSpinner() {
 
         String address = mDataStore.getCustomerAddress1() +
@@ -308,12 +385,16 @@ public class CardDetailsView extends LinearLayout {
         }
     }
 
+    /**
+     * Used to set the callback listener for when the form is submitted
+     */
     public void setDetailsCompletedListener(CardDetailsView.DetailsCompleted listener) {
         mDetailsCompletedListener = listener;
     }
-
+    /**
+     * Used to set the callback listener for when the billing details page is requested
+     */
     public void setGoToBillingListener(GoToBillingListener listener) {
         mGotoBillingListener = listener;
     }
-
 }
