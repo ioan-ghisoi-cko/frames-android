@@ -63,54 +63,6 @@
                         android:gravity="center"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="@dimen/cards_icon_size"
-                            android:layout_height="@dimen/cards_icon_size"
-                            android:layout_marginEnd="@dimen/cards_icon_margin"
-                            android:layout_marginRight="@dimen/cards_icon_margin"
-                            android:contentDescription="@string/card_icon_resource"
-                            android:src="@drawable/visa" />
-
-                        <ImageView
-                            android:layout_width="@dimen/cards_icon_size"
-                            android:layout_height="@dimen/cards_icon_size"
-                            android:layout_marginEnd="@dimen/cards_icon_margin"
-                            android:layout_marginRight="@dimen/cards_icon_margin"
-                            android:contentDescription="@string/card_icon_resource"
-                            android:src="@drawable/mastercard" />
-
-                        <ImageView
-                            android:layout_width="@dimen/cards_icon_size"
-                            android:layout_height="@dimen/cards_icon_size"
-                            android:layout_marginEnd="@dimen/cards_icon_margin"
-                            android:layout_marginRight="@dimen/cards_icon_margin"
-                            android:contentDescription="@string/card_icon_resource"
-                            android:src="@drawable/amex" />
-
-                        <ImageView
-                            android:layout_width="@dimen/cards_icon_size"
-                            android:layout_height="@dimen/cards_icon_size"
-                            android:layout_marginEnd="@dimen/cards_icon_margin"
-                            android:layout_marginRight="@dimen/cards_icon_margin"
-                            android:contentDescription="@string/card_icon_resource"
-                            android:src="@drawable/discover" />
-
-                        <ImageView
-                            android:layout_width="@dimen/cards_icon_size"
-                            android:layout_height="@dimen/cards_icon_size"
-                            android:layout_marginEnd="@dimen/cards_icon_margin"
-                            android:layout_marginRight="@dimen/cards_icon_margin"
-                            android:contentDescription="@string/card_icon_resource"
-                            android:src="@drawable/dinersclub" />
-
-                        <ImageView
-                            android:layout_width="@dimen/cards_icon_size"
-                            android:layout_height="@dimen/cards_icon_size"
-                            android:layout_marginEnd="@dimen/cards_icon_margin"
-                            android:layout_marginRight="@dimen/cards_icon_margin"
-                            android:contentDescription="@string/card_icon_resource"
-                            android:src="@drawable/jcb" />
-
                     </LinearLayout>
                 </HorizontalScrollView>
 
@@ -126,7 +78,7 @@
                     app:errorEnabled="true"
                     app:errorTextAppearance="@style/Error">
 
-                    <com.example.android_sdk.Input.CardInput
+                    <com.checkout.android_sdk.Input.CardInput
                         android:id="@+id/card_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -159,7 +111,7 @@
                     android:layout_marginTop="@dimen/basic_field_margin_top"
                     android:orientation="horizontal">
 
-                    <com.example.android_sdk.Input.MonthInput
+                    <com.checkout.android_sdk.Input.MonthInput
                         android:id="@+id/month_input"
                         style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                         android:layout_width="match_parent"
@@ -174,7 +126,7 @@
                         android:nextFocusForward="@+id/year_input"
                         android:popupBackground="@color/spinner_background" />
 
-                    <com.example.android_sdk.Input.YearInput
+                    <com.checkout.android_sdk.Input.YearInput
                         android:id="@+id/year_input"
                         style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                         android:layout_width="match_parent"
@@ -201,7 +153,7 @@
                     app:errorEnabled="true"
                     app:errorTextAppearance="@style/Error">
 
-                    <com.example.android_sdk.Input.CvvInput
+                    <com.checkout.android_sdk.Input.CvvInput
                         android:id="@+id/cvv_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -222,7 +174,7 @@
                     android:textColor="?attr/colorControlNormal"
                     android:textSize="@dimen/expiration_date_text_size" />
 
-                <com.example.android_sdk.Input.BillingInput
+                <com.checkout.android_sdk.Input.BillingInput
                     android:id="@+id/go_to_billing"
                     style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                     android:layout_width="match_parent"

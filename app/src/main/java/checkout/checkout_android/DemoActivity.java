@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.android_sdk.CheckoutKit;
-import com.example.android_sdk.Response.CardTokenisationFail;
-import com.example.android_sdk.Response.CardTokenisationResponse;
+import com.checkout.android_sdk.CheckoutKit;
+import com.checkout.android_sdk.Response.CardTokenisationFail;
+import com.checkout.android_sdk.Response.CardTokenisationResponse;
 
 public class DemoActivity extends Activity {
 
