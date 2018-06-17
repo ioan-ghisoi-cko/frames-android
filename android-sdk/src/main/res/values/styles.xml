@@ -11,7 +11,7 @@
         <item name="colorControlNormal">#000000</item>
     </style>
 
-    <style name="Error" parent="@android:style/TextAppearance">
+    <style name="Error">
         <item name="android:textColor">@color/error</item>
     </style>
 
