@@ -1,4 +1,8 @@
 apply plugin: 'com.android.library'
+apply plugin: 'android-maven'
+group = 'com.github.ioan-ghisoi-cko'
+version = '1.0'
+
 
 android {
     compileSdkVersion 27
