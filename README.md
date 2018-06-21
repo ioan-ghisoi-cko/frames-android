@@ -10,7 +10,7 @@ To simply see a demo of the module and interact with the features you can clone 
 git clone https://github.com/ioan-ghisoi-cko/just-a-test.git
 ```
 
-# Instalation (beta)
+# Installation(beta)
 > Please keep in mind that this instalation migth change in the stable release, and we highly advise in using the project from this repository to test the module.
 
 The module is currently available via jitpack and you can find the installation instructions [here](https://jitpack.io/#ioan-ghisoi-cko/just-a-test)
