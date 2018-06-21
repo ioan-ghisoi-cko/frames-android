@@ -15,6 +15,23 @@ git clone https://github.com/ioan-ghisoi-cko/just-a-test.git
 
 The module is currently available via jitpack and you can find the installation instructions [here](https://jitpack.io/#ioan-ghisoi-cko/just-a-test)
 
+```sh
+// project gradle file
+allprojects {
+ repositories {
+  ...
+  maven { url 'https://jitpack.io' }
+ }
+}
+ ...
+// module gradle file
+dependencies {
+ implementation 'com.github.ioan-ghisoi-cko:just-a-test:x.x' // (x.x represents the version)
+}
+```
+
+> Please keep in mind that the Jitpack repository should to be added to the project gradle file while the dependency should be added in the module gradle file. [(see more about gradle files)](https://developer.android.com/studio/build)
+
 Moreover, our module has a few dependecies used for API comunication and UI. Please add the following dependencies to your Gradle file: 
 - **implementation 'com.android.support:design:27.1.1'**
 - **implementation 'com.google.code.gson:gson:2.8.5'**
