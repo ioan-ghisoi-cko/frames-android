@@ -1,8 +1,17 @@
 # CheckoutSdkAndroid - Beta
 > Beta - Do not use before speaking to integration@checkout.com
 
-# Instalation
-The module is available via jitpack and you can find the installation instructions [here](https://jitpack.io/#ioan-ghisoi-cko/just-a-test)
+# Demo
+To simply see a demo of the module and interact with the features you can clone this repo and open the project in Android Studio. 
+
+```sh
+git clone https://github.com/ioan-ghisoi-cko/just-a-test
+```
+
+# Instalation (beta)
+> Please keep in mind that this instalation migth change in the stable release, and we highly advise in using the project from this repository to test the module.
+
+The module is currently available via jitpack and you can find the installation instructions [here](https://jitpack.io/#ioan-ghisoi-cko/just-a-test)
 
 Moreover, our module has a few dependecies used for API comunication and UI. Please add the following dependencies to your Gradle file: 
 - **implementation 'com.android.support:design:27.1.1'**
