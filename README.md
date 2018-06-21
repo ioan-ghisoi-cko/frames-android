@@ -1,6 +1,8 @@
 # CheckoutSdkAndroid - Beta
 > Beta - Do not use before speaking to integration@checkout.com
 
+# Requirements
+- Android minimum SDK 16
 # Demo
 To simply see a demo of the module and interact with the features you can clone this repo and open the project in Android Studio. 
 
