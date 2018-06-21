@@ -25,7 +25,7 @@ Moreover, our module has a few dependecies used for API comunication and UI. Ple
 
 **Step1** Add the module to your XML layout.
 ```xml
-   <com.example.android_sdk.CheckoutKit
+   <com.checkout.android_sdk.CheckoutKit
         android:id="@+id/checkout_card_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
