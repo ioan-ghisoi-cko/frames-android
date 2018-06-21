@@ -63,7 +63,7 @@ Moreover, our module has a few dependecies used for API comunication and UI. Ple
 
 <br/>
 
-### For using the module's without the UI you need to do the follwing:
+### For using the module's without the UI you need to do the following:
 <br/>
 
 **Step1** Include the module in your class.
