@@ -1,6 +1,14 @@
 # CheckoutSdkAndroid - Beta
 > Beta - Do not use before speaking to integration@checkout.com
 
+# Instalation
+The module is available via jitpack and you can find the installation instructions [here](https://jitpack.io/#ioan-ghisoi-cko/just-a-test)
+
+Moreover, our module has a few dependecies used for API comunication and UI. Please add the following dependencies to your Gradle file: 
+- **implementation 'com.android.support:design:27.1.1'**
+- **implementation 'com.google.code.gson:gson:2.8.5'**
+- **implementation 'com.android.volley:volley:1.0.0'**
+
 # Usage
 
 ### For using the module's UI you need to do the following:
