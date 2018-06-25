@@ -129,7 +129,7 @@ public class CardUtils {
             return checkLuhn(number);
         }
 
-        return true;
+        return false;
     }
 
     /**
