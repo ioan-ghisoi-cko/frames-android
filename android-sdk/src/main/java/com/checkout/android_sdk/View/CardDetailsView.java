@@ -71,7 +71,7 @@ public class CardDetailsView extends LinearLayout {
 
         @Override
         public void onCardError() {
-            mCardLayout.setError(getResources().getString(R.string.card_number_error));
+            mCardLayout.setError(getResources().getString(R.string.error_card_number));
             mDataStore.setValidCardNumber(false);
         }
 
@@ -119,20 +119,19 @@ public class CardDetailsView extends LinearLayout {
      * to indicate this controller if there is any error or if the error state needs to
      * be cleared. State is also updates based on the outcome of the input.
      */
-    private final CvvInput.CvvListener mCvvInputListener = new CvvInput.CvvListener() {
+    private final CvvInput.Listener mCvvInputListener = new CvvInput.Listener() {
         @Override
-        public void onCvvInputFinish(String cvv) {
-            mDataStore.setValidCardCvv(true);
+        public void onInputFinish(String value) {
+            mDataStore.setCardCvv(value);
+            if(value.length() == mDataStore.getCvvLength()){
+                mDataStore.setValidCardCvv(true);
+            } else {
+                mDataStore.setValidCardCvv(false);
+            }
         }
 
         @Override
-        public void onCvvError() {
-            mDataStore.setValidCardCvv(false);
-            mCvvLayout.setError(getResources().getString(R.string.cvv_error));
-        }
-
-        @Override
-        public void onClearCvvError() {
+        public void clearInputError() {
             mCvvLayout.setError(null);
             mCvvLayout.setErrorEnabled(false);
         }
@@ -202,7 +201,7 @@ public class CardDetailsView extends LinearLayout {
 
         mCvvInput = findViewById(R.id.cvv_input);
         mCvvLayout = findViewById(R.id.cvv_input_layout);
-        mCvvInput.setCvvListener(mCvvInputListener);
+        mCvvInput.setListener(mCvvInputListener);
 
         mBillingHelper = findViewById(R.id.billing_helper_text);
         mGoToBilling = findViewById(R.id.go_to_billing);
@@ -307,13 +306,16 @@ public class CardDetailsView extends LinearLayout {
         }
 
         if (!mDataStore.isValidCardNumber()) {
-            mCardLayout.setError(getResources().getString(R.string.card_number_error));
+            mCardLayout.setError(getResources().getString(R.string.error_card_number));
             outcome = false;
         }
 
         if (!mDataStore.isValidCardCvv()) {
-            mCvvLayout.setError(getResources().getString(R.string.cvv_error));
+            mCvvLayout.setError(getResources().getString(R.string.error_cvv));
             outcome = false;
+        } else {
+            mCvvLayout.setError(null);
+            mCvvLayout.setErrorEnabled(false);
         }
 
         return outcome;
@@ -337,7 +339,7 @@ public class CardDetailsView extends LinearLayout {
                         mDataStore.getCardYear())) {
             mDataStore.setValidCardMonth(false);
             ((TextView) mMonthInput.getSelectedView()).setError(getResources()
-                    .getString(R.string.expiration_date_error));
+                    .getString(R.string.error_expiration_date));
             return false;
         }
         return true;
@@ -353,7 +355,7 @@ public class CardDetailsView extends LinearLayout {
         List<String> billingElement = new ArrayList<>();
 
         // Set the default value fo the spinner
-        billingElement.add(getResources().getString(R.string.billing_details_select));
+        billingElement.add(getResources().getString(R.string.select_billing_details));
         billingElement.add(getResources().getString(R.string.billing_details_add));
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(mContext,

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 
+import com.checkout.android_sdk.R;
 import com.checkout.android_sdk.Store.DataStore;
 
 import java.util.ArrayList;
@@ -70,8 +71,8 @@ public class BillingInput extends android.support.v7.widget.AppCompatSpinner {
     private void populateSpinner() {
         List<String> billingElement = new ArrayList<>();
 
-        billingElement.add("SELECT");
-        billingElement.add("  + ADD");
+        billingElement.add(getResources().getString(R.string.select_billing_details));
+        billingElement.add(getResources().getString(R.string.billing_details_add));
 
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(mContext,
                 android.R.layout.simple_spinner_item, billingElement);

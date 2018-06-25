@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">checkout-android-sdk</string>
-    <string name="card_details_title">Detalles de tarjeta</string>
-    <string name="accepted_cards_label">Tarjetas Aceptadas</string>
+    <string name="title_card_details">Detalles de tarjeta</string>
+    <string name="label_accepted_cards">Tarjetas Aceptadas</string>
 </resources>

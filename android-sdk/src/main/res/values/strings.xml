@@ -1,56 +1,36 @@
 <resources>
     <string name="app_name" translatable="false">checkout-android-sdk</string>
-
-    <string name="card_details_title" translatable="true">Card Details</string>
-
-    <string name="accepted_cards_label" translatable="true">Accepted Cards</string>
-
-    <string name="card_number_placeholder" translatable="true">Card number*</string>
-    <string name="card_number_error" translatable="true">Enter a valid card number</string>
-
-    <string name="expiration_date_label" translatable="true">Expiration date*</string>
-
-    <string name="expiration_date_error" translatable="true">Enter a valid date</string>
-
-    <string name="cvv_placeholder" translatable="true">Cvv*</string>
-    <string name="cvv_error" translatable="true">Enter a valid Cvv</string>
-
-    <string name="billing_details_label" translatable="true">Billing Details</string>
-    <string name="billing_details_select" translatable="true">SELECT</string>
-    <string name="billing_details_edit" translatable="true">Edit</string>
+    <string name="title_card_details" translatable="true">Card Details</string>
+    <string name="label_accepted_cards" translatable="true">Accepted Cards</string>
+    <string name="placeholder_card_number" translatable="true">Card number*</string>
+    <string name="error_card_number" translatable="true">The card number is invalid</string>
+    <string name="label_expiration_date" translatable="true">Expiration date*</string>
+    <string name="error_expiration_date" translatable="true">Enter a valid date</string>
+    <string name="placeholder_cvv" translatable="true">Cvv*</string>
+    <string name="error_cvv" translatable="true">Enter a valid Cvv</string>
+    <string name="label_billing_details" translatable="true">Billing Details</string>
+    <string name="select_billing_details" translatable="true">SELECT</string>
+    <string name="edit_billing_details" translatable="true">Edit</string>
     <string name="billing_details_add" translatable="true"> + ADD</string>
-
-    <string name="pay_button" translatable="true">Pay</string>
-
-    <string name="billing_details_title" translatable="true">Billing Details</string>
-
-    <string name="name_placeholder" translatable="true">Name on card</string>
-    <string name="name_error" translatable="true">Value must be longer then 3 characters</string>
-
-    <string name="country_placeholder" translatable="true"> SELECT COUNTRY</string>
-    <string name="country_error" translatable="true">Please select a country</string>
-
-    <string name="address_one_placeholder" translatable="true">Address line 1*</string>
-    <string name="address_one_error" translatable="true">Value must be longer then 3 characters</string>
-
-    <string name="address_two_placeholder" translatable="true">Address line 2</string>
-    <string name="address_tow_error" translatable="true">Value must be longer then 3 characters</string>
-
-    <string name="city_placeholder" translatable="true">City*</string>
-    <string name="city_error" translatable="true">Value must be longer then 2 characters</string>
-
-    <string name="state_placeholder" translatable="true">State</string>
-    <string name="state_error" translatable="true">Value must be longer then 3 characters</string>
-
-    <string name="postcode_placeholder" translatable="true">Postcode*</string>
-    <string name="postcode_error" translatable="true">Value must be longer then 3 characters</string>
-
-    <string name="phone_placeholder" translatable="true">Phone*</string>
-    <string name="phone_error" translatable="true">Value must be longer then 3 characters</string>
-
-    <string name="clear_button" translatable="true">Clear</string>
-    <string name="done_button" translatable="true">Done</string>
-
+    <string name="button_pay" translatable="true">Pay</string>
+    <string name="title_billing_details" translatable="true">Billing Details</string>
+    <string name="placeholder_name" translatable="true">Cardholder\'s name*</string>
+    <string name="error_name" translatable="true">Value must be longer then 3 characters</string>
+    <string name="placeholder_country" translatable="true"> SELECT COUNTRY/REGION</string>
+    <string name="error_country" translatable="true">Please select a country/region</string>
+    <string name="placeholder_address_one" translatable="true">Address line 1*</string>
+    <string name="error_address_one" translatable="true">Value must be longer then 3 characters</string>
+    <string name="placeholder_address_two" translatable="true">Address line 2</string>
+    <string name="error_address_tow" translatable="true">Value must be longer then 3 characters</string>
+    <string name="placeholder_city" translatable="true">Postal Town*</string>
+    <string name="error_city" translatable="true">Value must be longer then 2 characters</string>
+    <string name="placeholder_state" translatable="true">State</string>
+    <string name="error_state" translatable="true">Value must be longer then 3 characters</string>
+    <string name="placeholder_postcode" translatable="true">Postcode*</string>
+    <string name="error_postcode" translatable="true">Value must be longer then 3 characters</string>
+    <string name="placeholder_phone" translatable="true">Phone*</string>
+    <string name="error_phone" translatable="true">Value must be longer then 3 characters</string>
+    <string name="button_clear" translatable="true">Clear</string>
+    <string name="button_done" translatable="true">Done</string>
     <string name="card_icon_resource" translatable="false">card_icon*</string>
-
 </resources>

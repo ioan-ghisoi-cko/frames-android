@@ -18,7 +18,7 @@
             android:background="?attr/colorPrimary"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:navigationIcon="?attr/homeAsUpIndicator"
-            app:title="@string/card_details_title" />
+            app:title="@string/title_card_details" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                         android:layout_marginTop="@dimen/accepted_cards_margin_top"
                         android:paddingLeft="@dimen/accepted_cards_margin_side"
                         android:paddingRight="@dimen/accepted_cards_margin_side"
-                        android:text="@string/accepted_cards_label"
+                        android:text="@string/label_accepted_cards"
                         android:textColor="?attr/colorControlNormal"
                         android:textSize="@dimen/label_text_size" />
 
@@ -73,7 +73,7 @@
                     android:layout_marginLeft="@dimen/basic_field_margin_side"
                     android:layout_marginRight="@dimen/basic_field_margin_side"
                     android:layout_marginTop="@dimen/basic_field_margin_top"
-                    android:hint="@string/card_number_placeholder"
+                    android:hint="@string/placeholder_card_number"
                     android:nextFocusForward="@+id/month_input"
                     app:errorEnabled="true"
                     app:errorTextAppearance="@style/Error">
@@ -97,7 +97,7 @@
                     android:layout_marginTop="@dimen/accepted_cards_margin_top"
                     android:paddingLeft="@dimen/expiration_date_margin_side"
                     android:paddingRight="@dimen/expiration_date_margin_side"
-                    android:text="@string/expiration_date_label"
+                    android:text="@string/label_expiration_date"
                     android:textColor="?attr/colorControlNormal"
                     android:textSize="@dimen/label_text_size" />
 
@@ -149,7 +149,7 @@
                     android:layout_marginLeft="@dimen/basic_field_margin_side"
                     android:layout_marginRight="@dimen/basic_field_margin_side"
                     android:layout_marginTop="@dimen/basic_field_margin_top"
-                    android:hint="@string/cvv_placeholder"
+                    android:hint="@string/placeholder_cvv"
                     app:errorEnabled="true"
                     app:errorTextAppearance="@style/Error">
 
@@ -158,6 +158,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:digits="0123456789"
+                        android:maxLength="4"
                         android:imeOptions="flagNoExtractUi|actionDone"
                         android:inputType="number"
                         android:maxLines="1" />
@@ -170,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/accepted_cards_margin_side"
                     android:paddingRight="@dimen/accepted_cards_margin_side"
-                    android:text="@string/billing_details_label"
+                    android:text="@string/label_billing_details"
                     android:textColor="?attr/colorControlNormal"
                     android:textSize="@dimen/expiration_date_text_size" />
 
@@ -204,7 +205,7 @@
                         android:height="@dimen/button_height"
                         android:background="?attr/colorButtonNormal"
                         android:focusable="true"
-                        android:text="@string/pay_button"
+                        android:text="@string/button_pay"
                         android:textAlignment="center"
                         android:textAllCaps="true"
                         android:textColor="@color/pay_button_text" />

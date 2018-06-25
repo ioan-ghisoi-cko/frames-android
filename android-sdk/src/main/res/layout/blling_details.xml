@@ -12,7 +12,7 @@
         android:background="?attr/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:navigationIcon="?attr/homeAsUpIndicator"
-        app:title="@string/billing_details_title" />
+        app:title="@string/title_billing_details" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/basic_field_margin_side"
                 android:layout_marginRight="@dimen/basic_field_margin_side"
-                android:hint="@string/name_placeholder"
+                android:hint="@string/placeholder_name"
                 app:errorTextAppearance="@style/Error">
 
                 <com.checkout.android_sdk.Input.DefaultInput
@@ -69,7 +69,7 @@
                 android:layout_marginLeft="@dimen/basic_field_margin_side"
                 android:layout_marginRight="@dimen/basic_field_margin_side"
                 android:layout_marginTop="@dimen/basic_field_margin_top"
-                android:hint="@string/address_one_placeholder"
+                android:hint="@string/placeholder_address_one"
                 app:errorTextAppearance="@style/Error">
 
                 <com.checkout.android_sdk.Input.AddressOneInput
@@ -95,7 +95,7 @@
                 android:layout_marginLeft="@dimen/basic_field_margin_side"
                 android:layout_marginRight="@dimen/basic_field_margin_side"
                 android:layout_marginTop="@dimen/basic_field_margin_top"
-                android:hint="@string/address_two_placeholder"
+                android:hint="@string/placeholder_address_two"
                 app:errorTextAppearance="@style/Error">
 
                 <com.checkout.android_sdk.Input.DefaultInput
@@ -122,7 +122,7 @@
                 android:layout_marginLeft="@dimen/basic_field_margin_side"
                 android:layout_marginRight="@dimen/basic_field_margin_side"
                 android:layout_marginTop="@dimen/basic_field_margin_top"
-                android:hint="@string/city_placeholder"
+                android:hint="@string/placeholder_city"
                 app:errorTextAppearance="@style/Error">
 
                 <com.checkout.android_sdk.Input.DefaultInput
@@ -148,7 +148,7 @@
                 android:layout_marginLeft="@dimen/basic_field_margin_side"
                 android:layout_marginRight="@dimen/basic_field_margin_side"
                 android:layout_marginTop="@dimen/basic_field_margin_top"
-                android:hint="@string/state_placeholder"
+                android:hint="@string/placeholder_state"
                 app:errorTextAppearance="@style/Error">
 
                 <com.checkout.android_sdk.Input.DefaultInput
@@ -175,7 +175,7 @@
                 android:layout_marginLeft="@dimen/basic_field_margin_side"
                 android:layout_marginRight="@dimen/basic_field_margin_side"
                 android:layout_marginTop="@dimen/basic_field_margin_top"
-                android:hint="@string/postcode_placeholder"
+                android:hint="@string/placeholder_postcode"
                 app:errorTextAppearance="@style/Error">
 
                 <com.checkout.android_sdk.Input.DefaultInput
@@ -201,7 +201,7 @@
                 android:layout_marginLeft="@dimen/basic_field_margin_side"
                 android:layout_marginRight="@dimen/basic_field_margin_side"
                 android:layout_marginTop="@dimen/basic_field_margin_top"
-                android:hint="@string/phone_placeholder"
+                android:hint="@string/placeholder_phone"
                 app:errorTextAppearance="@style/Error">
 
                 <com.checkout.android_sdk.Input.PhoneInput
@@ -236,7 +236,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center"
-                    android:text="@string/clear_button"
+                    android:text="@string/button_clear"
                     android:textAllCaps="false" />
 
 
@@ -250,7 +250,7 @@
                     android:height="@dimen/button_height"
                     android:background="?attr/colorButtonNormal"
                     android:focusable="true"
-                    android:text="@string/done_button"
+                    android:text="@string/button_done"
                     android:textAlignment="center"
                     android:textAllCaps="false"
                     android:textColor="@color/pay_button_text" />

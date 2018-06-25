@@ -378,36 +378,36 @@ public class BillingDetailsView extends LinearLayout {
         boolean result = true;
 
         if (mName.length() < 3) {
-            mNameLayout.setError(getResources().getString(R.string.name_error));
+            mNameLayout.setError(getResources().getString(R.string.error_name));
             result = false;
         }
 
         if (mCountryInput.getSelectedItemPosition() == 0) {
-            ((TextView) mCountryInput.getSelectedView()).setError(getResources().getString(R.string.country_error));
+            ((TextView) mCountryInput.getSelectedView()).setError(getResources().getString(R.string.error_country));
             result = false;
         }
         if (mAddressOne.length() < 3) {
-            mAddressOneLayout.setError(getResources().getString(R.string.address_one_error));
+            mAddressOneLayout.setError(getResources().getString(R.string.error_address_one));
             result = false;
         }
 
         if (mCity.length() < 2) {
-            mCityLayout.setError(getResources().getString(R.string.city_error));
+            mCityLayout.setError(getResources().getString(R.string.error_city));
             result = false;
         }
 
         if (mState.length() < 3) {
-            mStateLayout.setError(getResources().getString(R.string.state_error));
+            mStateLayout.setError(getResources().getString(R.string.error_state));
             result = false;
         }
 
         if (mZip.length() < 3) {
-            mZipLayout.setError(getResources().getString(R.string.postcode_error));
+            mZipLayout.setError(getResources().getString(R.string.error_postcode));
             result = false;
         }
 
         if (mPhone.length() < 3) {
-            mPhoneLayout.setError(getResources().getString(R.string.phone_error));
+            mPhoneLayout.setError(getResources().getString(R.string.error_phone));
             result = false;
         }
 
