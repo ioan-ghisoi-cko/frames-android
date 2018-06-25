@@ -11,9 +11,9 @@ git clone https://github.com/ioan-ghisoi-cko/just-a-test.git
 ```
 
 # Installation(beta)
-> Please keep in mind that this instalation migth change in the stable release, and we highly advise in using the project from this repository to test the module.
+> Please keep in mind that this installation might change in the stable release, and we highly advise in using the project from this repository to test the module.
 
-The module is currently available via jitpack and you can find the installation instructions [here](https://jitpack.io/#ioan-ghisoi-cko/just-a-test)
+The module is currently available via Jitpack and you can find the installation instructions [here](https://jitpack.io/#ioan-ghisoi-cko/just-a-test)
 
 ```sh
 // project gradle file
@@ -33,10 +33,11 @@ dependencies {
 > Please keep in mind that the Jitpack repository should to be added to the project gradle file while the dependency should be added in the module gradle file. [(see more about gradle files)](https://developer.android.com/studio/build)
 
 Moreover, our module has a few dependecies used for API comunication and UI. Please add the following dependencies to your Gradle file: 
-- **implementation 'com.android.support:design:27.1.1'**
-- **implementation 'com.google.code.gson:gson:2.8.5'**
-- **implementation 'com.android.volley:volley:1.0.0'**
-
+```sh
+  implementation 'com.android.support:design:27.1.1'
+  implementation 'com.google.code.gson:gson:2.8.5'
+  implementation 'com.android.volley:volley:1.0.0'
+```
 # Usage
 
 ### For using the module's UI you need to do the following:
@@ -44,7 +45,7 @@ Moreover, our module has a few dependecies used for API comunication and UI. Ple
 
 **Step1** Add the module to your XML layout.
 ```xml
-   <com.checkout.android_sdk.CheckoutAPIClient
+   <com.checkout.android_sdk.PaymentForm
         android:id="@+id/checkout_card_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -53,7 +54,7 @@ Moreover, our module has a few dependecies used for API comunication and UI. Ple
 
 **Step2** Include the module in your class.
 ```java
-   private CheckoutAPIClient mCheckout; // include the module 
+   private PaymentForm mPaymentForm; // include the module 
 ```
 
 **Step3** Create a callback.
@@ -72,9 +73,9 @@ Moreover, our module has a few dependecies used for API comunication and UI. Ple
 
 **Step4** Initialise the module
 ```java
-   mCheckout = findViewById(R.id.checkout_card_form);
-   mCheckout
-         .setEnvironment("sandbox")
+   mPaymentForm = findViewById(R.id.checkout_card_form);
+   mPaymentForm
+         .setEnvironment(Environment.SANDBOX)
          .setKey("pk_test_6e40a700-d563-43cd-89d0-f9bb17d35e73")
          .setTokenListener(mTokenListener); // pass the callback
 ```
@@ -87,7 +88,7 @@ Moreover, our module has a few dependecies used for API comunication and UI. Ple
 
 **Step1** Include the module in your class.
 ```java
-   private CheckoutAPIClient mCheckout; // include the module 
+   private CheckoutAPIClient mCheckoutAPIClient; // include the module 
 ```
 
 **Step2** Create a callback.
@@ -104,34 +105,39 @@ Moreover, our module has a few dependecies used for API comunication and UI. Ple
    };
 ```
 
-**Step3** Initialise the module and pass the card details 
+**Step3** Initialise the module and pass the card details.
 ```java
-   mCheckout = new CheckoutAPIClient(this);
+   mCheckoutAPIClient = new CheckoutAPIClient(
+           context,             // activity context
+           "pk_XXXXX",          // your public key
+           Environment.SANDBOX  // the environment
+   );
+   mCheckoutAPIClient.setTokenListener(mTokenListener); // pass the callback
 
-   mCheckout
-         .setTokenListener(mTokenListener)
-         .setEnvironment("sandbox")
-         .setKey("pk_test_6e40a700-d563-43cd-89d0-f9bb17d35e73")
-         .setTokenListener(mTokenListener); // pass the callback
 
-   CardTokenisationRequest details = new CardTokenisationRequest();
+   // Pass the paylod and generate the token
+   mCheckoutAPIClient.generateToken(
+     new CardTokenisationRequest(
+          "4242424242424242",
+          "name",
+          "06",
+          "18",
+          "100",
+          new BillingModel(
+                  "address line 1",
+                  "address line 2",
+                  "postcode",
+                  "country",
+                  "city",
+                  "state",
+                  new PhoneModel(
+                          "+44",
+                          "07123456789"
+                  )
+          )
+     )
+   );
 
-   // Populate the request details
-   details
-      .setCardNumber("4242424242424242")
-      .setExpiryMonth("06")
-      .setExpiryYear("2018")
-      .setCvv("10000")
-      .setName("Johnny")
-      .setCountry("US")
-      .setAddressLine1("London 1")
-      .setAddressLine2("London 2")
-      .setCity("London")
-      .setState("London")
-      .setPostcode("w1w w1w")
-      .setPhoneNumber("44", "07123456789");
-
-   mCheckout.generateToken(details); // pass the request details object
 ```
 
 # Customisation Options
@@ -155,7 +161,7 @@ Moreover, the module inherits the  **Theme.AppCompat.Light.DarkActionBar** style
      <item name="colorControlNormal">#000000</item>
    </style>
    ...
-   <com.example.android_sdk.CheckoutAPIClient
+   <com.example.android_sdk.PaymentForm
      android:id="@+id/checkout_card_form"
      android:layout_width="match_parent"
      android:layout_height="match_parent"
@@ -164,7 +170,7 @@ Moreover, the module inherits the  **Theme.AppCompat.Light.DarkActionBar** style
 
 If you would like to allow users to input their billing details when completing the payment details you can simply use the folllowing method:
 ```java
-   mCheckout.includeBilling(true); // false value will hide the option
+   mPaymentForm.includeBilling(true); // false value will hide the option
 ```
 
 # Handle 3D Secure
@@ -175,55 +181,62 @@ The module allows you to handle 3DSecure URLs within your mobile app. Here are t
 
 **Step1** Create a callback.
 ```java
-   private final CheckoutAPIClient.on3DSFinished m3DSecureListener = 
-          new CheckoutAPIClient.on3DSFinished() {
-     @Override
-     public void onSuccess(String paymentToken) {
-         // success
-     }
-     @Override
-     public void onError(String paymentToken) {
-         // error
-     }
-   };
+    private final PaymentForm.on3DSFinished m3DSecureListener = 
+           new PaymentForm.on3DSFinished() {
+
+        @Override
+        public void onSuccess(String token) {
+            // success
+        }
+
+        @Override
+        public void onError(String errorMessage) {
+            // fail
+        }
+    };
 ```
 
 **Step2** Pass the callback to the module and handle 3D Secure
 ```java
-   mCheckout.set3DSListener(m3DSecureListener); // pass the callback
-
-   mCheckout.handle3DS(
-             "https://sandbox.checkout.com/api2/v2/3ds/acs/687805", // the 3D Secure URL
-             "http://example.com/success", // the Redirection URL
-             "http://example.com/fail" // the Redirection Fail URL
-   );
+    // can be used without the Payment form UI -> mPaymentForm = new PaymentForm(context); 
+    mPaymentForm
+            .set3DSListener(m3DSecureListener);
+    
+    mPaymentForm.handle3DS(
+            "https://sandbox.checkout.com/api2/v2/3ds/acs/687805", // the 3D Secure URL
+            "http://example.com/success", // the Redirection URL
+            "http://example.com/fail" // the Redirection Fail URL
+    );
 ```
 > Keep in mind that the Redirection and Redirection Fail URLs are set in the Checkout Hub, but they can be overwritten in the charge request sent from your server. Keep in mind to provide the correct URLs to ensure a successful interaction.
 
 # Handle Google Pay
 
-The module allows you to handle a Google Pay token payload and retrive a token, that can be used to create a charge from your backend.
+The module allows you to handle a Google Pay token payload and retrieve a token, that can be used to create a charge from your backend.
 
 **Step1** Create a callback.
 ```java
-   private final CheckoutAPIClient.OnGooglePayTokenGenerated mGooglePayListener = 
-          new CheckoutAPIClient.OnGooglePayTokenGenerated() {
-        @Override
-        public void onTokenGenerated(GooglePayTokenisationResponse response) {
-            // token
-        }
 
-        @Override
-        public void onError(GooglePayTokenisationFail error) {
-            // error
-        }
-   };
+     private final CheckoutAPIClient.OnGooglePayTokenGenerated mGooglePayListener =
+        new CheckoutAPIClient.OnGooglePayTokenGenerated() {
+    
+            @Override
+            public void onTokenGenerated(GooglePayTokenisationResponse response) {
+                // success
+            }
+    
+            @Override
+            public void onError(GooglePayTokenisationFail error) {
+                // fail
+            }
+        };
 ```
 **Step2** Pass the callback to the module and generate the token
 ```java
-   mCheckout.setGooglePayListener(mGooglePayListener); // pass the callback
+   mCheckoutAPIClient = new CheckoutAPIClient(context);
+   mCheckoutAPIClient.setGooglePayListener(mGooglePayListener); // pass the callback
 
-   mCheckout.generateGooglePayToken(payload); // the payload is the JSONObject generated by GooglePay
+   mCheckoutAPIClient.generateGooglePayToken(payload); // the payload is the JSONObject generated by GooglePay
 ```
 
 # Objects found in callbacks
@@ -237,16 +250,7 @@ This has the following getters:
    response.getLiveMode();         // environment mode
    response.getCreated();          // timestamp of creation
    response.getUsed();             // show usage
-   response.getExpiryMonth();      // the card expiry month
-   response.getExpiryYear();       // the card expiry year
-   response.getAddressLine1();     // the billing address line 1
-   response.gettAddressLine2();    // the billing address line 1
-   response.getPostcode();         // the billing postcode
-   response.getCountry();          // the billing country
-   response.getCity();             // the billing city
-   response.getState();            // the billing state
-   response.getPhoneNumber();      // the phone number
-   response.getPhoneCountryCode(); // the phone number country code
+   response.getCard();             // card object containing card information and billing details
 ```
 
 **For error -> CardTokenisationResponse** 
