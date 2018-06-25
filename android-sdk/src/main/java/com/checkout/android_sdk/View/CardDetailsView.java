@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.checkout.android_sdk.Input.BillingInput;
 import com.checkout.android_sdk.Input.CardInput;
 import com.checkout.android_sdk.Input.CvvInput;
+import com.checkout.android_sdk.Input.DefaultInput;
 import com.checkout.android_sdk.Input.MonthInput;
 import com.checkout.android_sdk.Input.YearInput;
 import com.checkout.android_sdk.R;
@@ -115,11 +116,11 @@ public class CardDetailsView extends LinearLayout {
     /**
      * The callback is used to communicate with the cvv input
      * <p>
-     * The custom {@link CvvInput} takes care of the validation and it uses a callback
+     * The custom {@link DefaultInput} takes care of the validation and it uses a callback
      * to indicate this controller if there is any error or if the error state needs to
      * be cleared. State is also updates based on the outcome of the input.
      */
-    private final CvvInput.Listener mCvvInputListener = new CvvInput.Listener() {
+    private final DefaultInput.Listener mCvvInputListener = new DefaultInput.Listener() {
         @Override
         public void onInputFinish(String value) {
             mDataStore.setCardCvv(value);
@@ -160,7 +161,7 @@ public class CardDetailsView extends LinearLayout {
     private MonthInput mMonthInput;
     private YearInput mYearInput;
     private BillingInput mGoToBilling;
-    private CvvInput mCvvInput;
+    private DefaultInput mCvvInput;
     private TextInputLayout mCardLayout;
     private TextInputLayout mCvvLayout;
     private Button mPayButton;
@@ -219,10 +220,9 @@ public class CardDetailsView extends LinearLayout {
         mPayButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                mCvvInput.clearFocus();
                 if (mDetailsCompletedListener != null && isValidForm()) {
                     mDetailsCompletedListener.onDetailsCompleted();
-                    // disable the pay button to avoid multiple clicks
-                    //mPayButton.setEnabled(false);
                 }
             }
         });
@@ -308,6 +308,12 @@ public class CardDetailsView extends LinearLayout {
         if (!mDataStore.isValidCardNumber()) {
             mCardLayout.setError(getResources().getString(R.string.error_card_number));
             outcome = false;
+        }
+
+        if(mCvvInput.getText().length() == mDataStore.getCvvLength()){
+            mDataStore.setValidCardCvv(true);
+        } else {
+            mDataStore.setValidCardCvv(false);
         }
 
         if (!mDataStore.isValidCardCvv()) {

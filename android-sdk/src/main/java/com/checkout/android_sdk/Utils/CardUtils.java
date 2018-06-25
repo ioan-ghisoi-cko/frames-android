@@ -107,22 +107,29 @@ public class CardUtils {
     public static boolean isValidCard(@Nullable String number) {
         if (number == null || number.equals("")) {
             return false;
-        } else {
-            number = sanitizeEntry(number);
-            Cards type = getType(number);
-            for (int i = 0; i < type.cardLength.length; i++) {
-                if (type.luhn &&
-                        number.length() == type.cardLength[i] &&
-                        checkLuhn(number) &&
-                        type != Cards.DEFAULT) {
-                    return true;
-                } else if (number.length() == type.cardLength[i] &&
-                        type != Cards.DEFAULT) {
-                    return true;
-                }
+        }
+
+        number = sanitizeEntry(number);
+        Cards type = getType(number);
+        // If the card is not on the available card list return false
+        if (type == Cards.DEFAULT) {
+            return false;
+        }
+
+        // Check if the length of the card matches the valid card lengths for the specific type
+        boolean isValidLength = false;
+        for(int length : type.cardLength){
+            if (number.length() == length) {
+                isValidLength = true;
             }
         }
-        return false;
+
+        // If the card length is valid and luhn is available check luhn, otherwise consider card valid
+        if (isValidLength && type.luhn) {
+            return checkLuhn(number);
+        }
+
+        return true;
     }
 
     /**

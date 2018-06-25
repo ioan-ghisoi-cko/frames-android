@@ -14,86 +14,14 @@ public class CardTokenisationRequest {
     private String expiryYear;
     private String cvv;
 
-    private BillingModel billingDetails = new BillingModel();
+    private BillingModel billingDetails;
 
-    public CardTokenisationRequest() {
-        // Empty constructor
-    }
-
-    public CardTokenisationRequest(String number, String expiryMonth, String expiryYear,
-                                   String cvv, BillingModel billing) {
+    public CardTokenisationRequest(String number, String name, String expiryMonth, String expiryYear, String cvv, BillingModel billingDetails) {
         this.number = number;
-        this.expiryMonth = expiryMonth;
-        this.expiryYear = expiryYear;
-        this.cvv = cvv;
-        this.billingDetails = billing;
-    }
-
-
-    public void setBillingDetails(BillingModel billingDetails) {
-        this.billingDetails = billingDetails;
-    }
-
-    public CardTokenisationRequest setCardNumber(String number) {
-        this.number = number;
-        return this;
-    }
-
-    public CardTokenisationRequest setExpiryMonth(String expiryMonth) {
-        this.expiryMonth = expiryMonth;
-        return this;
-    }
-
-    public CardTokenisationRequest setExpiryYear(String expiryYear) {
-        this.expiryYear = expiryYear;
-        return this;
-    }
-
-    public CardTokenisationRequest setCvv(String cvv) {
-        this.cvv = cvv;
-        return this;
-    }
-
-    public CardTokenisationRequest setName(String name) {
         this.name = name;
-        return this;
-    }
-
-    public CardTokenisationRequest setAddressLine1(String addressLine1) {
-        this.billingDetails.setAddressLine1(addressLine1);
-        return this;
-    }
-
-    public CardTokenisationRequest setAddressLine2(String addressLine2) {
-        this.billingDetails.setAddressLine2(addressLine2);
-        return this;
-    }
-
-    public CardTokenisationRequest setPostcode(String postcode) {
-        this.billingDetails.setPostcode(postcode);
-        return this;
-    }
-
-    public CardTokenisationRequest setCountry(String country) {
-        this.billingDetails.setCountry(country);
-        return this;
-    }
-
-    public CardTokenisationRequest setCity(String city) {
-        this.billingDetails.setCity(city);
-        return this;
-    }
-
-    public CardTokenisationRequest setState(String state) {
-        this.billingDetails.setState(state);
-        return this;
-    }
-
-    public CardTokenisationRequest setPhoneNumber(String countryCode, String number) {
-        PhoneModel phone = new PhoneModel();
-        phone.setCountryCode(countryCode);
-        phone.setNumber(number);
-        this.billingDetails.setPhone(phone);
-        return this;
+        this.expiryMonth = expiryMonth;
+        this.expiryYear = expiryYear;
+        this.cvv = cvv;
+        this.billingDetails = billingDetails;
     }
 }

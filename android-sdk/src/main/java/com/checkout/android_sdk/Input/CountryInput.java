@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import com.checkout.android_sdk.R;
 import com.checkout.android_sdk.Utils.PhoneUtils;
 
 import java.util.ArrayList;
@@ -99,7 +100,7 @@ public class CountryInput extends android.support.v7.widget.AppCompatSpinner {
         Locale[] locale = Locale.getAvailableLocales();
         ArrayList<String> countries = new ArrayList<>();
         String country;
-        countries.add(" Select Country:");
+        countries.add(getResources().getString(R.string.placeholder_country));
 
         for( Locale loc : locale ){
             country = loc.getDisplayCountry();

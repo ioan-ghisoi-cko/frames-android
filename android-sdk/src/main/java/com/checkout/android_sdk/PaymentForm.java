@@ -10,6 +10,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 
+import com.checkout.android_sdk.Models.BillingModel;
+import com.checkout.android_sdk.Models.PhoneModel;
 import com.checkout.android_sdk.Request.CardTokenisationRequest;
 import com.checkout.android_sdk.Request.GooglePayTokenisationRequest;
 import com.checkout.android_sdk.Response.CardTokenisationFail;
@@ -42,6 +44,7 @@ public class PaymentForm extends FrameLayout {
      */
     public interface on3DSFinished {
         void onSuccess(String token);
+
         void onError(String errorMessage);
     }
 
@@ -106,14 +109,14 @@ public class PaymentForm extends FrameLayout {
      * This is the constructor used when the module is used without the UI.
      */
     public PaymentForm(@NonNull Context context) {
-            this(context, null);
-        }
+        this(context, null);
+    }
 
     public PaymentForm(@NonNull Context context, @Nullable AttributeSet attrs) {
-            super(context, attrs);
-            this.mContext = context;
-            this.attrs = attrs;
-            initView();
+        super(context, attrs);
+        this.mContext = context;
+        this.attrs = attrs;
+        initView();
     }
 
     /**
@@ -211,26 +214,36 @@ public class PaymentForm extends FrameLayout {
      * @return CardTokenisationRequest
      */
     private CardTokenisationRequest generateRequest() {
-
-        CardTokenisationRequest request = new CardTokenisationRequest();
-
-        request
-                .setCardNumber(sanitizeEntry(mDataStore.getCardNumber()))
-                .setExpiryMonth(mDataStore.getCardMonth())
-                .setExpiryYear(mDataStore.getCardYear())
-                .setCvv(mDataStore.getCardCvv());
-
-        // Only populate billing details if the user has completed the full form
+        CardTokenisationRequest request;
         if (mDataStore.isBillingCompleted()) {
-            request
-                    .setName(mDataStore.getCustomerName())
-                    .setCountry(mDataStore.getCustomerCountry())
-                    .setAddressLine1(mDataStore.getCustomerAddress1())
-                    .setAddressLine2(mDataStore.getCustomerAddress2())
-                    .setCity(mDataStore.getCustomerCity())
-                    .setState(mDataStore.getCustomerState())
-                    .setPostcode(mDataStore.getCustomerZipcode())
-                    .setPhoneNumber(mDataStore.getCustomerPhonePrefix(), mDataStore.getCustomerPhone());
+            request = new CardTokenisationRequest(
+                    sanitizeEntry(mDataStore.getCardNumber()),
+                    mDataStore.getCustomerName(),
+                    mDataStore.getCardMonth(),
+                    mDataStore.getCardYear(),
+                    mDataStore.getCardCvv(),
+                    new BillingModel(
+                            mDataStore.getCustomerAddress1(),
+                            mDataStore.getCustomerAddress2(),
+                            mDataStore.getCustomerZipcode(),
+                            mDataStore.getCustomerCountry(),
+                            mDataStore.getCustomerCity(),
+                            mDataStore.getCustomerState(),
+                            new PhoneModel(
+                                    mDataStore.getCustomerPhonePrefix(),
+                                    mDataStore.getCustomerPhone()
+                            )
+                    )
+            );
+        } else {
+            request = new CardTokenisationRequest(
+                    sanitizeEntry(mDataStore.getCardNumber()),
+                    mDataStore.getCustomerName(),
+                    mDataStore.getCardMonth(),
+                    mDataStore.getCardYear(),
+                    mDataStore.getCardCvv(),
+                    null
+            );
         }
 
         return request;
