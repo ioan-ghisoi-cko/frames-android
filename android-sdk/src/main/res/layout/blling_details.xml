@@ -33,7 +33,7 @@
                 android:hint="@string/name_placeholder"
                 app:errorTextAppearance="@style/Error">
 
-                <com.checkout.android_sdk.Input.NameInput
+                <com.checkout.android_sdk.Input.DefaultInput
                     android:id="@+id/name_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
                 android:hint="@string/address_two_placeholder"
                 app:errorTextAppearance="@style/Error">
 
-                <com.checkout.android_sdk.Input.AddressTwoInput
+                <com.checkout.android_sdk.Input.DefaultInput
                     android:id="@+id/address_two_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                 android:hint="@string/city_placeholder"
                 app:errorTextAppearance="@style/Error">
 
-                <com.checkout.android_sdk.Input.CityInput
+                <com.checkout.android_sdk.Input.DefaultInput
                     android:id="@+id/city_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -151,7 +151,7 @@
                 android:hint="@string/state_placeholder"
                 app:errorTextAppearance="@style/Error">
 
-                <com.checkout.android_sdk.Input.StateInput
+                <com.checkout.android_sdk.Input.DefaultInput
                     android:id="@+id/state_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -178,7 +178,7 @@
                 android:hint="@string/postcode_placeholder"
                 app:errorTextAppearance="@style/Error">
 
-                <com.checkout.android_sdk.Input.ZipInput
+                <com.checkout.android_sdk.Input.DefaultInput
                     android:id="@+id/zipcode_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -59,10 +59,12 @@ public class CardInput extends android.support.v7.widget.AppCompatEditText {
         // Add listener for text input
         addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -81,7 +83,7 @@ public class CardInput extends android.support.v7.widget.AppCompatEditText {
                 // Set the CardInput maximum length based on the type of card
                 setFilters(new InputFilter[]{new InputFilter.LengthFilter(cardType.maxCardLength)});
                 // Set the CardInput icon based on the type of card
-                setCardTypeIcon(cardType.name());
+                setCardTypeIcon(cardType);
 
                 // Update only is the formatted number is different from the initial input
                 if (!s.toString().equals(formatted)) {
@@ -116,14 +118,14 @@ public class CardInput extends android.support.v7.widget.AppCompatEditText {
      */
     public void checkIfCardIsValid(String number, CardUtils.Cards cardType) {
         boolean hasDesiredLength = false;
-        for(int i : cardType.cardLength){
-            if(i == number.length()){
+        for (int i : cardType.cardLength) {
+            if (i == number.length()) {
                 hasDesiredLength = true;
                 break;
             }
         }
-        if(mCardUtils.isValidCard(number) && hasDesiredLength ) {
-            if(mCardInputListener != null) {
+        if (mCardUtils.isValidCard(number) && hasDesiredLength) {
+            if (mCardInputListener != null) {
                 mCardInputListener.onCardInputFinish(sanitizeEntry(number));
             }
             mDataStore.setCvvLength(cardType.maxCvvLength);
@@ -133,60 +135,15 @@ public class CardInput extends android.support.v7.widget.AppCompatEditText {
     /**
      * This method will display a card icon associated to the specific card scheme
      */
-    public void setCardTypeIcon(String type) {
+    public void setCardTypeIcon(CardUtils.Cards type) {
         Drawable img;
-        switch (type) {
-            case "VISA":
-                img = getContext().getResources().getDrawable(R.drawable.visa);
-                img.setBounds(0, 0, 68, 68);
-                setCompoundDrawables(null, null, img, null);
-                setCompoundDrawablePadding(5);
-                break;
-            case "MASTERCARD":
-                img = getContext().getResources().getDrawable(R.drawable.mastercard);
-                img.setBounds(0, 0, 68, 68);
-                setCompoundDrawables(null, null, img, null);
-                setCompoundDrawablePadding(5);
-                break;
-            case "AMEX":
-                img = getContext().getResources().getDrawable(R.drawable.amex);
-                img.setBounds(0, 0, 68, 68);
-                setCompoundDrawables(null, null, img, null);
-                setCompoundDrawablePadding(5);
-                break;
-            case "DISCOVER":
-                img = getContext().getResources().getDrawable(R.drawable.discover);
-                img.setBounds(0, 0, 68, 68);
-                setCompoundDrawables(null, null, img, null);
-                setCompoundDrawablePadding(5);
-                break;
-            case "UNIONPAY":
-                img = getContext().getResources().getDrawable(R.drawable.unionpay);
-                img.setBounds(0, 0, 68, 68);
-                setCompoundDrawables(null, null, img, null);
-                setCompoundDrawablePadding(5);
-                break;
-            case "JCB":
-                img = getContext().getResources().getDrawable(R.drawable.jcb);
-                img.setBounds(0, 0, 68, 68);
-                setCompoundDrawables(null, null, img, null);
-                setCompoundDrawablePadding(5);
-                break;
-            case "DINERSCLUB":
-                img = getContext().getResources().getDrawable(R.drawable.dinersclub);
-                img.setBounds(0, 0, 68, 68);
-                setCompoundDrawables(null, null, img, null);
-                setCompoundDrawablePadding(5);
-                break;
-            case "MAESTRO":
-                img = getContext().getResources().getDrawable(R.drawable.maestro);
-                img.setBounds(0, 0, 68, 68);
-                setCompoundDrawables(null, null, img, null);
-                setCompoundDrawablePadding(5);
-                break;
-            default:
-                setCompoundDrawables(null, null, null, null);
-                break;
+        if (type.resourceId != 0) {
+            img = getContext().getResources().getDrawable(type.resourceId);
+            img.setBounds(0, 0, 68, 68);
+            setCompoundDrawables(null, null, img, null);
+            setCompoundDrawablePadding(5);
+        } else {
+            setCompoundDrawables(null, null, null, null);
         }
     }
 

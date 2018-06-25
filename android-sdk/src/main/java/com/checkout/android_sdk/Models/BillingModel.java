@@ -4,12 +4,12 @@ package com.checkout.android_sdk.Models;
  * Http request billing details object model
  */
 public class BillingModel {
-    private String addressLine1;
-    private String addressLine2;
-    private String postcode;
-    private String country;
-    private String city;
-    private String state;
+    public String addressLine1;
+    public String addressLine2;
+    public String postcode;
+    public String country;
+    public String city;
+    public String state;
     public PhoneModel phone;
 
     public void setAddressLine1(String addressLine1) {

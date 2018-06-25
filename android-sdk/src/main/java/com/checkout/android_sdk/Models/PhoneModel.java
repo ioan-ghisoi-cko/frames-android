@@ -5,8 +5,8 @@ package com.checkout.android_sdk.Models;
  */
 public class PhoneModel {
 
-    private String countryCode;
-    private String number;
+    public String countryCode;
+    public String number;
 
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;

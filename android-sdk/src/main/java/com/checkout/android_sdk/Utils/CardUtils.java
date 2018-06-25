@@ -2,6 +2,7 @@ package com.checkout.android_sdk.Utils;
 
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+
 import com.checkout.android_sdk.R;
 
 import java.util.Calendar;
@@ -108,11 +109,15 @@ public class CardUtils {
             return false;
         } else {
             number = sanitizeEntry(number);
-            CardUtils.Cards[] cards = CardUtils.Cards.values();
-            for (int i = 0; i < getType(number).cardLength.length; i++) {
-                if (number.length() == getType(number).cardLength[i] &&
+            Cards type = getType(number);
+            for (int i = 0; i < type.cardLength.length; i++) {
+                if (type.luhn &&
+                        number.length() == getType(number).cardLength[i] &&
                         checkLuhn(number) &&
-                        getType(number) != Cards.DEFAULT) {
+                        type != Cards.DEFAULT) {
+                    return true;
+                } else if (number.length() == getType(number).cardLength[i] &&
+                        type != Cards.DEFAULT) {
                     return true;
                 }
             }
@@ -193,7 +198,7 @@ public class CardUtils {
      * Used to take a card number String and provide formatting (span space characters)
      *
      * @param month the card expiration month as a string
-     * @param year the card expiration year as a string
+     * @param year  the card expiration year as a string
      * @return boolean representing validity
      */
     public static boolean isValidDate(String month, String year) {
@@ -224,14 +229,14 @@ public class CardUtils {
      * <p>
      * Used to take a card number String and provide formatting (span space characters)
      *
-     * @param cvv the card cvv
+     * @param cvv  the card cvv
      * @param card the card object
      * @return boolean representing validity
      */
     public static boolean isValidCvv(String cvv, Cards card) {
         if (TextUtils.isDigitsOnly(sanitizeEntry(cvv)) &&
-                card!= null) {
-            if(card.maxCvvLength == cvv.length())
+                card != null) {
+            if (card.maxCvvLength == cvv.length())
                 return true;
         }
         return false;

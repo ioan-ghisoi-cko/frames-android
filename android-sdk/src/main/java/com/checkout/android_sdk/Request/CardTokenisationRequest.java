@@ -21,50 +21,12 @@ public class CardTokenisationRequest {
     }
 
     public CardTokenisationRequest(String number, String expiryMonth, String expiryYear,
-                                   String cvv) {
+                                   String cvv, BillingModel billing) {
         this.number = number;
         this.expiryMonth = expiryMonth;
         this.expiryYear = expiryYear;
         this.cvv = cvv;
-    }
-
-    public CardTokenisationRequest(String number, String expiryMonth, String expiryYear,
-                                   String cvv, String name, String addressLine1,
-                                   String addressLine2, String postcode, String country,
-                                   String city, String state) {
-        this.number = number;
-        this.expiryMonth = expiryMonth;
-        this.expiryYear = expiryYear;
-        this.cvv = cvv;
-        this.name = name;
-        billingDetails.setAddressLine1(addressLine1);
-        billingDetails.setAddressLine2(addressLine2);
-        billingDetails.setPostcode(postcode);
-        billingDetails.setCountry(country);
-        billingDetails.setCity(city);
-        billingDetails.setState(state);
-    }
-
-    public CardTokenisationRequest(String number, String expiryMonth, String expiryYear,
-                                   String cvv, String name, String addressLine1,
-                                   String addressLine2, String postcode, String country,
-                                   String city, String state, PhoneModel phoneDetails,
-                                   String countryCode, String phoneNumber) {
-        this.number = number;
-        this.expiryMonth = expiryMonth;
-        this.expiryYear = expiryYear;
-        this.cvv = cvv;
-        this.name = name;
-        billingDetails.setAddressLine1(addressLine1);
-        billingDetails.setAddressLine2(addressLine2);
-        billingDetails.setPostcode(postcode);
-        billingDetails.setCountry(country);
-        billingDetails.setCity(city);
-        billingDetails.setState(state);
-        PhoneModel phone = new PhoneModel();
-        phone.setNumber(phoneNumber);
-        phone.setCountryCode(countryCode);
-        billingDetails.setPhone(phone);
+        this.billingDetails = billing;
     }
 
     public CardTokenisationRequest setCardNumber(String number) {

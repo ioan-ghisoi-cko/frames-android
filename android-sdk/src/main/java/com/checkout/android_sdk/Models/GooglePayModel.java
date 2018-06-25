@@ -5,9 +5,9 @@ package com.checkout.android_sdk.Models;
  */
 public class GooglePayModel {
 
-    private String signature;
-    private String protocolVersion;
-    private String signedMessage;
+    public String signature;
+    public String protocolVersion;
+    public String signedMessage;
 
     public String getSignature() {
         return signature;

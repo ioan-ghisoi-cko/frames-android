@@ -12,13 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.checkout.android_sdk.Input.AddressOneInput;
-import com.checkout.android_sdk.Input.AddressTwoInput;
-import com.checkout.android_sdk.Input.CityInput;
 import com.checkout.android_sdk.Input.CountryInput;
-import com.checkout.android_sdk.Input.NameInput;
+import com.checkout.android_sdk.Input.DefaultInput;
 import com.checkout.android_sdk.Input.PhoneInput;
-import com.checkout.android_sdk.Input.StateInput;
-import com.checkout.android_sdk.Input.ZipInput;
 import com.checkout.android_sdk.R;
 import com.checkout.android_sdk.Store.DataStore;
 
@@ -47,18 +43,18 @@ public class BillingDetailsView extends LinearLayout {
     /**
      * The callback is used to communicate with the name input
      * <p>
-     * The custom {@link NameInput} takes care takes care of the validation and it uses a callback
+     * The custom {@link DefaultInput} takes care takes care of the validation and it uses a callback
      * to indicate this controller if there is any error or if the error state needs to
      * be cleared. State is also updates based on the outcome of the input.
      */
-    private final NameInput.NameListener mNameListener = new NameInput.NameListener() {
+    private final DefaultInput.Listener mNameListener = new DefaultInput.Listener() {
         @Override
-        public void onNameInputFinish(String number) {
-            mDatastore.setCustomerName(number);
+        public void onInputFinish(String value) {
+            mDatastore.setCustomerName(value);
         }
 
         @Override
-        public void clearNameError() {
+        public void clearInputError() {
             mNameLayout.setError(null);
             mNameLayout.setErrorEnabled(false);
         }
@@ -86,7 +82,7 @@ public class BillingDetailsView extends LinearLayout {
     /**
      * The callback is used to communicate with the address one  input
      * <p>
-     * The custom {@link AddressTwoInput} takes care takes care of the validation and it uses a callback
+     * The custom {@link AddressOneInput} takes care takes care of the validation and it uses a callback
      * to indicate this controller if there is any error or if the error state needs to
      * be cleared. State is also updates based on the outcome of the input.
      */
@@ -107,18 +103,18 @@ public class BillingDetailsView extends LinearLayout {
     /**
      * The callback is used to communicate with the address two input
      * <p>
-     * The custom {@link AddressTwoInput} takes care takes care of the validation and it uses a callback
+     * The custom {@link DefaultInput} takes care takes care of the validation and it uses a callback
      * to indicate this controller if there is any error or if the error state needs to
      * be cleared. State is also updates based on the outcome of the input.
      */
-    private final AddressTwoInput.AddressTwoListener mAddressTwoListener = new AddressTwoInput.AddressTwoListener() {
+    private final DefaultInput.Listener mAddressTwoListener = new DefaultInput.Listener() {
         @Override
-        public void onAddressTwoInputFinish(String address) {
-            mDatastore.setCustomerAddress2(address);
+        public void onInputFinish(String value) {
+            mDatastore.setCustomerAddress2(value);
         }
 
         @Override
-        public void clearAddressOneError() {
+        public void clearInputError() {
             mAddressTwoLayout.setError(null);
             mAddressTwoLayout.setErrorEnabled(false);
         }
@@ -127,18 +123,18 @@ public class BillingDetailsView extends LinearLayout {
     /**
      * The callback is used to communicate with the city input
      * <p>
-     * The custom {@link CityInput} takes care takes care of the validation and it uses a callback
+     * The custom {@link DefaultInput} takes care takes care of the validation and it uses a callback
      * to indicate this controller if there is any error or if the error state needs to
      * be cleared. State is also updates based on the outcome of the input.
      */
-    private final CityInput.CityListener mCityListener = new CityInput.CityListener() {
+    private final DefaultInput.Listener mCityListener = new DefaultInput.Listener() {
         @Override
-        public void onCityInputFinish(String city) {
-            mDatastore.setCustomerCity(city);
+        public void onInputFinish(String value) {
+            mDatastore.setCustomerCity(value);
         }
 
         @Override
-        public void clearCityError() {
+        public void clearInputError() {
             mCityLayout.setError(null);
             mCityLayout.setErrorEnabled(false);
         }
@@ -147,38 +143,39 @@ public class BillingDetailsView extends LinearLayout {
     /**
      * The callback is used to communicate with the state input
      * <p>
-     * The custom {@link StateInput} takes care takes care of the validation and it uses a callback
+     * The custom {@link DefaultInput} takes care takes care of the validation and it uses a callback
      * to indicate this controller if there is any error or if the error state needs to
      * be cleared. State is also updates based on the outcome of the input.
      */
-    private final StateInput.StateListener mStateListener = new StateInput.StateListener() {
+    private final DefaultInput.Listener mStateListener = new DefaultInput.Listener() {
         @Override
-        public void onStateInputFinish(String state) {
-            mDatastore.setCustomerState(state);
+        public void onInputFinish(String value) {
+            mDatastore.setCustomerState(value);
         }
 
         @Override
-        public void clearCityError() {
+        public void clearInputError() {
             mStateLayout.setError(null);
             mStateLayout.setErrorEnabled(false);
         }
+
     };
 
     /**
      * The callback is used to communicate with the zip input
      * <p>
-     * The custom {@link ZipInput} takes care takes care of the validation and it uses a callback
+     * The custom {@link DefaultInput} takes care takes care of the validation and it uses a callback
      * to indicate this controller if there is any error or if the error state needs to
      * be cleared. State is also updates based on the outcome of the input.
      */
-    private final ZipInput.ZipListener mZipListener = new ZipInput.ZipListener() {
+    private final DefaultInput.Listener mZipListener = new DefaultInput.Listener() {
         @Override
-        public void onZipInputFinish(String zip) {
-            mDatastore.setCustomerZipcode(zip);
+        public void onInputFinish(String value) {
+            mDatastore.setCustomerZipcode(value);
         }
 
         @Override
-        public void clearZipError() {
+        public void clearInputError() {
             mZipLayout.setError(null);
             mZipLayout.setErrorEnabled(false);
         }
@@ -211,14 +208,14 @@ public class BillingDetailsView extends LinearLayout {
     private Button mDone;
     private Button mClear;
     private android.support.v7.widget.Toolbar mToolbar;
-    private NameInput mName;
+    private DefaultInput mName;
     private TextInputLayout mNameLayout;
     private CountryInput mCountryInput;
     private AddressOneInput mAddressOne;
-    private AddressTwoInput mAddressTwo;
-    private CityInput mCity;
-    private StateInput mState;
-    private ZipInput mZip;
+    private DefaultInput mAddressTwo;
+    private DefaultInput mCity;
+    private DefaultInput mState;
+    private DefaultInput mZip;
     private PhoneInput mPhone;
     private DataStore mDatastore = DataStore.getInstance();
     private TextInputLayout mAddressOneLayout;
@@ -268,7 +265,7 @@ public class BillingDetailsView extends LinearLayout {
 
         mName = findViewById(R.id.name_input);
         mNameLayout = findViewById(R.id.name_input_layout);
-        mName.setNameListener(mNameListener);
+        mName.setListener(mNameListener);
 
         mCountryInput = findViewById(R.id.country_input);
         mCountryInput.setCountryListener(mCountryListener);
@@ -277,16 +274,16 @@ public class BillingDetailsView extends LinearLayout {
         mAddressOne.setAddressOneListener(mAddressOneListener);
 
         mAddressTwo = findViewById(R.id.address_two_input);
-        mAddressTwo.setAddressTwoListenerListener(mAddressTwoListener);
+        mAddressTwo.setListener(mAddressTwoListener);
 
         mCity = findViewById(R.id.city_input);
-        mCity.setCityListener(mCityListener);
+        mCity.setListener(mCityListener);
 
         mState = findViewById(R.id.state_input);
-        mState.setStateListener(mStateListener);
+        mState.setListener(mStateListener);
 
         mZip = findViewById(R.id.zipcode_input);
-        mZip.setZipListener(mZipListener);
+        mZip.setListener(mZipListener);
 
         mPhone = findViewById(R.id.phone_input);
         mPhone.setPhoneListener(mPhoneListener);

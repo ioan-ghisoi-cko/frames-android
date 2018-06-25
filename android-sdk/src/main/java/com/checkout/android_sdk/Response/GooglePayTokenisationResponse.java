@@ -9,21 +9,6 @@ public class GooglePayTokenisationResponse {
     private String token;
     private String expires_on;
 
-    public GooglePayTokenisationResponse setType(String type) {
-        this.type = type;
-        return this;
-    }
-
-    public GooglePayTokenisationResponse setToken(String token) {
-        this.token = token;
-        return this;
-    }
-
-    public GooglePayTokenisationResponse setExpiration(String expires_on) {
-        this.expires_on = expires_on;
-        return this;
-    }
-
     public String getType() {
         return type;
     }

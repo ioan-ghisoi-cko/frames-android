@@ -251,7 +251,7 @@ public class CardDetailsView extends LinearLayout {
                 // Set the CardInput maximum length based on the type of card
                 mCardInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(cardType.maxCardLength)});
                 // Set the CardInput icon based on the type of card
-                mCardInput.setCardTypeIcon(cardType.name());
+                mCardInput.setCardTypeIcon(cardType);
                 // Check if the card is valid
                 mCardInput.checkIfCardIsValid(mDataStore.getCardNumber(), cardType);
                 // Update the card field with the last input value

@@ -17,7 +17,7 @@ public class DemoActivity extends Activity {
 
         @Override
         public void onTokenGenerated(CardTokenisationResponse token) {
-            Toast.makeText(DemoActivity.this, token.getLast4(),
+            Toast.makeText(DemoActivity.this, token.getId(),
                     Toast.LENGTH_LONG).show();
         }
 
