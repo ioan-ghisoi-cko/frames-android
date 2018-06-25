@@ -44,7 +44,7 @@ Moreover, our module has a few dependecies used for API comunication and UI. Ple
 
 **Step1** Add the module to your XML layout.
 ```xml
-   <com.checkout.android_sdk.CheckoutKit
+   <com.checkout.android_sdk.CheckoutAPIClient
         android:id="@+id/checkout_card_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -53,12 +53,12 @@ Moreover, our module has a few dependecies used for API comunication and UI. Ple
 
 **Step2** Include the module in your class.
 ```java
-   private CheckoutKit mPayment; // include the module 
+   private CheckoutAPIClient mCheckout; // include the module 
 ```
 
 **Step3** Create a callback.
 ```java
-   CheckoutKit.OnTokenGenerated mTokenListener = new CheckoutKit.OnTokenGenerated() {
+   CheckoutAPIClient.OnTokenGenerated mTokenListener = new CheckoutAPIClient.OnTokenGenerated() {
      @Override
      public void onTokenGenerated(CardTokenisationResponse token) {
          // your token
@@ -72,8 +72,8 @@ Moreover, our module has a few dependecies used for API comunication and UI. Ple
 
 **Step4** Initialise the module
 ```java
-   mPayment = findViewById(R.id.checkout_card_form);
-   mPayment
+   mCheckout = findViewById(R.id.checkout_card_form);
+   mCheckout
          .setEnvironment("sandbox")
          .setKey("pk_test_6e40a700-d563-43cd-89d0-f9bb17d35e73")
          .setTokenListener(mTokenListener); // pass the callback
@@ -87,12 +87,12 @@ Moreover, our module has a few dependecies used for API comunication and UI. Ple
 
 **Step1** Include the module in your class.
 ```java
-   private CheckoutKit mPayment; // include the module 
+   private CheckoutAPIClient mCheckout; // include the module 
 ```
 
 **Step2** Create a callback.
 ```java
-   CheckoutKit.OnTokenGenerated mTokenListener = new CheckoutKit.OnTokenGenerated() {
+   CheckoutAPIClient.OnTokenGenerated mTokenListener = new CheckoutAPIClient.OnTokenGenerated() {
      @Override
      public void onTokenGenerated(CardTokenisationResponse token) {
          // your token
@@ -106,9 +106,9 @@ Moreover, our module has a few dependecies used for API comunication and UI. Ple
 
 **Step3** Initialise the module and pass the card details 
 ```java
-   mPayment = new CheckoutKit(this);
+   mCheckout = new CheckoutAPIClient(this);
 
-   mPayment
+   mCheckout
          .setTokenListener(mTokenListener)
          .setEnvironment("sandbox")
          .setKey("pk_test_6e40a700-d563-43cd-89d0-f9bb17d35e73")
@@ -131,7 +131,7 @@ Moreover, our module has a few dependecies used for API comunication and UI. Ple
       .setPostcode("w1w w1w")
       .setPhoneNumber("44", "07123456789");
 
-   mPayment.generateToken(details); // pass the request details object
+   mCheckout.generateToken(details); // pass the request details object
 ```
 
 # Customisation Options
@@ -155,7 +155,7 @@ Moreover, the module inherits the  **Theme.AppCompat.Light.DarkActionBar** style
      <item name="colorControlNormal">#000000</item>
    </style>
    ...
-   <com.example.android_sdk.CheckoutKit
+   <com.example.android_sdk.CheckoutAPIClient
      android:id="@+id/checkout_card_form"
      android:layout_width="match_parent"
      android:layout_height="match_parent"
@@ -164,7 +164,7 @@ Moreover, the module inherits the  **Theme.AppCompat.Light.DarkActionBar** style
 
 If you would like to allow users to input their billing details when completing the payment details you can simply use the folllowing method:
 ```java
-   mPayment.includeBilling(true); // false value will hide the option
+   mCheckout.includeBilling(true); // false value will hide the option
 ```
 
 # Handle 3D Secure
@@ -175,7 +175,8 @@ The module allows you to handle 3DSecure URLs within your mobile app. Here are t
 
 **Step1** Create a callback.
 ```java
-   private final CheckoutKit.on3DSFinished m3DSecureListener = new PaymentForm.on3DSFinished() {
+   private final CheckoutAPIClient.on3DSFinished m3DSecureListener = 
+          new CheckoutAPIClient.on3DSFinished() {
      @Override
      public void onSuccess(String paymentToken) {
          // success
@@ -189,9 +190,9 @@ The module allows you to handle 3DSecure URLs within your mobile app. Here are t
 
 **Step2** Pass the callback to the module and handle 3D Secure
 ```java
-   mPayment.set3DSListener(m3DSecureListener); // pass the callback
+   mCheckout.set3DSListener(m3DSecureListener); // pass the callback
 
-   mPaymentForm.handle3DS(
+   mCheckout.handle3DS(
              "https://sandbox.checkout.com/api2/v2/3ds/acs/687805", // the 3D Secure URL
              "http://example.com/success", // the Redirection URL
              "http://example.com/fail" // the Redirection Fail URL
@@ -205,8 +206,8 @@ The module allows you to handle a Google Pay token payload and retrive a token, 
 
 **Step1** Create a callback.
 ```java
-   private final CheckoutKit.OnGooglePayTokenGenerated mGooglePayListener = 
-          new CheckoutKit.OnGooglePayTokenGenerated() {
+   private final CheckoutAPIClient.OnGooglePayTokenGenerated mGooglePayListener = 
+          new CheckoutAPIClient.OnGooglePayTokenGenerated() {
         @Override
         public void onTokenGenerated(GooglePayTokenisationResponse response) {
             // token
@@ -220,9 +221,9 @@ The module allows you to handle a Google Pay token payload and retrive a token, 
 ```
 **Step2** Pass the callback to the module and generate the token
 ```java
-   mPayment.setGooglePayListener(mGooglePayListener); // pass the callback
+   mCheckout.setGooglePayListener(mGooglePayListener); // pass the callback
 
-   mPayment.generateGooglePayToken(payload); // the payload is the JSONObject generated by GooglePay
+   mCheckout.generateGooglePayToken(payload); // the payload is the JSONObject generated by GooglePay
 ```
 
 # Objects found in callbacks
@@ -278,3 +279,7 @@ This has the following getters:
    error.getErrorType();  // the error type
    error.getErrorCodes(); // an array of strings with all the error codes
 ```
+
+## License
+
+CheckoutSdkIos is released under the MIT license.

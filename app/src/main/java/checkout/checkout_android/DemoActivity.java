@@ -4,15 +4,16 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.checkout.android_sdk.CheckoutKit;
+import com.checkout.android_sdk.CheckoutAPIClient;
 import com.checkout.android_sdk.Response.CardTokenisationFail;
 import com.checkout.android_sdk.Response.CardTokenisationResponse;
+import com.checkout.android_sdk.CheckoutAPIClient.OnTokenGenerated;
 
 public class DemoActivity extends Activity {
 
-    private CheckoutKit mPayment;
+    private CheckoutAPIClient mCheckout;
 
-    private final CheckoutKit.OnTokenGenerated mTokenListener = new CheckoutKit.OnTokenGenerated() {
+    private final OnTokenGenerated mTokenListener = new OnTokenGenerated() {
 
         @Override
         public void onTokenGenerated(CardTokenisationResponse token) {
@@ -32,9 +33,9 @@ public class DemoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
 
-        mPayment = findViewById(R.id.checkout_card_form);
+        mCheckout = findViewById(R.id.checkout_card_form);
 
-        mPayment
+        mCheckout
                 .setEnvironment("sandbox")
                 .setKey("pk_test_6e40a700-d563-43cd-89d0-f9bb17d35e73")
                 .setTokenListener(mTokenListener)

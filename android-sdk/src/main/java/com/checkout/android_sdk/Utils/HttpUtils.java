@@ -11,7 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.checkout.android_sdk.CheckoutKit;
+import com.checkout.android_sdk.CheckoutAPIClient;
 import com.checkout.android_sdk.Response.CardTokenisationFail;
 import com.checkout.android_sdk.Response.CardTokenisationResponse;
 import com.checkout.android_sdk.Response.GooglePayTokenisationFail;
@@ -32,9 +32,9 @@ import java.util.Map;
 public class HttpUtils {
 
     private @Nullable
-    CheckoutKit.OnTokenGenerated mTokenListener;
+    CheckoutAPIClient.OnTokenGenerated mTokenListener;
     private @Nullable
-    CheckoutKit.OnGooglePayTokenGenerated mGooglePayTokenListener;
+    CheckoutAPIClient.OnGooglePayTokenGenerated mGooglePayTokenListener;
     private Context mContext;
 
     public HttpUtils(Context context) {
@@ -233,14 +233,14 @@ public class HttpUtils {
     /**
      * Used to set the callback listener for when the card token is generated
      */
-    public void setTokenListener(CheckoutKit.OnTokenGenerated listener) {
+    public void setTokenListener(CheckoutAPIClient.OnTokenGenerated listener) {
         mTokenListener = listener;
     }
 
     /**
      * Used to set the callback listener for when the token for Google Pay is generated
      */
-    public void setGooglePayTokenListener(CheckoutKit.OnGooglePayTokenGenerated listener) {
+    public void setGooglePayTokenListener(CheckoutAPIClient.OnGooglePayTokenGenerated listener) {
         mGooglePayTokenListener = listener;
     }
 }

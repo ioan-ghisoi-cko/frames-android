@@ -34,7 +34,7 @@ import org.json.JSONObject;
  * callbacks to communicate outcomes. Please make sure you set the key/environment
  * and appropriate  callbacks to a ensure successful interaction
  */
-public class CheckoutKit extends FrameLayout {
+public class CheckoutAPIClient extends FrameLayout {
 
     /**
      * This is interface used as a callback for when the card token is generated
@@ -123,9 +123,9 @@ public class CheckoutKit extends FrameLayout {
 
 
     private Context mContext;
-    private CheckoutKit.OnTokenGenerated mTokenListener;
-    public CheckoutKit.on3DSFinished m3DSecureListener;
-    private CheckoutKit.OnGooglePayTokenGenerated mGooglePayTokenListener;
+    private CheckoutAPIClient.OnTokenGenerated mTokenListener;
+    public CheckoutAPIClient.on3DSFinished m3DSecureListener;
+    private CheckoutAPIClient.OnGooglePayTokenGenerated mGooglePayTokenListener;
 
     private String ENVIRONMENT = "sandbox";
     private String KEY = "";
@@ -138,11 +138,11 @@ public class CheckoutKit extends FrameLayout {
     /**
      * This is the constructor used when the module is used without the UI.
      */
-    public CheckoutKit(@NonNull Context context) {
+    public CheckoutAPIClient(@NonNull Context context) {
         this(context, null);
     }
 
-    public CheckoutKit(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public CheckoutAPIClient(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
         this.attrs = attrs;
@@ -210,7 +210,7 @@ public class CheckoutKit extends FrameLayout {
      *
      * @param environment this can be either live or sandbox
      */
-    public CheckoutKit setEnvironment(String environment) {
+    public CheckoutAPIClient setEnvironment(String environment) {
         this.ENVIRONMENT = environment;
         return this;
     }
@@ -220,7 +220,7 @@ public class CheckoutKit extends FrameLayout {
      *
      * @param key the public key from the Checkout.com HUB
      */
-    public CheckoutKit setKey(String key) {
+    public CheckoutAPIClient setKey(String key) {
         this.KEY = key;
         return this;
     }
@@ -230,7 +230,7 @@ public class CheckoutKit extends FrameLayout {
      *
      * @param cards array of accepted cards
      */
-    public CheckoutKit setAcceptedCard(CardUtils.Cards[] cards) {
+    public CheckoutAPIClient setAcceptedCard(CardUtils.Cards[] cards) {
         mDataStore.setAcceptedCards(cards);
         return this;
     }
@@ -375,7 +375,7 @@ public class CheckoutKit extends FrameLayout {
     /**
      * This method used to set a callback for when the 3D Secure handling.
      */
-    public CheckoutKit set3DSListener(CheckoutKit.on3DSFinished listener) {
+    public CheckoutAPIClient set3DSListener(CheckoutAPIClient.on3DSFinished listener) {
         this.m3DSecureListener = listener;
         return this;
     }
@@ -383,9 +383,9 @@ public class CheckoutKit extends FrameLayout {
     /**
      * This method used to set a callback for 3D Secure handling.
      *
-     * @return CheckoutKit to allow method chaining
+     * @return CheckoutAPIClient to allow method chaining
      */
-    public CheckoutKit setTokenListener(OnTokenGenerated listener) {
+    public CheckoutAPIClient setTokenListener(OnTokenGenerated listener) {
         this.mTokenListener = listener;
         return this;
     }
@@ -393,9 +393,9 @@ public class CheckoutKit extends FrameLayout {
     /**
      * This method used to set a callback for Google Pay handling.
      *
-     * @return CheckoutKit to allow method chaining
+     * @return CheckoutAPIClient to allow method chaining
      */
-    public CheckoutKit setGooglePayListener(OnGooglePayTokenGenerated listener) {
+    public CheckoutAPIClient setGooglePayListener(OnGooglePayTokenGenerated listener) {
         this.mGooglePayTokenListener = listener;
         return this;
     }
