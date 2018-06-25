@@ -8,6 +8,13 @@ public class PhoneModel {
     public String countryCode;
     public String number;
 
+    public PhoneModel(String countryCode, String number) {
+        this.countryCode = countryCode;
+        this.number = number;
+    }
+
+    public PhoneModel() {}
+
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
     }

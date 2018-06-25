@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+
 import com.checkout.android_sdk.CheckoutAPIClient;
+import com.checkout.android_sdk.PaymentForm;
+import com.checkout.android_sdk.Request.CardTokenisationRequest;
 import com.checkout.android_sdk.Response.CardTokenisationFail;
 import com.checkout.android_sdk.Response.CardTokenisationResponse;
 import com.checkout.android_sdk.CheckoutAPIClient.OnTokenGenerated;
@@ -12,6 +15,7 @@ import com.checkout.android_sdk.CheckoutAPIClient.OnTokenGenerated;
 public class DemoActivity extends Activity {
 
     private CheckoutAPIClient mCheckout;
+    private PaymentForm mPaymentForm;
 
     private final OnTokenGenerated mTokenListener = new OnTokenGenerated() {
 
@@ -33,13 +37,11 @@ public class DemoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo);
 
-        mCheckout = findViewById(R.id.checkout_card_form);
+        mPaymentForm = findViewById(R.id.checkout_card_form);
 
-        mCheckout
-                .setEnvironment("sandbox")
+        mPaymentForm
                 .setKey("pk_test_6e40a700-d563-43cd-89d0-f9bb17d35e73")
-                .setTokenListener(mTokenListener)
-                .includeBilling(true);
+                .setTokenListener(mTokenListener);
 
     }
 }

@@ -82,14 +82,10 @@ public class CardTokenisationResponse {
     }
 
     public String getCountryCode() {
-        return this.card.billingDetails.phone.getCountryCode();
+        return this.card.getBillingDetails().getPhone().getCountryCode();
     }
 
     public String getPhoneNumber() {
-        return this.card.billingDetails.phone.getNumber();
-    }
-
-    public String getPhoneCountryCode() {
-        return this.card.billingDetails.phone.getCountryCode();
+        return this.card.getBillingDetails().getPhone().getNumber();
     }
 }

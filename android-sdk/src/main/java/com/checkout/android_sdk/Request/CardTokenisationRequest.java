@@ -29,6 +29,11 @@ public class CardTokenisationRequest {
         this.billingDetails = billing;
     }
 
+
+    public void setBillingDetails(BillingModel billingDetails) {
+        this.billingDetails = billingDetails;
+    }
+
     public CardTokenisationRequest setCardNumber(String number) {
         this.number = number;
         return this;

@@ -112,11 +112,11 @@ public class CardUtils {
             Cards type = getType(number);
             for (int i = 0; i < type.cardLength.length; i++) {
                 if (type.luhn &&
-                        number.length() == getType(number).cardLength[i] &&
+                        number.length() == type.cardLength[i] &&
                         checkLuhn(number) &&
                         type != Cards.DEFAULT) {
                     return true;
-                } else if (number.length() == getType(number).cardLength[i] &&
+                } else if (number.length() == type.cardLength[i] &&
                         type != Cards.DEFAULT) {
                     return true;
                 }
