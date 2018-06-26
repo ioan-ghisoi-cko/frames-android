@@ -88,7 +88,7 @@ public class CheckoutAPIClient {
 
     /**
      * This method used to create a token that can be used in a server environment to create a
-     * charge. It take a GooglePay payload in JSONObject. The payload is usually generated in
+     * charge. It will take a GooglePay payload in JSON string format. The payload is usually generated in
      * the handlePaymentSuccess method shown in the Google Pay example from Google (token.getToken())
      *
      * @param payload Google Pay Payload
