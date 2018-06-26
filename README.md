@@ -1,4 +1,5 @@
 # CheckoutSdkAndroid - Beta
+[![](https://jitpack.io/v/ioan-ghisoi-cko/just-a-test.svg)](https://jitpack.io/#ioan-ghisoi-cko/just-a-test)
 > Beta - Do not use before speaking to integration@checkout.com
 
 ## Requirements
@@ -171,6 +172,11 @@ Moreover, the module inherits the  **Theme.AppCompat.Light.DarkActionBar** style
 If you would like to allow users to input their billing details when completing the payment details you can simply use the folllowing method:
 ```java
    mPaymentForm.includeBilling(true); // false value will hide the option
+```
+
+If you want to display only certain accepted card types you can select then in the following way:
+```java
+   mPaymentForm.setAcceptedCard(new Cards[]{VISA, MASTERCARD});
 ```
 
 ## Handle 3D Secure
