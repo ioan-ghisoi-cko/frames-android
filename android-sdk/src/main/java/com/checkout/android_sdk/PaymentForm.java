@@ -13,22 +13,12 @@ import android.widget.FrameLayout;
 import com.checkout.android_sdk.Models.BillingModel;
 import com.checkout.android_sdk.Models.PhoneModel;
 import com.checkout.android_sdk.Request.CardTokenisationRequest;
-import com.checkout.android_sdk.Request.GooglePayTokenisationRequest;
-import com.checkout.android_sdk.Response.CardTokenisationFail;
-import com.checkout.android_sdk.Response.CardTokenisationResponse;
-import com.checkout.android_sdk.Response.GooglePayTokenisationFail;
-import com.checkout.android_sdk.Response.GooglePayTokenisationResponse;
 import com.checkout.android_sdk.Store.DataStore;
 import com.checkout.android_sdk.Utils.CardUtils;
 import com.checkout.android_sdk.Utils.CustomAdapter;
 import com.checkout.android_sdk.Utils.Environment;
-import com.checkout.android_sdk.Utils.HttpUtils;
 import com.checkout.android_sdk.View.BillingDetailsView;
 import com.checkout.android_sdk.View.CardDetailsView;
-import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * Contains helper methods dealing with the tokenisation or payment from customisation

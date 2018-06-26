@@ -1,13 +1,7 @@
 package com.checkout.android_sdk.Input;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.text.Editable;
-import android.text.InputFilter;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
 import com.checkout.android_sdk.Store.DataStore;
 

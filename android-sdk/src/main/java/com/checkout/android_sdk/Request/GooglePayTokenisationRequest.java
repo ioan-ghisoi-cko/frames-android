@@ -3,6 +3,7 @@ package com.checkout.android_sdk.Request;
 /**
  * The request model object for the Google Pay tokenisation request
  */
+
 import com.checkout.android_sdk.Models.GooglePayModel;
 
 public class GooglePayTokenisationRequest {

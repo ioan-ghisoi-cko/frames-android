@@ -446,7 +446,7 @@ public class BillingDetailsView extends LinearLayout {
     // Move to previous view on back button pressed
     @Override
     public boolean dispatchKeyEventPreIme(KeyEvent event) {
-        if(event.getAction() != KeyEvent.ACTION_DOWN) {
+        if (event.getAction() != KeyEvent.ACTION_DOWN) {
             return false;
         }
         if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
@@ -469,7 +469,6 @@ public class BillingDetailsView extends LinearLayout {
 
         return super.dispatchKeyEventPreIme(event);
     }
-
 
 
     /**

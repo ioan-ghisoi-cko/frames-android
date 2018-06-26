@@ -9,7 +9,6 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.checkout.android_sdk.R;
 import com.checkout.android_sdk.Store.DataStore;
 import com.checkout.android_sdk.Utils.CardUtils;
 

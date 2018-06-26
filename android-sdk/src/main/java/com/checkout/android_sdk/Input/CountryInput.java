@@ -61,9 +61,9 @@ public class CountryInput extends android.support.v7.widget.AppCompatSpinner {
                 if (mCountryListener != null && getSelectedItemPosition() > 0) {
                     Locale[] locale = Locale.getAvailableLocales();
                     String country;
-                    for( Locale loc : locale ){
+                    for (Locale loc : locale) {
                         country = loc.getDisplayCountry();
-                        if(country.equals(getSelectedItem().toString())){
+                        if (country.equals(getSelectedItem().toString())) {
                             mCountryListener.onCountryInputFinish(loc.getCountry(), PhoneUtils.getPrefix(loc.getCountry()));
                         }
                     }
@@ -82,7 +82,7 @@ public class CountryInput extends android.support.v7.widget.AppCompatSpinner {
                 if (hasFocus) {
                     performClick();
                     @Nullable InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-                    if(imm != null) {
+                    if (imm != null) {
                         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     }
                 }
@@ -102,15 +102,15 @@ public class CountryInput extends android.support.v7.widget.AppCompatSpinner {
         String country;
         countries.add(getResources().getString(R.string.placeholder_country));
 
-        for( Locale loc : locale ){
+        for (Locale loc : locale) {
             country = loc.getDisplayCountry();
-            if( country.length() > 0 && !countries.contains(country) ){
-                countries.add( country );
+            if (country.length() > 0 && !countries.contains(country)) {
+                countries.add(country);
             }
         }
         Collections.sort(countries, String.CASE_INSENSITIVE_ORDER);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(mContext,android.R.layout.simple_spinner_dropdown_item, countries);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_dropdown_item, countries);
         setAdapter(adapter);
     }
 

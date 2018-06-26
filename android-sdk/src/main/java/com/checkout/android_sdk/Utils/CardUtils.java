@@ -118,7 +118,7 @@ public class CardUtils {
 
         // Check if the length of the card matches the valid card lengths for the specific type
         boolean isValidLength = false;
-        for(int length : type.cardLength){
+        for (int length : type.cardLength) {
             if (number.length() == length) {
                 isValidLength = true;
             }
@@ -127,7 +127,7 @@ public class CardUtils {
         // If the card length is valid and luhn is available check luhn, otherwise consider card valid
         if (isValidLength && type.luhn) {
             return checkLuhn(number);
-        } else if(isValidLength && !type.luhn){
+        } else if (isValidLength && !type.luhn) {
             return true;
         }
 

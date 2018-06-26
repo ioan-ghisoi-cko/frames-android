@@ -62,7 +62,7 @@ public class CustomAdapter extends PagerAdapter {
         cardDetailsView.updateBillingSpinner();
     }
 
-     /**
+    /**
      * Indicate the {@link CardDetailsView} need to clear the billing spinner
      */
     public void clearBillingSpinner() {

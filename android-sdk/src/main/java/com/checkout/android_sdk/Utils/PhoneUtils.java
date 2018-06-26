@@ -257,7 +257,8 @@ public class PhoneUtils {
 
     /**
      * This method is used to determine the phone prefix based on the country ISO2
-     * @param iso  ISO2 of the country
+     *
+     * @param iso ISO2 of the country
      * @return phone prefix as String
      */
     public static String getPrefix(String iso) {

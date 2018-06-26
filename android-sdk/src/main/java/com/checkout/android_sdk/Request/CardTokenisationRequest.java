@@ -1,7 +1,6 @@
 package com.checkout.android_sdk.Request;
 
 import com.checkout.android_sdk.Models.BillingModel;
-import com.checkout.android_sdk.Models.PhoneModel;
 
 /**
  * The request model object for the card tokenisation request

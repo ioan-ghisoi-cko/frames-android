@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.checkout.android_sdk.Input.BillingInput;
 import com.checkout.android_sdk.Input.CardInput;
-import com.checkout.android_sdk.Input.CvvInput;
 import com.checkout.android_sdk.Input.DefaultInput;
 import com.checkout.android_sdk.Input.MonthInput;
 import com.checkout.android_sdk.Input.YearInput;
@@ -124,7 +123,7 @@ public class CardDetailsView extends LinearLayout {
         @Override
         public void onInputFinish(String value) {
             mDataStore.setCardCvv(value);
-            if(value.length() == mDataStore.getCvvLength()){
+            if (value.length() == mDataStore.getCvvLength()) {
                 mDataStore.setValidCardCvv(true);
             } else {
                 mDataStore.setValidCardCvv(false);
@@ -310,7 +309,7 @@ public class CardDetailsView extends LinearLayout {
             outcome = false;
         }
 
-        if(mCvvInput.getText().length() == mDataStore.getCvvLength()){
+        if (mCvvInput.getText().length() == mDataStore.getCvvLength()) {
             mDataStore.setValidCardCvv(true);
         } else {
             mDataStore.setValidCardCvv(false);

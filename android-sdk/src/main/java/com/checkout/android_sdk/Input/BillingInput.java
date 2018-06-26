@@ -25,7 +25,6 @@ public class BillingInput extends android.support.v7.widget.AppCompatSpinner {
     private @Nullable
     BillingInput.BillingListener mBillingListener;
     private Context mContext;
-    private DataStore mDatastore = DataStore.getInstance();
 
     public BillingInput(Context context) {
         this(context, null);

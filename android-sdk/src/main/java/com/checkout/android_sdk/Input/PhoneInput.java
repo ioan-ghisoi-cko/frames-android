@@ -14,6 +14,7 @@ public class PhoneInput extends android.support.v7.widget.AppCompatEditText {
 
     public interface PhoneListener {
         void onPhoneInputFinish(String phone);
+
         void clearPhoneError();
     }
 
@@ -37,15 +38,17 @@ public class PhoneInput extends android.support.v7.widget.AppCompatEditText {
     private void init() {
         addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
                 // Save state
-                if(mPhoneListener != null) {
+                if (mPhoneListener != null) {
                     mPhoneListener.onPhoneInputFinish(s.toString());
                 }
             }

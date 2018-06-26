@@ -109,7 +109,7 @@ public class MonthInput extends android.support.v7.widget.AppCompatSpinner {
                 if (hasFocus) {
                     performClick();
                     @Nullable InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
-                    if(imm != null) {
+                    if (imm != null) {
                         imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     }
                 }

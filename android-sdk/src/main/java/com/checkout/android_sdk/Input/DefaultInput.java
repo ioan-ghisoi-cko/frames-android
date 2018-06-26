@@ -10,6 +10,7 @@ import android.view.View;
 public class DefaultInput extends android.support.v7.widget.AppCompatEditText {
     public interface Listener {
         void onInputFinish(String value);
+
         void clearInputError();
     }
 
@@ -40,15 +41,17 @@ public class DefaultInput extends android.support.v7.widget.AppCompatEditText {
     private void init() {
         addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
                 // Save state
-                if(mListener != null) {
+                if (mListener != null) {
                     mListener.onInputFinish(s.toString());
                 }
             }

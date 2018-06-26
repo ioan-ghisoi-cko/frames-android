@@ -49,6 +49,11 @@ public class CheckoutAPIClient {
         this.mEnvironment = environment;
     }
 
+    public CheckoutAPIClient(Context context, String key) {
+        this.mContext = context;
+        this.key = key;
+    }
+
     /**
      * This method is used to generate a card token.
      * <p>
