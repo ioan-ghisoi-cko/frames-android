@@ -217,7 +217,7 @@ public class CardUtilsTests {
 
     @Test
     public void unionpay_short_isValid() {
-        assertEquals(true, CardUtils.isValidCard("6212345678901265"));
+        assertEquals(true, CardUtils.isValidCard("6222988812340000"));
     }
 
     @Test

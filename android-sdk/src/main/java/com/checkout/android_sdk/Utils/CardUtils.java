@@ -127,6 +127,8 @@ public class CardUtils {
         // If the card length is valid and luhn is available check luhn, otherwise consider card valid
         if (isValidLength && type.luhn) {
             return checkLuhn(number);
+        } else if(isValidLength && !type.luhn){
+            return true;
         }
 
         return false;
