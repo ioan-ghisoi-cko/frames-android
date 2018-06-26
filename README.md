@@ -185,7 +185,7 @@ The module allows you to handle 3DSecure URLs within your mobile app. Here are t
 
 **Step1** Create a callback.
 ```java
-    private final PaymentForm.on3DSFinished m3DSecureListener = 
+    PaymentForm.on3DSFinished m3DSecureListener = 
            new PaymentForm.on3DSFinished() {
 
         @Override
@@ -221,7 +221,7 @@ The module allows you to handle a Google Pay token payload and retrieve a token,
 **Step1** Create a callback.
 ```java
 
-     private final CheckoutAPIClient.OnGooglePayTokenGenerated mGooglePayListener =
+     CheckoutAPIClient.OnGooglePayTokenGenerated mGooglePayListener =
         new CheckoutAPIClient.OnGooglePayTokenGenerated() {
     
             @Override
