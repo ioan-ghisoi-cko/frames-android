@@ -29,7 +29,7 @@ dependencies {
  implementation 'com.android.support:design:27.1.1'
  implementation 'com.google.code.gson:gson:2.8.5'
  implementation 'com.android.volley:volley:1.0.0'
- implementation 'com.github.ioan-ghisoi-cko:just-a-test:0.1' // (x.x represents the version)
+ implementation 'com.github.ioan-ghisoi-cko:just-a-test:0.1'
 }
 ```
 
