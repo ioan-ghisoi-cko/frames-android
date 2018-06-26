@@ -4,6 +4,7 @@ package com.checkout.android_sdk.Models;
  * Http request billing details object model
  */
 public class BillingModel {
+
     private String addressLine1;
     private String addressLine2;
     private String postcode;

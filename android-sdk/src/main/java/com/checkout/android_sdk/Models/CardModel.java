@@ -5,14 +5,14 @@ package com.checkout.android_sdk.Models;
  */
 public class CardModel {
 
-    public String expiryMonth;
-    public String expiryYear;
-    public BillingModel billingDetails;
-    public String id;
-    public String last4;
-    public String bin;
-    public String paymentMethod;
-    public String name;
+    private String expiryMonth;
+    private String expiryYear;
+    private BillingModel billingDetails;
+    private String id;
+    private String last4;
+    private String bin;
+    private String paymentMethod;
+    private String name;
 
     public String getExpiryMonth() {
         return expiryMonth;
