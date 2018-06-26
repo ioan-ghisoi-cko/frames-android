@@ -17,7 +17,7 @@ import org.json.JSONObject;
 
 public class CheckoutAPIClient {
 
-    public String key;
+    private String key;
 
     /**
      * This is interface used as a callback for when the card token is generated
@@ -91,9 +91,11 @@ public class CheckoutAPIClient {
      * charge. It take a GooglePay payload in JSONObject. The payload is usually generated in
      * the handlePaymentSuccess method shown in the Google Pay example from Google (token.getToken())
      *
-     * @param googlePayToken Google Pay Payload
+     * @param payload Google Pay Payload
      */
-    public void generateGooglePayToken(JSONObject googlePayToken) throws JSONException {
+    public void generateGooglePayToken(String payload) throws JSONException {
+
+        JSONObject googlePayToken = new JSONObject(payload);
 
         // Initialise the HTTP utility class
         HttpUtils http = new HttpUtils(mContext);
@@ -113,7 +115,7 @@ public class CheckoutAPIClient {
         String jsonBody = gson.toJson(gPay);
 
         try {
-            http.generateToken(mEnvironment.googlePay, key, jsonBody);
+            http.generateGooglePayToken(key, mEnvironment.googlePay, jsonBody);
         } catch (JSONException e) {
             e.printStackTrace();
         }
