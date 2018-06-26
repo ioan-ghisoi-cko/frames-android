@@ -9,7 +9,7 @@
 To simply see a demo of the module and interact with the features you can clone this repo and open the project in Android Studio. 
 
 ```sh
-git clone https://github.com/ioan-ghisoi-cko/just-a-test.git
+git clone https://github.com/ioan-ghisoi-cko/frames-android.git
 ```
 
 ## Installation
