@@ -294,4 +294,4 @@ This has the following getters:
 
 ## License
 
-CheckoutSdkIos is released under the MIT license.
+frames-android is released under the MIT license.
