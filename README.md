@@ -23,7 +23,8 @@ allprojects {
   maven { url 'https://jitpack.io' }
  }
 }
- ...
+```
+```gradle
 // module gradle file
 dependencies {
  implementation 'com.android.support:design:27.1.1'
