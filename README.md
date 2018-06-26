@@ -11,6 +11,7 @@ To simply see a demo of the module and interact with the features you can clone 
 ```sh
 git clone https://github.com/ioan-ghisoi-cko/frames-android.git
 ```
+<img src="docs/frames-andoid-demo.gif" width="38%"/>
 
 ## Installation
 > Please keep in mind that this installation might change in the stable release, and we highly advise in using the project from this repository to test the module.
