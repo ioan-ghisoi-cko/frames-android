@@ -202,7 +202,7 @@ The module allows you to handle 3DSecure URLs within your mobile app. Here are t
 
 **Step2** Pass the callback to the module and handle 3D Secure
 ```java
-    // can be used without the Payment form UI -> mPaymentForm = new PaymentForm(context); 
+    mPaymentForm = findViewById(R.id.checkout_card_form);
     mPaymentForm
             .set3DSListener(m3DSecureListener);
     
