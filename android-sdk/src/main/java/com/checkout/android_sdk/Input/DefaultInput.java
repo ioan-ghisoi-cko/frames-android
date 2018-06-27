@@ -53,6 +53,7 @@ public class DefaultInput extends android.support.v7.widget.AppCompatEditText {
                 // Save state
                 if (mListener != null) {
                     mListener.onInputFinish(s.toString());
+                    mListener.clearInputError();
                 }
             }
         });

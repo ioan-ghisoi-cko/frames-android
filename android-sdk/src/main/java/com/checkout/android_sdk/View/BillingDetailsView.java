@@ -86,15 +86,15 @@ public class BillingDetailsView extends LinearLayout {
      * to indicate this controller if there is any error or if the error state needs to
      * be cleared. State is also updates based on the outcome of the input.
      */
-    private final AddressOneInput.Listener mAddressOneListener = new AddressOneInput.Listener() {
+    private final AddressOneInput.AddressOneListener mAddressOneListener = new AddressOneInput.AddressOneListener() {
 
         @Override
-        public void onInputFinish(String value) {
+        public void onAddressOneInputFinish(String value) {
             mDatastore.setCustomerAddress1(value);
         }
 
         @Override
-        public void clearInputError() {
+        public void clearAddressOneError() {
             mAddressOneLayout.setError(null);
             mAddressOneLayout.setErrorEnabled(false);
         }
@@ -271,7 +271,7 @@ public class BillingDetailsView extends LinearLayout {
         mCountryInput.setCountryListener(mCountryListener);
 
         mAddressOne = findViewById(R.id.address_one_input);
-        mAddressOne.setListener(mAddressOneListener);
+        mAddressOne.setAddressOneListener(mAddressOneListener);
 
         mAddressTwo = findViewById(R.id.address_two_input);
         mAddressTwo.setListener(mAddressTwoListener);

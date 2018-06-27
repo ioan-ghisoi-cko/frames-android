@@ -1,8 +1,9 @@
 package checkout.checkout_android;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.support.v7.app.AlertDialog;
 
 import com.checkout.android_sdk.PaymentForm;
 import com.checkout.android_sdk.Response.CardTokenisationFail;
@@ -17,14 +18,12 @@ public class DemoActivity extends Activity {
 
         @Override
         public void onTokenGenerated(CardTokenisationResponse token) {
-            Toast.makeText(DemoActivity.this, token.getId(),
-                    Toast.LENGTH_LONG).show();
+            displayMessage("Success!", token.getId());
         }
 
         @Override
         public void onError(CardTokenisationFail error) {
-            Toast.makeText(DemoActivity.this, error.getEventId(),
-                    Toast.LENGTH_LONG).show();
+            displayMessage("Error!", error.getEventId());
         }
     };
 
@@ -39,5 +38,19 @@ public class DemoActivity extends Activity {
                 .setKey("pk_test_6e40a700-d563-43cd-89d0-f9bb17d35e73")
                 .setTokenListener(mTokenListener);
 
+    }
+
+    private void displayMessage(String title, String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title)
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //do things
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }

@@ -10,6 +10,9 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    testOptions {
+        execution 'ANDROID_TEST_ORCHESTRATOR'
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -26,4 +29,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.android.volley:volley:1.0.0'
     implementation project(path: ':android-sdk')
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestUtil 'com.android.support.test:orchestrator:1.0.2'
 }
