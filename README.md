@@ -55,10 +55,21 @@ dependencies {
 
 **Step2** Include the module in your class.
 ```java
-   private PaymentForm mPaymentForm; // include the module 
+   private PaymentForm mPaymentForm; // include the payment form
+   private CheckoutAPIClient mCheckoutAPIClient; // include the API client
 ```
 
-**Step3** Create a callback.
+**Step3** Create a callback for when the Payment form is submitted.
+```java
+   OnSubmitForm mSubmitListener = new OnSubmitForm() {
+      @Override
+      public void onSubmit(CardTokenisationRequest request) {
+          mCheckoutAPIClient.generateToken(request); // send the request to generate the token
+      }
+   };
+```
+
+**Step4** Create a callback for the tokenisation request
 ```java
    CheckoutAPIClient.OnTokenGenerated mTokenListener = new CheckoutAPIClient.OnTokenGenerated() {
      @Override
@@ -72,13 +83,19 @@ dependencies {
    };
 ```
 
-**Step4** Initialise the module
+**Step5** Initialise the module
 ```java
-   mPaymentForm = findViewById(R.id.checkout_card_form);
-   mPaymentForm
-         .setEnvironment(Environment.SANDBOX)
-         .setKey("pk_test_6e40a700-d563-43cd-89d0-f9bb17d35e73")
-         .setTokenListener(mTokenListener); // pass the callback
+    // initialise the payment from 
+    mPaymentForm = findViewById(R.id.checkout_card_form);
+    mPaymentForm.setSubmitListener(mSubmitListener); // set the callback for the form submission 
+    
+    // initialise the api client
+    mCheckoutAPIClient = new CheckoutAPIClient(
+           this, // context
+           "pk_test_6e40a700-d563-43cd-89d0-f9bb17d35e73", // your public key
+           Environment.SANDBOX
+    );
+    mCheckoutAPIClient.setTokenListener(mTokenListener); // set the callback for tokenisation
 ```
 
 
@@ -109,7 +126,7 @@ dependencies {
 **Step3** Initialise the module and pass the card details.
 ```java
    mCheckoutAPIClient = new CheckoutAPIClient(
-           context,             // activity context
+           this,                // context
            "pk_XXXXX",          // your public key
            Environment.SANDBOX  // the environment
    );
@@ -128,7 +145,7 @@ dependencies {
                   "address line 1",
                   "address line 2",
                   "postcode",
-                  "country",
+                  "UK",
                   "city",
                   "state",
                   new PhoneModel(
@@ -187,8 +204,8 @@ The module allows you to handle 3DSecure URLs within your mobile app. Here are t
 
 **Step1** Create a callback.
 ```java
-    PaymentForm.on3DSFinished m3DSecureListener = 
-           new PaymentForm.on3DSFinished() {
+    PaymentForm.On3DSFinished m3DSecureListener = 
+           new PaymentForm.On3DSFinished() {
 
         @Override
         public void onSuccess(String token) {
@@ -205,8 +222,7 @@ The module allows you to handle 3DSecure URLs within your mobile app. Here are t
 **Step2** Pass the callback to the module and handle 3D Secure
 ```java
     mPaymentForm = findViewById(R.id.checkout_card_form);
-    mPaymentForm
-            .set3DSListener(m3DSecureListener);
+    mPaymentForm.set3DSListener(m3DSecureListener); // pass the callback
     
     mPaymentForm.handle3DS(
             "https://sandbox.checkout.com/api2/v2/3ds/acs/687805", // the 3D Secure URL
@@ -225,7 +241,6 @@ The module allows you to handle a Google Pay token payload and retrieve a token,
 
      CheckoutAPIClient.OnGooglePayTokenGenerated mGooglePayListener =
         new CheckoutAPIClient.OnGooglePayTokenGenerated() {
-    
             @Override
             public void onTokenGenerated(GooglePayTokenisationResponse response) {
                 // success
