@@ -92,7 +92,7 @@ dependencies {
     // initialise the api client
     mCheckoutAPIClient = new CheckoutAPIClient(
            this, // context
-           "pk_test_6e40a700-d563-43cd-89d0-f9bb17d35e73", // your public key
+           "pk_XXXXX", // your public key
            Environment.SANDBOX
     );
     mCheckoutAPIClient.setTokenListener(mTokenListener); // set the callback for tokenisation
