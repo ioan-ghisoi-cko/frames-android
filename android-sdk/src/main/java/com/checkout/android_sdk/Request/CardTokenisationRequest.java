@@ -23,4 +23,12 @@ public class CardTokenisationRequest {
         this.cvv = cvv;
         this.billingDetails = billingDetails;
     }
+
+    public CardTokenisationRequest(String number, String name, String expiryMonth, String expiryYear, String cvv) {
+        this.number = number;
+        this.name = name;
+        this.expiryMonth = expiryMonth;
+        this.expiryYear = expiryYear;
+        this.cvv = cvv;
+    }
 }

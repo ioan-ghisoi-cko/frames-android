@@ -32,10 +32,18 @@ public class PaymentForm extends FrameLayout {
     /**
      * This is interface used as a callback for when the 3D secure functionality is used
      */
-    public interface on3DSFinished {
+    public interface On3DSFinished {
         void onSuccess(String token);
 
         void onError(String errorMessage);
+    }
+
+    /**
+     * This is interface used as a callback for when the form is completed and the user pressed the
+     * pay button. You can use this to potentially display a loader.
+     */
+    public interface OnSubmitForm {
+        void onSubmit(CardTokenisationRequest request);
     }
 
     // Indexes for the pages
@@ -43,15 +51,14 @@ public class PaymentForm extends FrameLayout {
     private static int BILLING_DETAILS_PAGE_INDEX = 1;
 
     /**
-     * This is a callback used to use the generateToken functionality after the user completes
-     * the details in the form and clicks the Pay button
+     * This is a callback used to generate a payload with the user details and pass them to the
+     * mSubmitFormListener so the user can act upon them. The next step will most likely include using
+     * this payload to generate a token in  the CheckoutAPIClient
      */
     private final CardDetailsView.DetailsCompleted mDetailsCompletedListener = new CardDetailsView.DetailsCompleted() {
         @Override
         public void onDetailsCompleted() {
-            CheckoutAPIClient apiClient = new CheckoutAPIClient(mContext, KEY, ENVIRONMENT);
-            apiClient.setTokenListener(mTokenListener);
-            apiClient.generateToken(generateRequest());
+            mSubmitFormListener.onSubmit(generateRequest());
         }
     };
 
@@ -85,10 +92,9 @@ public class PaymentForm extends FrameLayout {
 
 
     private Context mContext;
-    public PaymentForm.on3DSFinished m3DSecureListener;
+    public On3DSFinished m3DSecureListener;
+    public OnSubmitForm mSubmitFormListener;
     public CheckoutAPIClient.OnTokenGenerated mTokenListener;
-    private Environment ENVIRONMENT = Environment.SANDBOX;
-    private String KEY = "";
 
     private CustomAdapter customAdapter;
     private ViewPager mPager;
@@ -125,27 +131,6 @@ public class PaymentForm extends FrameLayout {
         customAdapter.setTokenDetailsCompletedListener(mDetailsCompletedListener);
         mPager.setAdapter(customAdapter);
         mPager.setEnabled(false);
-    }
-
-
-    /**
-     * This method is used set the the environment for use in the card tokenisation requests
-     *
-     * @param environment this can be either live or sandbox
-     */
-    public PaymentForm setEnvironment(Environment environment) {
-        this.ENVIRONMENT = environment;
-        return this;
-    }
-
-    /**
-     * This method is used set the the public key for use in the card tokenisation requests
-     *
-     * @param key the public key from the Checkout.com HUB
-     */
-    public PaymentForm setKey(String key) {
-        this.KEY = key;
-        return this;
     }
 
     /**
@@ -268,13 +253,16 @@ public class PaymentForm extends FrameLayout {
     /**
      * This method used to set a callback for when the 3D Secure handling.
      */
-    public PaymentForm set3DSListener(PaymentForm.on3DSFinished listener) {
+    public PaymentForm set3DSListener(On3DSFinished listener) {
         this.m3DSecureListener = listener;
         return this;
     }
 
-    public PaymentForm setTokenListener(CheckoutAPIClient.OnTokenGenerated listener) {
-        this.mTokenListener = listener;
+    /**
+     * This method used to set a callback for when the form is submitted
+     */
+    public PaymentForm setSubmitListener(OnSubmitForm listener) {
+        this.mSubmitFormListener = listener;
         return this;
     }
 
