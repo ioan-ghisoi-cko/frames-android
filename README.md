@@ -8,6 +8,8 @@
 ## Demo
 To simply see a demo of the module and interact with the features you can clone this repo and open the project in Android Studio. 
 
+> If you want to test fetures that involve a backend (for doing a charge) you have a simple demo [here](https://github.com/ioan-ghisoi-cko/mobile-sdk-backend) 
+
 ```sh
 git clone https://github.com/ioan-ghisoi-cko/frames-android.git
 ```
