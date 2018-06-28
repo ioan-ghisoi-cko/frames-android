@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.google.android.gms.samples.wallet"
+
+        // Google Payment API is not supported in SDK versions lower than 19
+        minSdkVersion 19
+
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.google.android.gms:play-services:11.8.0'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:mediarouter-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.android.volley:volley:1.0.0'
+    implementation 'com.github.ioan-ghisoi-cko:frames-android:v0.1.2'
+
+    // "wallet" is the only module needed for the Google Payment API and this sample app.
+    // Apps that selectively compile Google Play service APIs need only this dependency.
+    //implementation 'com.google.android.gms:play-services-wallet:11.8.0'
+}

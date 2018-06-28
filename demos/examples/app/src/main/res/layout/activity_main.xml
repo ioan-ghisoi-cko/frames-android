@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:text="Customisation Demo"
+        android:id="@+id/customisation_demo"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:text="Your Custom Fields Demo"
+        android:id="@+id/custom_fields_demo"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:text="3D Secure Demo"
+        android:id="@+id/three_d_secure_demo"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:text="No UI Demo"
+        android:id="@+id/headless_demo"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+
+
+
+
+</LinearLayout>

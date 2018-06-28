@@ -211,6 +211,9 @@ public class CardUtils {
      * @return boolean representing validity
      */
     public static boolean isValidDate(String month, String year) {
+        if (month.equals("") || year.equals("")) {
+            return false;
+        }
         if (TextUtils.isDigitsOnly(sanitizeEntry(month)) &&
                 TextUtils.isDigitsOnly(sanitizeEntry(year))) {
 
