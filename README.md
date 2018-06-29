@@ -1,4 +1,4 @@
-# CheckoutSdkAndroid - Beta
+# Frames Android - Beta
 [![CircleCI](https://circleci.com/gh/ioan-ghisoi-cko/frames-android/tree/master.svg?style=svg)](https://circleci.com/gh/ioan-ghisoi-cko/frames-android/tree/master)
 [![](https://jitpack.io/v/ioan-ghisoi-cko/frames-android.svg)](https://jitpack.io/#ioan-ghisoi-cko/frames-android)
 > Beta - Do not use before speaking to integration@checkout.com
