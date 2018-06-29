@@ -28,3 +28,13 @@
 /demos/googlepay_example/build
 /demos/googlepay_example/captures
 /demos/googlepay_example/.externalNativeBuild
+
+/demos/saved_cards_example/.gradle
+/demos/saved_cards_example/local.properties
+/demos/saved_cards_example/.idea/libraries
+/demos/saved_cards_example/.idea/modules.xml
+/demos/saved_cards_example/.idea/workspace.xml
+/demos/saved_cards_example/.DS_Store
+/demos/saved_cards_example/build
+/demos/saved_cards_example/captures
+/demos/saved_cards_example/.externalNativeBuild

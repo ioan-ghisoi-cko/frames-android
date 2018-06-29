@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="title_size">18sp</dimen>
+    <dimen name="title_margin_top">20dp</dimen>
+    <dimen name="title_margin_bottom">10dp</dimen>
+    <dimen name="button_area">40dp</dimen>
+    <dimen name="button_area_margin_top">60dp</dimen>
+    <dimen name="button_width">90dp</dimen>
+    <dimen name="button_height">40dp</dimen>
+    <dimen name="button_margin">10dp</dimen>
+
+</resources>

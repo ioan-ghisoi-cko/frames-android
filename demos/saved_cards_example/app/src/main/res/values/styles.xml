@@ -1,0 +1,23 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorButtonNormal">#000</item>
+    </style>
+
+    <style name="YourCustomTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- TOOLBAR COLOR. -->
+        <item name="colorPrimary">#000</item>
+        <!--FIELDS HIGHLIGHT COLOR-->
+        <item name="colorAccent">#000</item>
+        <!--PAY/DONE BUTTON COLOR-->
+        <item name="colorButtonNormal">#000</item>
+        <!--HELPER LABELS AND UNSELECTED FIELD COLOR-->
+        <item name="colorControlNormal">#000</item>
+    </style>
+
+</resources>

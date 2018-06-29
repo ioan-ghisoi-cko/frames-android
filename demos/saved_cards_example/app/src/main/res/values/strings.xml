@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">saved_cards_example</string>
+    <string name="title_saved_cards">Pay with a saved card</string>
+    <string name="button_pay">Pay</string>
+    <string name="button_add">Add Card</string>
+    <string name="separator_card_name"> ending </string>
+</resources>
