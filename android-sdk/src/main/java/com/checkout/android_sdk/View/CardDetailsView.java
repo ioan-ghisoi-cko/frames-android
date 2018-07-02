@@ -109,6 +109,7 @@ public class CardDetailsView extends LinearLayout {
         public void onYearInputFinish(String year) {
             mDataStore.setCardYear(year);
             mDataStore.setValidCardYear(true);
+            ((TextView) mMonthInput.getSelectedView()).setError(null);
         }
     };
 
@@ -340,13 +341,13 @@ public class CardDetailsView extends LinearLayout {
         // values are valid. Display error if applicable.
         if (mDataStore.getCardYear() != null &&
                 mDataStore.getCardYear() != null &&
-                !CardUtils.isValidDate(String.valueOf(mMonthInput.getSelectedItemPosition()),
-                        mDataStore.getCardYear())) {
+                !CardUtils.isValidDate(mDataStore.getCardMonth(), mDataStore.getCardYear())) {
             mDataStore.setValidCardMonth(false);
             ((TextView) mMonthInput.getSelectedView()).setError(getResources()
                     .getString(R.string.error_expiration_date));
             return false;
         }
+        mDataStore.setValidCardMonth(true);
         return true;
     }
 
