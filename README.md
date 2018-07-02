@@ -33,11 +33,11 @@ dependencies {
  implementation 'com.android.support:design:27.1.1'
  implementation 'com.google.code.gson:gson:2.8.5'
  implementation 'com.android.volley:volley:1.0.0'
- implementation 'com.github.ioan-ghisoi-cko:frames-android:v0.1.3'
+ implementation 'com.github.ioan-ghisoi-cko:frames-android:v0.1.4'
 }
 ```
 
-> You can find more about the installation [here](https://jitpack.io/#ioan-ghisoi-cko/frames-android/0.1.3)
+> You can find more about the installation [here](https://jitpack.io/#ioan-ghisoi-cko/frames-android/v0.1.4)
 
 > Please keep in mind that the Jitpack repository should to be added to the project gradle file while the dependency should be added in the module gradle file. [(see more about gradle files)](https://developer.android.com/studio/build)
 
